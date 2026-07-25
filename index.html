@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz & Bank Soal Kepalangmerahan PMI</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pmi: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#e11d48',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+
+    <div id="app" class="flex flex-col min-h-screen">
+        
+        <!-- Header / Navbar -->
+        <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="app.showHome()">
+                    <div class="w-10 h-10 rounded-xl bg-pmi-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-pmi-600/30">
+                        <i class="fa-solid font-bold text-2xl">+</i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white leading-none">
+                            Quiz Kepalangmerahan <span class="text-pmi-600">PMI</span>
+                        </h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">50 Soal UU, PP & Sejarah PMI</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <button id="themeToggleBtn" onclick="app.toggleTheme()" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Ganti Mode Terang/Gelap">
+                        <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+
+                    <button onclick="app.showStatsModal()" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-sm font-medium transition">
+                        <i class="fa-solid fa-trophy text-amber-500"></i>
+                        <span>Riwayat</span>
+                    </button>
+
+                    <button onclick="app.showHome()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg text-sm font-semibold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="hidden sm:inline">Beranda</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            
+            <!-- HOME VIEW -->
+            <section id="viewHome" class="space-y-8 animate-fadeIn">
+                <!-- Banner / Hero -->
+                <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pmi-700 via-pmi-600 to-rose-500 text-white p-6 sm:p-10 shadow-xl shadow-pmi-600/20">
+                    <div class="absolute -right-10 -bottom-10 opacity-10 text-[200px] pointer-events-none">
+                        <i class="fa-solid fa-cross"></i>
+                    </div>
+                    <div class="relative z-10 max-w-2xl space-y-4">
+                        <span class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold tracking-wide">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>Bank Soal Lengkap 50 Nomor</span>
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                            Uji Pemahaman & Persiapan Evaluasi Kepalangmerahan
+                        </h2>
+                        <p class="text-rose-100 text-sm sm:text-base leading-relaxed">
+                            Materi komprehensif berdasarkan UU No. 1/2018, PP No. 7/2019, Sejarah PMI, 7 Prinsip Dasar Gerakan, Visi Misi, dan Aturan Penggunaan Logo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Mode Selection Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Mode 1: Simulation Exam -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-pmi-500 dark:hover:border-pmi-500 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/40 text-pmi-600 dark:text-red-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-stopwatch"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Simulasi Ujian (50 Soal)</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                    Format ujian berwaktu 60 menit. Kunci & pembahasan lengkap ditampilkan setelah ujian selesai.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="app.startQuiz('exam')" class="mt-6 w-full py-3 bg-pmi-600 hover:bg-pmi-700 text-white font-semibold rounded-xl shadow-lg shadow-pmi-600/30 transition flex items-center justify-center space-x-2">
+                            <span>Mulai Simulasi Ujian</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mode 2: Practice Mode -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Mode Latihan Mandiri</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                    Latihan interaktif tanpa batasan waktu. Jawaban benar & pembahasan langsung terlihat setelah memilih.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="app.startQuiz('practice')" class="mt-6 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center space-x-2">
+                            <span>Mulai Mode Latihan</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mode 3: Bank Soal & Pembahasan -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-book-bookmark"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Katalog / Bank Soal</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                    Daftar lengkap 50 soal pilihan ganda beserta kunci jawaban matriks dan pembahasannya untuk bahan bacaan.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="app.showStudyBank()" class="mt-6 w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center justify-center space-x-2">
+                            <span>Buka Bank Soal</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topic Breakdown -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
+                        <i class="fa-solid fa-list-check text-pmi-600"></i>
+                        <span>Cakupan Topik Soal (50 Soal)</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-pmi-600 dark:text-rose-400">Sejarah & Tokoh</span>
+                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300">10 Soal</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">NIRK, NERKAI, Panitia Lima, Pengurus Pertama, Keppres 1950.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">Landasan Hukum</span>
+                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300">14 Soal</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">UU No. 1/2018, PP No. 7/2019, Konvensi Jenewa 1949 & Ratifikasi.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">Prinsip & Visi Misi</span>
+                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300">12 Soal</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">7 Prinsip Dasar Gerakan, Visi Misi PMI, Kompetensi PMI.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Aturan Logo & Sanksi</span>
+                                <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/60 text-purple-700 dark:text-purple-300">14 Soal</span>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-300">Fungsi Pelindung & Pengenal, Desain Logo, Sanksi Pidana.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- QUIZ VIEW -->
+            <section id="viewQuiz" class="hidden space-y-6 animate-fadeIn">
+                <!-- Top Status Bar -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <span id="quizModeBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-pmi-100 dark:bg-pmi-900/60 text-pmi-700 dark:text-pmi-300 uppercase">
+                            Simulasi Ujian
+                        </span>
+                        <div id="timerContainer" class="flex items-center space-x-1.5 font-mono text-sm font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-lg">
+                            <i class="fa-regular fa-clock text-pmi-600"></i>
+                            <span id="timerDisplay">60:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Indicator -->
+                    <div class="flex-grow max-w-md w-full">
+                        <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                            <span>Kemajuan</span>
+                            <span id="progressText">0 / 50 Soal</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="progressBar" class="bg-pmi-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Navigation & Bookmark -->
+                    <div class="flex items-center space-x-2">
+                        <button id="bookmarkBtn" onclick="app.toggleBookmarkCurrent()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Tandai Ragu/Penting">
+                            <i id="bookmarkIcon" class="fa-regular fa-bookmark text-slate-500"></i>
+                        </button>
+
+                        <button onclick="app.toggleNavGrid()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center space-x-1 text-sm font-semibold">
+                            <i class="fa-solid fa-grip"></i>
+                            <span class="hidden sm:inline">Navigasi Soal</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Grid Drawer / Collapse -->
+                <div id="navGridModal" class="hidden bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-th text-pmi-600"></i>
+                            <span>Matriks Navigasi Soal (1 - 50)</span>
+                        </h4>
+                        <div class="flex items-center space-x-4 text-xs">
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-pmi-600 inline-block"></span><span>Aktif</span></span>
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-slate-200 dark:bg-slate-600 inline-block"></span><span>Belum</span></span>
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span><span>Sudah</span></span>
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span><span>Ditandai</span></span>
+                        </div>
+                    </div>
+                    <div id="questionGridContainer" class="grid grid-cols-5 sm:grid-cols-10 gap-2 max-h-60 overflow-y-auto custom-scrollbar p-1">
+                        <!-- Dynamic Question Grid Buttons -->
+                    </div>
+                </div>
+
+                <!-- Banner Notification when all questions are answered -->
+                <div id="allAnsweredBanner" class="hidden bg-emerald-500 text-white rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3 animate-bounce">
+                    <div class="flex items-center space-x-3 text-sm font-semibold">
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Selamat! Semua 50 Soal Telah Terjawab</p>
+                            <p class="text-xs text-emerald-100 font-normal">Anda tidak perlu menunggu waktu habis. Klik tombol di kanan untuk langsung menyelesaikan ujian.</p>
+                        </div>
+                    </div>
+                    <button onclick="app.confirmFinishQuiz()" class="w-full sm:w-auto px-5 py-2.5 bg-white text-emerald-700 font-bold rounded-xl shadow hover:bg-emerald-50 text-xs transition flex items-center justify-center space-x-1.5 flex-shrink-0">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Selesaikan Sekarang</span>
+                    </button>
+                </div>
+
+                <!-- Question Card -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center space-x-2">
+                            <span id="questionCategory" class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                Category
+                            </span>
+                            <span id="questionNumberBadge" class="px-3 py-1 rounded-lg text-xs font-bold bg-pmi-600 text-white">
+                                Soal #1
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Question Text -->
+                    <h3 id="questionText" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed">
+                        Teks Soal...
+                    </h3>
+
+                    <!-- Options Container -->
+                    <div id="optionsContainer" class="space-y-3 pt-2">
+                        <!-- Dynamic Options buttons will be rendered here -->
+                    </div>
+
+                    <!-- Instant Explanation Panel (Practice Mode Only) -->
+                    <div id="explanationPanel" class="hidden p-5 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 space-y-2">
+                        <div class="flex items-center space-x-2 text-sm font-bold" id="explanationHeader">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>Pembahasan Ringkas:</span>
+                        </div>
+                        <p id="explanationText" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Penjelasan detail jawaban...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Buttons -->
+                <div class="flex items-center justify-between gap-4">
+                    <button id="prevBtn" onclick="app.prevQuestion()" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+
+                    <div class="flex items-center space-x-3">
+                        <button id="nextBtn" onclick="app.nextQuestion()" class="px-6 py-3 bg-pmi-600 hover:bg-pmi-700 text-white font-semibold rounded-xl shadow-lg shadow-pmi-600/20 text-sm transition flex items-center space-x-2">
+                            <span>Berikutnya</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                        <button id="finishBtn" onclick="app.confirmFinishQuiz()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/20 text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span>Selesaikan Ujian</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RESULT VIEW -->
+            <section id="viewResult" class="hidden space-y-8 animate-fadeIn">
+                <!-- Score Header Banner -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-700 shadow-lg text-center space-y-6">
+                    <div class="inline-flex p-4 rounded-full bg-pmi-50 dark:bg-slate-700 text-pmi-600 dark:text-rose-400 text-4xl sm:text-5xl">
+                        <i id="resultIcon" class="fa-solid fa-award"></i>
+                    </div>
+
+                    <div>
+                        <h2 id="resultTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+                            Hasil Evaluasi Ujian Kepalangmerahan
+                        </h2>
+                        <p id="resultSubtitle" class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                            Berikut adalah ringkasan hasil kerja Anda dari total 50 soal.
+                        </p>
+                    </div>
+
+                    <!-- Score Radial / Large Stats -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-2">
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-pmi-600 dark:text-rose-400" id="resScore">0</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Skor Akhir</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400" id="resCorrect">0</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Jawaban Benar</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-rose-600 dark:text-rose-400" id="resWrong">0</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Jawaban Salah</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-indigo-600 dark:text-indigo-400" id="resTime">00:00</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Waktu Tempuh</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                        <button onclick="app.showHome()" class="px-6 py-3 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-semibold rounded-xl text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Kembali ke Beranda</span>
+                        </button>
+                        <button onclick="app.startQuiz('exam')" class="px-6 py-3 bg-pmi-600 hover:bg-pmi-700 text-white font-semibold rounded-xl shadow-lg shadow-pmi-600/30 text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Ulangi Ujian</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Accuracy Assessment Section -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-chart-line text-emerald-500"></i>
+                                <span>Akurasi Penilaian Per Topik Materi</span>
+                            </h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Analisis tingkat penguasaan berdasarkan kategori soal</p>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-4 py-2 rounded-2xl">
+                            <span class="text-xs text-emerald-700 dark:text-emerald-300 font-medium">Akurasi Keseluruhan:</span>
+                            <span id="overallAccuracyBadge" class="text-lg font-black text-emerald-600 dark:text-emerald-400">0%</span>
+                        </div>
+                    </div>
+
+                    <div id="categoryAccuracyContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Dynamic accuracy cards per topic -->
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown List -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check text-pmi-600"></i>
+                            <span>Evaluasi Detail Pembahasan (50 Soal)</span>
+                        </h3>
+
+                        <!-- Filter Options -->
+                        <div class="flex items-center space-x-2">
+                            <button onclick="app.filterResultList('all')" id="filterResultAll" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-pmi-600 text-white">
+                                Semua (50)
+                            </button>
+                            <button onclick="app.filterResultList('wrong')" id="filterResultWrong" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                Salah Saja
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="resultDetailsContainer" class="space-y-4">
+                        <!-- Dynamic Detailed Question Evaluations -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- STUDY BANK VIEW -->
+            <section id="viewStudyBank" class="hidden space-y-6 animate-fadeIn">
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-book-open text-pmi-600"></i>
+                                <span>Katalog Bank Soal & Pembahasan</span>
+                            </h2>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                Kumpulan lengkap 50 Soal Pilihan Ganda beserta kunci jawaban matriks dan pembahasan ringkas.
+                            </p>
+                        </div>
+
+                        <!-- Search input -->
+                        <div class="relative min-w-[240px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="studySearchInput" oninput="app.searchStudyBank()" placeholder="Cari soal atau materi..." class="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pmi-500">
+                        </div>
+                    </div>
+
+                    <div id="studyBankContainer" class="space-y-6">
+                        <!-- Dynamic Bank Soal items -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-6 mt-10">
+            <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                <p class="font-medium">Aplikasi Quiz & Evaluasi Kepalangmerahan PMI © 2026</p>
+                <p>Berdasarkan UU No. 1/2018, PP No. 7/2019, Konvensi Jenewa 1949, dan Pedoman Logo PMI</p>
+            </div>
+        </footer>
+
+        <!-- Confirmation / Stats Modal -->
+        <div id="statsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 dark:border-slate-700 shadow-2xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-trophy text-amber-500"></i>
+                        <span>Riwayat Nilai Simulasi Ujian</span>
+                    </h3>
+                    <button onclick="app.closeStatsModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <div id="statsHistoryList" class="space-y-3 max-h-60 overflow-y-auto custom-scrollbar">
+                    <!-- History items rendered here -->
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="app.clearHistory()" class="w-full py-2.5 rounded-xl border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold transition">
+                        Hapus Semua Riwayat Nilai
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Confirm/Alert Dialog Modal -->
+        <div id="customDialogModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 dark:border-slate-700 shadow-2xl space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div id="dialogIconBg" class="w-12 h-12 rounded-2xl bg-pmi-100 dark:bg-pmi-900/50 text-pmi-600 dark:text-rose-400 flex items-center justify-center text-xl flex-shrink-0">
+                        <i id="dialogIcon" class="fa-solid fa-circle-question"></i>
+                    </div>
+                    <div>
+                        <h3 id="dialogTitle" class="font-extrabold text-lg text-slate-900 dark:text-white">Konfirmasi Ujian</h3>
+                        <p id="dialogSubtext" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Aplikasi Quiz PMI</p>
+                    </div>
+                </div>
+
+                <p id="dialogMessage" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Pesan konfirmasi...
+                </p>
+
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button id="dialogCancelBtn" onclick="app.closeCustomDialog(false)" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-bold transition">
+                        Batal
+                    </button>
+                    <button id="dialogConfirmBtn" onclick="app.closeCustomDialog(true)" class="px-5 py-2.5 rounded-xl bg-pmi-600 hover:bg-pmi-700 text-white text-xs font-bold shadow-lg shadow-pmi-600/30 transition">
+                        Ya, Lanjutkan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Full 50 Question Dataset from the provided PDF document
+        const quizData = [
+            {
+                id: 1,
+                question: "Organisasi Palang Merah yang didirikan oleh pemerintah kolonial Belanda di Indonesia pada tanggal 21 Oktober 1873 bernama...",
+                options: ["NERKAI", "NIRK", "PMI", "ICRC"],
+                answer: 1, // Index 1 = B (NIRK)
+                category: "Sejarah PMI",
+                explanation: "Pada 21 Oktober 1873, pemerintah kolonial Belanda mendirikan Het Nederland-Indiche Rode Kruis (NIRK)."
+            },
+            {
+                id: 2,
+                question: "Nama NIRK yang didirikan pada tahun 1873 kemudian berganti nama menjadi...",
+                options: [
+                    "Nederlands Rode Kruiz Afdelinbg Indie (NERKAI)",
+                    "Palang Merah Indonesia (PMI)",
+                    "Perhimpunan Palang Merah Hindia",
+                    "Het Rode Kruis Indonesia"
+                ],
+                answer: 0, // A
+                category: "Sejarah PMI",
+                explanation: "Nama NIRK kemudian berganti menjadi Nederlands Rode Kruiz Afdelinbg Indie (NERKAI)."
+            },
+            {
+                id: 3,
+                question: "Semangat untuk mendirikan Palang Merah Indonesia (PMI) timbul pada tahun 1932 yang dipelopori oleh...",
+                options: [
+                    "dr. Buntaran Martoatmodjo dan Drs. Mohammad Hatta",
+                    "dr. RCL. Senduk dan Bahder Djohan",
+                    "dr. R. Mochtar dan dr. Sitanala",
+                    "Ir. Soekarno dan dr. Joehana"
+                ],
+                answer: 1, // B
+                category: "Sejarah PMI",
+                explanation: "Pada tahun 1932, pelopor mendirikan PMI adalah dr. RCL. Senduk dan Bahder Djohan."
+            },
+            {
+                id: 4,
+                question: "Proposal pendirian PMI pertama kali diajukan pada kongres NERKAI pada tahun...",
+                options: ["1932", "1935", "1940", "1945"],
+                answer: 2, // C
+                category: "Sejarah PMI",
+                explanation: "Proposal pendirian PMI diajukan pada kongres NERKAI tahun 1940, namun ditolak oleh pemerintah kolonial."
+            },
+            {
+                id: 5,
+                question: "Pada tanggal 3 September 1945, Presiden Soekarno memerintahkan pembentukan Badan Palang Merah Nasional kepada...",
+                options: [
+                    "Drs. Mohammad Hatta",
+                    "dr. Buntaran Martoatmodjo",
+                    "dr. R. Mochtar",
+                    "dr. Sitanala"
+                ],
+                answer: 1, // B
+                category: "Sejarah PMI",
+                explanation: "Presiden Soekarno memerintahkan Menteri Kesehatan dr. Buntaran Martoatmodjo untuk membentuk Badan Palang Merah Nasional pada 3 September 1945."
+            },
+            {
+                id: 6,
+                question: "Panitia Lima yang dibentuk oleh dr. Buntaran Martoatmodjo pada 5 September 1945 bertugas untuk...",
+                options: [
+                    "Merumuskan Konvensi Jenewa",
+                    "Menggalang dana internasional",
+                    "Mempersiapkan pembentukan Palang Merah di Indonesia",
+                    "Menulis Undang-Undang Kepalangmerahan"
+                ],
+                answer: 2, // C
+                category: "Sejarah PMI",
+                explanation: "Panitia Lima dibentuk pada 5 September 1945 untuk mempersiapkan pembentukan Palang Merah di Indonesia."
+            },
+            {
+                id: 7,
+                question: "Berikut yang BUKAN merupakan anggota dari Panitia Lima adalah...",
+                options: ["dr. R. Mochtar", "dr. Bahder Johan", "dr. RCL. Senduk", "dr. Sitanala"],
+                answer: 2, // C
+                category: "Sejarah PMI",
+                explanation: "Panitia Lima terdiri dari dr. R. Mochtar, dr. Bahder Johan, dr. Joehana, Dr. Marjuki, dan dr. Sitanala. (dr. RCL Senduk bukan anggota Panitia Lima)."
+            },
+            {
+                id: 8,
+                question: "Pengurus Besar Palang Merah Indonesia (PMI) resmi terbentuk pada tanggal...",
+                options: ["17 Agustus 1945", "3 September 1945", "5 September 1945", "17 September 1945"],
+                answer: 3, // D
+                category: "Sejarah PMI",
+                explanation: "PMI resmi terbentuk pada tanggal 17 September 1945."
+            },
+            {
+                id: 9,
+                question: "Ketua Pertama Pengurus Besar Palang Merah Indonesia (PMI) adalah...",
+                options: ["Ir. Soekarno", "Drs. Mohammad Hatta", "dr. Buntaran Martoatmodjo", "dr. RCL Senduk"],
+                answer: 1, // B
+                category: "Sejarah PMI",
+                explanation: "Ketua pertama Pengurus Besar PMI adalah Drs. Mohammad Hatta."
+            },
+            {
+                id: 10,
+                question: "Keppres No. 25 Tahun 1950 menyatakan tentang...",
+                options: [
+                    "Tugas Pokok dan Kegiatan PMI",
+                    "PMI adalah satu-satunya Perhimpunan Palang Merah di Indonesia",
+                    "Peraturan Pelaksanaan Undang-Undang Kepalangmerahan",
+                    "Penggunaan Lambang Palang Merah"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "KEPPRES No. 25 Tahun 1950 menyatakan bahwa PMI adalah satu-satunya Perhimpunan Palang Merah di Indonesia."
+            },
+            {
+                id: 11,
+                question: "Landasan hukum yang mengatur tentang Tugas Pokok dan Kegiatan PMI adalah...",
+                options: [
+                    "KEPPRES No. 246 Tahun 1963",
+                    "KEPPRES No. 25 Tahun 1950",
+                    "UU No. 59 Tahun 1958",
+                    "PP No. 7 Tahun 2019"
+                ],
+                answer: 0, // A
+                category: "Landasan Hukum",
+                explanation: "KEPPRES No. 246 Tahun 1963 mengatur tentang Tugas Pokok dan Kegiatan PMI."
+            },
+            {
+                id: 12,
+                question: "Undang-Undang Republik Indonesia yang khusus mengatur tentang Kepalangmerahan adalah...",
+                options: ["UU Nomor 59 Tahun 1958", "UU Nomor 17 Tahun 2013", "UU Nomor 1 Tahun 2018", "UU Nomor 7 Tahun 2019"],
+                answer: 2, // C
+                category: "Landasan Hukum",
+                explanation: "Undang-Undang Nomor 1 Tahun 2018 secara khusus mengatur tentang Kepalangmerahan di Indonesia."
+            },
+            {
+                id: 13,
+                question: "Peraturan Pemerintah yang merupakan peraturan pelaksanaan dari UU Nomor 1 Tahun 2018 adalah...",
+                options: ["PP Nomor 25 Tahun 1950", "PP Nomor 246 Tahun 1963", "PP Nomor 59 Tahun 1958", "PP Nomor 7 Tahun 2019"],
+                answer: 3, // D
+                category: "Landasan Hukum",
+                explanation: "PP Nomor 7 Tahun 2019 adalah Peraturan Pelaksanaan UU No. 1 Tahun 2018."
+            },
+            {
+                id: 14,
+                question: "Menurut Pasal 1 UU No. 1/2018, Konvensi yang dimaksud dalam Kepalangmerahan adalah Konvensi Jenewa Tahun 1949 yang diratifikasi dengan...",
+                options: ["UU Nomor 25 Tahun 1950", "UU Nomor 59 Tahun 1958", "UU Nomor 1 Tahun 2018", "PP Nomor 7 Tahun 2019"],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "Konvensi Jenewa 1949 diratifikasi oleh RI melalui UU Nomor 59 Tahun 1958 tentang Ikut-Serta Negara RI dalam Seluruh Konpensi Jenewa tanggal 12 Agustus 1949."
+            },
+            {
+                id: 15,
+                question: "Berdasarkan Pasal 1 UU No. 1/2018, PMI berdiri atas asas perikemanusiaan dan atas dasar sukarela dengan tidak membeda-bedakan...",
+                options: [
+                    "Jabatan, kekayaan, dan pendidikan",
+                    "Usia, jenis kelamin, dan tempat tinggal",
+                    "Bangsa, golongan, dan paham politik",
+                    "Suku, agama, dan Ras saja"
+                ],
+                answer: 2, // C
+                category: "Landasan Hukum",
+                explanation: "Pasal 1 UU 1/2018 menyebutkan bahwa PMI berdiri atas dasar sukarela dengan tidak membeda-bedakan bangsa, golongan, dan paham politik."
+            },
+            {
+                id: 16,
+                question: "Menurut Pasal 2 UU No. 1 Tahun 2018, Penyelenggaraan Kepalangmerahan dilakukan oleh...",
+                options: [
+                    "Pemerintah dan PMI",
+                    "TNI dan Polri",
+                    "BPN dan BASARNAS",
+                    "Kementerian Kesehatan dan Kementerian Sosial"
+                ],
+                answer: 0, // A
+                category: "Landasan Hukum",
+                explanation: "Pasal 2 UU No. 1 Tahun 2018 menyatakan penyelenggaraan Kepalangmerahan dilakukan oleh Pemerintah dan PMI."
+            },
+            {
+                id: 17,
+                question: "Jumlah Prinsip Dasar Palang Merah dan Bulan Sabit Merah Internasional adalah...",
+                options: ["5 prinsip", "6 prinsip", "7 prinsip", "10 prinsip"],
+                answer: 2, // C
+                category: "7 Prinsip Dasar",
+                explanation: "Terdapat 7 (Tujuh) Prinsip Dasar Gerakan Palang Merah dan Bulan Sabit Merah Internasional."
+            },
+            {
+                id: 18,
+                question: "Prinsip Dasar Gerakan Internasional yang berarti memberikan bantuan tanpa membedakan agama, suku, jenis kelamin, atau pandangan politik dinamakan...",
+                options: [
+                    "Kemanusiaan (Humanity)",
+                    "Kesamaan (Impartiality)",
+                    "Kenetralan (Neutrality)",
+                    "Kemandirian (Independence)"
+                ],
+                answer: 1, // B
+                category: "7 Prinsip Dasar",
+                explanation: "Kesamaan (Impartiality) berarti memberikan bantuan tanpa membedakan bangsa, ras, agama, atau pandangan politik."
+            },
+            {
+                id: 19,
+                question: "Prinsip Dasar yang menuntut Gerakan agar tidak memihak pada pihak yang bertikai dalam sengketa politik, ras, atau agama adalah...",
+                options: [
+                    "Kenetralan (Neutrality)",
+                    "Kesemestaan (Universality)",
+                    "Kesatuan (Unity)",
+                    "Kesukarelaan (Voluntary Service)"
+                ],
+                answer: 0, // A
+                category: "7 Prinsip Dasar",
+                explanation: "Kenetralan (Neutrality) menjaga kepercayaan dari semua pihak dengan tidak memihak dalam sengketa."
+            },
+            {
+                id: 20,
+                question: "Di bawah ini yang BUKAN merupakan salah satu dari 7 Prinsip Dasar Palang Merah dan Bulan Sabit Merah Internasional adalah...",
+                options: ["Kemandirian", "Kesatuan", "Keuntungan (Profitability)", "Kesemestaan"],
+                answer: 2, // C
+                category: "7 Prinsip Dasar",
+                explanation: "7 Prinsip Dasar: Kemanusiaan, Kesamaan, Kenetralan, Kemandirian, Kesukarelaan, Kesatuan, Kesemestaan. Keuntungan bukan salah satunya."
+            },
+            {
+                id: 21,
+                question: "Sesuai Pasal 4 UU No. 1/2018, tujuan PMI adalah untuk mencegah dan meringankan penderitaan serta melindungi...",
+                options: [
+                    "Pejabat pemerintah dan tentara",
+                    "Korban tawanan perang dan bencana",
+                    "Anggota PMI saja",
+                    "Warga negara asing di Indonesia"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "Tujuan PMI sesuai UU No. 1/2018 adalah mencegah dan meringankan penderitaan serta melindungi korban tawanan perang dan bencana."
+            },
+            {
+                id: 22,
+                question: "Salah satu tugas PMI yang diatur dalam Pasal 6 AD/ART adalah pelayanan kesehatan dan sosial serta...",
+                options: [
+                    "Pemberian pelayanan darah",
+                    "Pemungutan pajak kemanusiaan",
+                    "Penetapan status bencana nasional",
+                    "Pengangkatan anggota TNI"
+                ],
+                answer: 0, // A
+                category: "Landasan Hukum",
+                explanation: "Pasal 6 AD/ART menyebutkan tugas PMI antara lain memberikan pelayanan darah sesuai ketentuan peraturan perundang-undangan."
+            },
+            {
+                id: 23,
+                question: "PP No. 7 Tahun 2019 terdiri dari berapa bab dan pasal?",
+                options: [
+                    "3 Bab dan 30 Pasal",
+                    "5 Bab dan 46 Pasal",
+                    "7 Bab dan 50 Pasal",
+                    "10 Bab dan 100 Pasal"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "PP No. 7 Tahun 2019 secara eksplisit terdiri dari 5 BAB dan 46 Pasal."
+            },
+            {
+                id: 24,
+                question: "Menurut PP No. 7/2019, penyelenggaraan Kepalangmerahan dilakukan dalam dua kondisi, yaitu...",
+                options: [
+                    "Masa Pemilu dan Masa Biasa",
+                    "Masa Damai dan Masa Konflik Bersenjata",
+                    "Masa Krisis Ekonomi dan Masa Stabil",
+                    "Masa Darurat Bencana dan Masa Pemulihan"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "Penyelenggaraan Kepalangmerahan dilaksanakan dalam dua kondisi utama: Masa Damai dan Masa Konflik Bersenjata."
+            },
+            {
+                id: 25,
+                question: "Di bawah ini yang merupakan contoh kegiatan Kepalangmerahan dalam Masa Damai (Pasal 3 PP No. 7/2019) adalah...",
+                options: [
+                    "Penanganan pengungsian dan pembinaan relawan",
+                    "Pelindungan tawanan perang secara eksklusif",
+                    "Pelatihan militer pertahanan negara",
+                    "Penetapan hukum perang"
+                ],
+                answer: 0, // A
+                category: "Landasan Hukum",
+                explanation: "Masa damai meliputi penanggulangan bencana, penanganan pengungsian, pelayanan darah, pembinaan relawan, dll."
+            },
+            {
+                id: 26,
+                question: "Penyelenggaraan Kepalangmerahan pada masa Konflik Bersenjata (Pasal 32 PP No. 7/2019) meliputi hal-hal berikut, KECUALI...",
+                options: [
+                    "Pelindungan dan pertolongan korban konflik bersenjata",
+                    "Perawatan orang yang sakit dan terluka",
+                    "Kegiatan kemanusiaan terkait perdamaian dunia",
+                    "Penjualan senjata bantuan perang"
+                ],
+                answer: 3, // D
+                category: "Landasan Hukum",
+                explanation: "Penjualan senjata bantuan perang jelas bukan kegiatan kepalangmerahan."
+            },
+            {
+                id: 27,
+                question: "Dalam masa konflik bersenjata, peran PMI meliputi hal-hal berikut, KECUALI...",
+                options: [
+                    "Memfasilitasi penampungan sementara bagi pengungsi",
+                    "Membantu pengerahan relawan untuk pertempuran aktif",
+                    "Penyampaian informasi dan komunikasi keluarga terpisah",
+                    "Membantu pengerahan personil PMI dalam pencarian dan evakuasi korban"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "PMI bersifat netral dan tidak dikerahkan untuk pertempuran aktif, namun membantu evakuasi dan kemanusiaan."
+            },
+            {
+                id: 28,
+                question: "Di bawah ini yang BUKAN merupakan unsur kompetensi PMI adalah...",
+                options: ["Berkarakter", "Profesional", "Mandiri", "Komersial"],
+                answer: 3, // D
+                category: "Visi & Misi PMI",
+                explanation: "Unsur kompetensi PMI terdiri dari: Berkarakter, Profesional, Mandiri, dan Dicintai Masyarakat. Komersial bukan unsur kompetensi."
+            },
+            {
+                id: 29,
+                question: "Kompetensi PMI yang berarti 'bekerja sesuai standar dan norma yang berlaku universal serta mengutamakan perhatian kepada kelompok paling rentan' dinamakan...",
+                options: ["Berkarakter", "Profesional", "Mandiri", "Dicintai masyarakat"],
+                answer: 1, // B
+                category: "Visi & Misi PMI",
+                explanation: "Profesional artinya bekerja sesuai standar/norma universal dan mengutamakan kelompok paling rentan."
+            },
+            {
+                id: 30,
+                question: "Visi dari Palang Merah Indonesia (PMI) adalah...",
+                options: [
+                    "Menjadi lembaga komersial terbesar di bidang pelayanan medis nasional",
+                    "Menjadi organisasi kemanusiaan terdepan yang memberikan layanan berkualitas sesuai prinsip-prinsip dasar Gerakan",
+                    "Membantu pemerintah dalam memperkuat pertahanan militer Indonesia",
+                    "Menjadi satu-satunya penyedia alat kesehatan di Indonesia"
+                ],
+                answer: 1, // B
+                category: "Visi & Misi PMI",
+                explanation: "Visi PMI adalah menjadi organisasi kemanusiaan terdepan yang memberikan layanan berkualitas sesuai prinsip-prinsip dasar Gerakan."
+            },
+            {
+                id: 31,
+                question: "Salah satu Misi PMI adalah meningkatkan kemandirian organisasi melalui kemitraan strategis yang berkesinambungan dengan...",
+                options: [
+                    "Pemerintah, swasta, mitra gerakan, masyarakat, dan pemangku kepentingan",
+                    "Hanya dengan pihak militer dan kepolisian",
+                    "Lembaga donor luar negeri saja",
+                    "Partai politik yang berkuasa"
+                ],
+                answer: 0, // A
+                category: "Visi & Misi PMI",
+                explanation: "Misi PMI mencakup kemitraan strategis dengan pemerintah, swasta, mitra gerakan, masyarakat, dan pemangku kepentingan."
+            },
+            {
+                id: 32,
+                question: "Logo Utama (Primary Logo) PMI terdiri dari logogram dan logotype. Tulisan 'Palang Merah Indonesia' berada di sebelah...",
+                options: ["Bawah logogram", "Atas logogram", "Samping kanan logogram", "Samping kiri logogram"],
+                answer: 2, // C
+                category: "Aturan Logo PMI",
+                explanation: "Logo Utama terdiri dari logogram dan di samping kanannya terdapat logotype tulisan 'Palang Merah Indonesia'."
+            },
+            {
+                id: 33,
+                question: "Logo Inisial (Initial Logo) PMI terdiri dari logogram dan di bawahnya terdapat logotype tulisan...",
+                options: ["PMI berwarna merah", "PMI berwarna hitam", "INDONESIA berwarna merah", "RED CROSS berwarna putih"],
+                answer: 1, // B
+                category: "Aturan Logo PMI",
+                explanation: "Logo Inisial terdiri dari logogram dan di bawahnya terdapat logotype tulisan PMI berwarna hitam."
+            },
+            {
+                id: 34,
+                question: "Bentuk logogram PMI adalah lambang palang merah di atas dasar putih yang berada di tengah...",
+                options: [
+                    "Tiga bintang emas",
+                    "Lima kelopak bunga bergaris luar warna merah",
+                    "Lingkaran hitam tebal",
+                    "Peta wilayah Indonesia"
+                ],
+                answer: 1, // B
+                category: "Aturan Logo PMI",
+                explanation: "Logogram PMI berada di tengah lima kelopak bunga bergaris luar warna merah."
+            },
+            {
+                id: 35,
+                question: "Jenis huruf (font) yang wajib digunakan untuk tulisan yang menyertai lambang Palang Merah Indonesia adalah...",
+                options: ["Arial Bold", "Times New Roman", "Helvetica Neue Bold", "Calibri Light"],
+                answer: 2, // C
+                category: "Aturan Logo PMI",
+                explanation: "Jenis huruf resmi tulisan logo PMI menggunakan Helvetica Neue Bold."
+            },
+            {
+                id: 36,
+                question: "Warna tulisan Palang Merah Indonesia atau PMI jika latar berwarna gelap adalah...",
+                options: ["Hitam", "Merah", "Kuning", "Putih"],
+                answer: 3, // D
+                category: "Aturan Logo PMI",
+                explanation: "Tulisan berwarna hitam jika latar terang, dan berwarna putih jika latar berwarna gelap."
+            },
+            {
+                id: 37,
+                question: "Dua fungsi utama dari Lambang Kepalangmerahan adalah...",
+                options: [
+                    "Komersial dan Hiasan",
+                    "Pelindung (Protektif) dan Pengenal (Indikatif)",
+                    "Politik dan Militer",
+                    "Publikasi dan Promosi Dagang"
+                ],
+                answer: 1, // B
+                category: "Fungsi Lambang",
+                explanation: "Dua fungsi utama lambang Palang Merah adalah sebagai Tanda Pelindung (Protektif) dan Tanda Pengenal (Indikatif)."
+            },
+            {
+                id: 38,
+                question: "Lambang yang difungsikan sebagai 'Pelindung' (Protektif) digunakan saat situasi...",
+                options: ["Masa damai untuk promosi", "Konflik bersenjata", "Acara ulang tahun PMI", "Perekrutan anggota baru"],
+                answer: 1, // B
+                category: "Fungsi Lambang",
+                explanation: "Fungsi Pelindung memberikan perlindungan kekebalan sesuai Konvensi Jenewa pada saat situasi konflik bersenjata."
+            },
+            {
+                id: 39,
+                question: "Ciri khas lambang yang difungsikan sebagai Tanda Pelindung adalah...",
+                options: [
+                    "Berukuran kecil dan terdapat tulisan tambahan",
+                    "Berukuran besar, tanpa kata-kata atau tambahan gambar",
+                    "Memiliki warna-warni beragam",
+                    "Dilengkapi logo sponsor"
+                ],
+                answer: 1, // B
+                category: "Fungsi Lambang",
+                explanation: "Fungsi pelindung: lambang berukuran besar pada latar putih, tanpa kata-kata atau gambar tambahan."
+            },
+            {
+                id: 40,
+                question: "Fungsi lambang sebagai Tanda Pengenal (Indikatif) bertujuan untuk...",
+                options: [
+                    "Menunjukkan keterhubungan seseorang, objek, atau bangunan dengan Gerakan PMI",
+                    "Memberikan imunitas hukum total dari segala kejahatan",
+                    "Memungkinkan penggunaan lambang untuk merek produk",
+                    "Melindungi tentara di medan perang"
+                ],
+                answer: 0, // A
+                category: "Fungsi Lambang",
+                explanation: "Fungsi Pengenal bertujuan menunjukkan keterhubungan seseorang, objek, kendaraan, atau bangunan dengan Gerakan PMI."
+            },
+            {
+                id: 41,
+                question: "Berikut ini yang BUKAN merupakan contoh penerapan/penggunaan logo PMI yang sah adalah...",
+                options: [
+                    "Pataka dan Bendera PMI",
+                    "Seragam resmi Pengurus, Staf, dan Relawan",
+                    "Kendaraan operasional Ambulans PMI",
+                    "Kemasan produk obat swasta komersial"
+                ],
+                answer: 3, // D
+                category: "Aturan Logo PMI",
+                explanation: "Logo PMI dilarang keras digunakan untuk merek produk obat swasta komersial."
+            },
+            {
+                id: 42,
+                question: "Di sekeliling logo PMI harus selalu disediakan bidang kosong. Tanda imajiner yang digunakan untuk menentukan ruang kosong tersebut diambil dari bentuk...",
+                options: ["Kelopak bunga", "Tanda '+' dari lambang Palang Merah", "Lingkaran sempurna", "Segitiga pengaman"],
+                answer: 1, // B
+                category: "Aturan Logo PMI",
+                explanation: "Ruang kosong di sekeliling logo secara imajiner ditentukan oleh ukuran tanda '+' dari lambang Palang Merah."
+            },
+            {
+                id: 43,
+                question: "Berdasarkan Pasal 36 UU No. 1/2018, Setiap Orang dilarang menggunakan nama dan Lambang Kepalangmerahan untuk...",
+                options: [
+                    "Kegiatan pertolongan pertama bencana",
+                    "Merek suatu produk barang/jasa atau iklan komersial",
+                    "Seragam relawan resmi PMI",
+                    "Ambulans resmi PMI"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "Pasal 36 melarang penggunaan nama dan lambang untuk merek produk barang/jasa, nama badan hukum, atau iklan komersial."
+            },
+            {
+                id: 44,
+                question: "Ancaman pidana bagi seseorang yang dengan sengaja menyalahgunakan Lambang Kepalangmerahan menurut Pasal 37 UU No. 1/2018 adalah...",
+                options: [
+                    "Pidana penjara paling lama 1 tahun dan/atau denda paling banyak Rp 100.000.000,00",
+                    "Pidana penjara paling lama 5 tahun dan denda Rp 1.000.000.000,00",
+                    "Hukuman seumur hidup",
+                    "Denda administrasi Rp 1.000.000,00"
+                ],
+                answer: 0, // A
+                category: "Landasan Hukum",
+                explanation: "Pasal 37 mengatur pidana penjara paling lama 1 tahun dan/atau denda paling banyak Rp 100.000.000,00."
+            },
+            {
+                id: 45,
+                question: "Menurut Pasal 40 UU No. 1/2018, tindakan meniru nama dan lambang PMI yang menimbulkan kerancuan dapat dipidana dengan...",
+                options: [
+                    "Kurungan 1 bulan",
+                    "Pidana penjara paling lama 1 tahun dan/atau denda paling banyak Rp 100.000.000,00",
+                    "Denda Rp 10.000.000,00",
+                    "Pembekuan hak sipil"
+                ],
+                answer: 1, // B
+                category: "Landasan Hukum",
+                explanation: "Pasal 40 menetapkan sanksi pidana penjara paling lama 1 tahun dan/atau denda paling banyak Rp 100.000.000,00 bagi yang meniru."
+            },
+            {
+                id: 46,
+                question: "Kapan proklamasi kemerdekaan Indonesia terjadi sebelum pimpinan negara memerintahkan pembentukan PMI?",
+                options: ["17 Agustus 1945", "3 September 1945", "5 September 1945", "17 September 1945"],
+                answer: 0, // A
+                category: "Sejarah PMI",
+                explanation: "Proklamasi kemerdekaan Indonesia terjadi pada 17 Agustus 1945."
+            },
+            {
+                id: 47,
+                question: "Lembaga mana saja yang berkoordinasi dengan PMI dalam penyelenggaraan Kepalangmerahan sesuai materi?",
+                options: [
+                    "TNI, Kemenkes, Kemensos, BNPB, BPPN/BASARNAS",
+                    "DPR, MPR, dan Mahkamah Agung",
+                    "Perusahaan swasta multinasional saja",
+                    "Badan PBB khusus perang"
+                ],
+                answer: 0, // A
+                category: "Landasan Hukum",
+                explanation: "Penyelenggaraan kepalangmerahan berkoordinasi dengan TNI, Kemenkes, Kemensos, BNPB, dan BPPN/BASARNAS."
+            },
+            {
+                id: 48,
+                question: "Salah satu prinsip dasar yang berarti 'Gerakan Palang Merah bersifat sukarela dan tidak didasari oleh keinginan untuk mencari keuntungan' adalah...",
+                options: [
+                    "Kesukarelaan (Voluntary Service)",
+                    "Kemandirian (Independence)",
+                    "Kesemestaan (Universality)",
+                    "Kesatuan (Unity)"
+                ],
+                answer: 0, // A
+                category: "7 Prinsip Dasar",
+                explanation: "Kesukarelaan (Voluntary Service) artinya memberikan pelayanan atas dasar sukarela tanpa mencari keuntungan."
+            },
+            {
+                id: 49,
+                question: "Prinsip 'Kesatuan' (Unity) dalam Gerakan Palang Merah berarti...",
+                options: [
+                    "Di satu negara hanya ada satu Perhimpunan Palang Merah yang terbuka untuk umum",
+                    "Semua negara harus bersatu menjadi satu negara",
+                    "Seluruh relawan harus berusia sama",
+                    "PMI gabungan dari seluruh partai politik"
+                ],
+                answer: 0, // A
+                category: "7 Prinsip Dasar",
+                explanation: "Kesatuan (Unity) berarti di dalam satu negara hanya boleh ada satu Perhimpunan Palang Merah/Bulan Sabit Merah."
+            },
+            {
+                id: 50,
+                question: "Prinsip 'Kesemestaan' (Universality) mengandung arti bahwa...",
+                options: [
+                    "Gerakan Palang Merah bersifat internasional dan memiliki hak serta kewajiban yang sama di seluruh dunia",
+                    "Hanya berlaku di benua Eropa",
+                    "Kegiatan PMI hanya mencakup wilayah Jakarta",
+                    "Semua anggota harus menguasai bahasa internasional"
+                ],
+                answer: 0, // A
+                category: "7 Prinsip Dasar",
+                explanation: "Kesemestaan (Universality) artinya Gerakan Palang Merah bersifat sedunia, tempat semua Perhimpunan mempunyai hak dan kewajiban yang sama."
+            }
+        ];
+
+        class QuizApp {
+            constructor() {
+                this.questions = quizData;
+                this.currentQuestionIndex = 0;
+                this.userAnswers = new Array(this.questions.length).fill(null);
+                this.bookmarks = new Set();
+                this.quizMode = 'exam'; // 'exam' or 'practice'
+                this.timer = null;
+                this.timeRemaining = 60 * 60; // 60 minutes in seconds
+                this.timeSpent = 0;
+                this.history = JSON.parse(localStorage.getItem('pmi_quiz_history') || '[]');
+                this.activeResultFilter = 'all';
+                this.dialogCallback = null;
+
+                this.initTheme();
+            }
+
+            initTheme() {
+                if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    document.getElementById('themeIcon').className = 'fa-solid fa-sun text-lg text-amber-400';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    document.getElementById('themeIcon').className = 'fa-solid fa-moon text-lg';
+                }
+            }
+
+            toggleTheme() {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                    document.getElementById('themeIcon').className = 'fa-solid fa-moon text-lg';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                    document.getElementById('themeIcon').className = 'fa-solid fa-sun text-lg text-amber-400';
+                }
+            }
+
+            showCustomDialog(options) {
+                const modal = document.getElementById('customDialogModal');
+                document.getElementById('dialogTitle').innerText = options.title || 'Konfirmasi';
+                document.getElementById('dialogMessage').innerText = options.message || '';
+                
+                const cancelBtn = document.getElementById('dialogCancelBtn');
+                if (options.isAlert) {
+                    cancelBtn.classList.add('hidden');
+                } else {
+                    cancelBtn.classList.remove('hidden');
+                }
+
+                if (options.confirmText) {
+                    document.getElementById('dialogConfirmBtn').innerText = options.confirmText;
+                } else {
+                    document.getElementById('dialogConfirmBtn').innerText = 'Ya, Lanjutkan';
+                }
+
+                this.dialogCallback = options.onConfirm || null;
+                modal.classList.remove('hidden');
+            }
+
+            closeCustomDialog(result) {
+                document.getElementById('customDialogModal').classList.add('hidden');
+                if (result && typeof this.dialogCallback === 'function') {
+                    this.dialogCallback();
+                }
+                this.dialogCallback = null;
+            }
+
+            showView(viewId) {
+                ['viewHome', 'viewQuiz', 'viewResult', 'viewStudyBank'].forEach(id => {
+                    document.getElementById(id).classList.add('hidden');
+                });
+                document.getElementById(viewId).classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            showHome() {
+                this.stopTimer();
+                this.showView('viewHome');
+            }
+
+            startQuiz(mode) {
+                this.quizMode = mode;
+                this.currentQuestionIndex = 0;
+                this.userAnswers = new Array(this.questions.length).fill(null);
+                this.bookmarks.clear();
+                this.timeSpent = 0;
+
+                const modeBadge = document.getElementById('quizModeBadge');
+                const timerContainer = document.getElementById('timerContainer');
+
+                if (mode === 'exam') {
+                    modeBadge.innerText = 'Simulasi Ujian';
+                    modeBadge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-pmi-100 dark:bg-pmi-900/60 text-pmi-700 dark:text-pmi-300 uppercase';
+                    timerContainer.classList.remove('hidden');
+                    this.startTimer(60 * 60);
+                } else {
+                    modeBadge.innerText = 'Mode Latihan';
+                    modeBadge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 uppercase';
+                    timerContainer.classList.add('hidden');
+                    this.stopTimer();
+                }
+
+                document.getElementById('allAnsweredBanner').classList.add('hidden');
+                this.renderNavGrid();
+                this.renderQuestion();
+                this.showView('viewQuiz');
+            }
+
+            startTimer(seconds) {
+                this.stopTimer();
+                this.timeRemaining = seconds;
+                this.updateTimerDisplay();
+
+                this.timer = setInterval(() => {
+                    this.timeRemaining--;
+                    this.timeSpent++;
+                    this.updateTimerDisplay();
+
+                    if (this.timeRemaining <= 0) {
+                        this.stopTimer();
+                        this.showCustomDialog({
+                            title: 'Waktu Ujian Habis!',
+                            message: 'Waktu pengerjaan 60 menit telah selesai. Hasil ujian Anda akan diproses secara otomatis.',
+                            isAlert: true,
+                            confirmText: 'Lihat Hasil Ujian',
+                            onConfirm: () => this.finishQuiz()
+                        });
+                    }
+                }, 1000);
+            }
+
+            stopTimer() {
+                if (this.timer) clearInterval(this.timer);
+            }
+
+            updateTimerDisplay() {
+                const m = Math.floor(this.timeRemaining / 60);
+                const s = this.timeRemaining % 60;
+                document.getElementById('timerDisplay').innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+
+            renderQuestion() {
+                const q = this.questions[this.currentQuestionIndex];
+                
+                document.getElementById('questionCategory').innerText = q.category;
+                document.getElementById('questionNumberBadge').innerText = `Soal #${q.id} dari 50`;
+                document.getElementById('questionText').innerText = q.question;
+
+                // Progress Update
+                const answeredCount = this.userAnswers.filter(a => a !== null).length;
+                const progressPct = ((answeredCount / this.questions.length) * 100).toFixed(0);
+                document.getElementById('progressBar').style.width = `${progressPct}%`;
+                document.getElementById('progressText').innerText = `${answeredCount} / ${this.questions.length} Dijawab`;
+
+                // Display prompt if all 50 questions answered
+                const allAnsweredBanner = document.getElementById('allAnsweredBanner');
+                if (answeredCount === this.questions.length) {
+                    allAnsweredBanner.classList.remove('hidden');
+                } else {
+                    allAnsweredBanner.classList.add('hidden');
+                }
+
+                // Bookmark Icon State
+                const bmIcon = document.getElementById('bookmarkIcon');
+                if (this.bookmarks.has(this.currentQuestionIndex)) {
+                    bmIcon.className = 'fa-solid fa-bookmark text-amber-500';
+                } else {
+                    bmIcon.className = 'fa-regular fa-bookmark text-slate-500';
+                }
+
+                // Render Options
+                const container = document.getElementById('optionsContainer');
+                container.innerHTML = '';
+
+                const labels = ['A', 'B', 'C', 'D'];
+                const selectedAns = this.userAnswers[this.currentQuestionIndex];
+
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'w-full text-left p-4 rounded-xl border transition flex items-center justify-between group ';
+
+                    if (this.quizMode === 'practice' && selectedAns !== null) {
+                        // In practice mode after answering, show correct / wrong
+                        if (idx === q.answer) {
+                            btn.className += 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-500 text-emerald-900 dark:text-emerald-200 font-semibold';
+                        } else if (selectedAns === idx) {
+                            btn.className += 'bg-rose-50 dark:bg-rose-950/40 border-rose-500 text-rose-900 dark:text-rose-200';
+                        } else {
+                            btn.className += 'bg-slate-50 dark:bg-slate-700/30 border-slate-200 dark:border-slate-700 opacity-60';
+                        }
+                    } else {
+                        // Standard selection styling
+                        if (selectedAns === idx) {
+                            btn.className += 'bg-pmi-50 dark:bg-pmi-950/40 border-pmi-600 dark:border-pmi-500 font-semibold text-slate-900 dark:text-white shadow-sm';
+                        } else {
+                            btn.className += 'bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-800 dark:text-slate-200';
+                        }
+                    }
+
+                    btn.onclick = () => this.selectOption(idx);
+
+                    btn.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${selectedAns === idx ? 'bg-pmi-600 text-white' : 'bg-slate-200 dark:bg-slate-600 text-slate-700 dark:text-slate-200'}">
+                                ${labels[idx]}
+                            </span>
+                            <span class="text-sm leading-snug">${opt}</span>
+                        </div>
+                        ${this.quizMode === 'practice' && selectedAns !== null && idx === q.answer ? '<i class="fa-solid fa-circle-check text-emerald-500 text-lg"></i>' : ''}
+                        ${this.quizMode === 'practice' && selectedAns !== null && selectedAns === idx && selectedAns !== q.answer ? '<i class="fa-solid fa-circle-xmark text-rose-500 text-lg"></i>' : ''}
+                    `;
+
+                    container.appendChild(btn);
+                });
+
+                // Explanation Panel (Practice Mode Only)
+                const expPanel = document.getElementById('explanationPanel');
+                if (this.quizMode === 'practice' && selectedAns !== null) {
+                    expPanel.classList.remove('hidden');
+                    const isCorrect = selectedAns === q.answer;
+                    const expHeader = document.getElementById('explanationHeader');
+                    
+                    if (isCorrect) {
+                        expHeader.className = 'flex items-center space-x-2 text-sm font-bold text-emerald-600 dark:text-emerald-400';
+                        expHeader.innerHTML = '<i class="fa-solid fa-circle-check"></i><span>Jawaban Anda Benar! Pembahasan:</span>';
+                    } else {
+                        expHeader.className = 'flex items-center space-x-2 text-sm font-bold text-rose-600 dark:text-rose-400';
+                        expHeader.innerHTML = '<i class="fa-solid fa-circle-xmark"></i><span>Jawaban Belum Tepat. Pembahasan:</span>';
+                    }
+                    document.getElementById('explanationText').innerText = q.explanation;
+                } else {
+                    expPanel.classList.add('hidden');
+                }
+
+                // Update Prev/Next/Finish buttons
+                document.getElementById('prevBtn').disabled = this.currentQuestionIndex === 0;
+                document.getElementById('prevBtn').style.opacity = this.currentQuestionIndex === 0 ? '0.5' : '1';
+
+                this.updateNavGridHighlight();
+            }
+
+            selectOption(optionIndex) {
+                this.userAnswers[this.currentQuestionIndex] = optionIndex;
+                this.renderQuestion();
+                this.renderNavGrid();
+            }
+
+            toggleBookmarkCurrent() {
+                if (this.bookmarks.has(this.currentQuestionIndex)) {
+                    this.bookmarks.delete(this.currentQuestionIndex);
+                } else {
+                    this.bookmarks.add(this.currentQuestionIndex);
+                }
+                this.renderQuestion();
+                this.renderNavGrid();
+            }
+
+            prevQuestion() {
+                if (this.currentQuestionIndex > 0) {
+                    this.currentQuestionIndex--;
+                    this.renderQuestion();
+                }
+            }
+
+            nextQuestion() {
+                if (this.currentQuestionIndex < this.questions.length - 1) {
+                    this.currentQuestionIndex++;
+                    this.renderQuestion();
+                }
+            }
+
+            toggleNavGrid() {
+                const gridModal = document.getElementById('navGridModal');
+                gridModal.classList.toggle('hidden');
+            }
+
+            renderNavGrid() {
+                const container = document.getElementById('questionGridContainer');
+                container.innerHTML = '';
+
+                this.questions.forEach((q, idx) => {
+                    const isCurrent = idx === this.currentQuestionIndex;
+                    const isAnswered = this.userAnswers[idx] !== null;
+                    const isBookmarked = this.bookmarks.has(idx);
+
+                    let btnClass = 'w-9 h-9 rounded-lg font-bold text-xs transition flex items-center justify-center relative ';
+
+                    if (isCurrent) {
+                        btnClass += 'bg-pmi-600 text-white ring-2 ring-pmi-600 ring-offset-2 dark:ring-offset-slate-800';
+                    } else if (isBookmarked) {
+                        btnClass += 'bg-amber-400 text-slate-900';
+                    } else if (isAnswered) {
+                        btnClass += 'bg-blue-500 text-white';
+                    } else {
+                        btnClass += 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200';
+                    }
+
+                    const btn = document.createElement('button');
+                    btn.className = btnClass;
+                    btn.innerText = idx + 1;
+                    btn.onclick = () => {
+                        this.currentQuestionIndex = idx;
+                        this.renderQuestion();
+                    };
+
+                    container.appendChild(btn);
+                });
+            }
+
+            updateNavGridHighlight() {
+                this.renderNavGrid();
+            }
+
+            confirmFinishQuiz() {
+                const unanswered = this.userAnswers.filter(a => a === null).length;
+                let msg = 'Apakah Anda yakin ingin menyelesaikan dan mengumpulkan ujian sekarang?';
+                let title = 'Selesaikan Ujian SEKARANG?';
+
+                if (unanswered === 0) {
+                    msg = 'Selamat! Seluruh 50 soal telah terjawab lengkap. Yakin ingin mengumpulkan jawaban sekarang?';
+                    title = 'Selesaikan Ujian (100% Terjawab)';
+                } else {
+                    msg = `Masih ada ${unanswered} soal yang belum Anda jawab. Yakin ingin mengumpulkan sekarang tanpa menunggu waktu habis?`;
+                    title = 'Konfirmasi Selesai Awal';
+                }
+
+                this.showCustomDialog({
+                    title: title,
+                    message: msg,
+                    isAlert: false,
+                    confirmText: 'Selesaikan Sekarang',
+                    onConfirm: () => this.finishQuiz()
+                });
+            }
+
+            finishQuiz() {
+                this.stopTimer();
+
+                let correctCount = 0;
+                let wrongCount = 0;
+
+                // Category stats initialization
+                const categoryStats = {};
+
+                this.questions.forEach((q, idx) => {
+                    if (!categoryStats[q.category]) {
+                        categoryStats[q.category] = { total: 0, correct: 0 };
+                    }
+                    categoryStats[q.category].total++;
+
+                    if (this.userAnswers[idx] === q.answer) {
+                        correctCount++;
+                        categoryStats[q.category].correct++;
+                    } else {
+                        wrongCount++;
+                    }
+                });
+
+                const accuracyPercentage = ((correctCount / this.questions.length) * 100).toFixed(1);
+                const score = Math.round((correctCount / this.questions.length) * 100);
+
+                // Save to History
+                const record = {
+                    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                    score: score,
+                    accuracy: accuracyPercentage,
+                    correct: correctCount,
+                    total: this.questions.length,
+                    mode: this.quizMode,
+                    timeSpent: this.formatTimeSpent(this.timeSpent)
+                };
+                this.history.unshift(record);
+                localStorage.setItem('pmi_quiz_history', JSON.stringify(this.history.slice(0, 10))); // keep 10
+
+                // Render Results View
+                document.getElementById('resScore').innerText = score;
+                document.getElementById('resCorrect').innerText = correctCount;
+                document.getElementById('resWrong').innerText = wrongCount;
+                document.getElementById('resTime').innerText = this.formatTimeSpent(this.timeSpent);
+
+                const resTitle = document.getElementById('resultTitle');
+                const resSubtitle = document.getElementById('resultSubtitle');
+                const resIcon = document.getElementById('resultIcon');
+
+                if (score >= 85) {
+                    resTitle.innerText = "Luar Biasa! Sangat Memuaskan";
+                    resSubtitle.innerText = "Pemahaman Anda mengenai Kepalangmerahan & PMI sangat mendalam!";
+                    resIcon.className = "fa-solid fa-trophy text-amber-500";
+                } else if (score >= 70) {
+                    resTitle.innerText = "Bagus! Hasil Memuaskan";
+                    resSubtitle.innerText = "Anda telah menguasai sebagian besar materi dengan baik.";
+                    resIcon.className = "fa-solid fa-medal text-blue-500";
+                } else {
+                    resTitle.innerText = "Perlu Latihan Lagi";
+                    resSubtitle.innerText = "Pelajari kembali materi UU, PP, dan Sejarah PMI untuk meningkatkan hasil.";
+                    resIcon.className = "fa-solid fa-book-open-reader text-pmi-600";
+                }
+
+                // Render Accuracy Breakdown UI
+                this.renderAccuracyAnalysis(accuracyPercentage, categoryStats);
+
+                this.renderResultDetails('all');
+                this.showView('viewResult');
+            }
+
+            renderAccuracyAnalysis(overallAccuracy, categoryStats) {
+                document.getElementById('overallAccuracyBadge').innerText = `${overallAccuracy}%`;
+
+                const container = document.getElementById('categoryAccuracyContainer');
+                container.innerHTML = '';
+
+                Object.keys(categoryStats).forEach(catName => {
+                    const stat = categoryStats[catName];
+                    const catAcc = ((stat.correct / stat.total) * 100).toFixed(0);
+
+                    let barColor = 'bg-rose-500';
+                    let textColor = 'text-rose-600 dark:text-rose-400';
+                    if (catAcc >= 80) {
+                        barColor = 'bg-emerald-500';
+                        textColor = 'text-emerald-600 dark:text-emerald-400';
+                    } else if (catAcc >= 60) {
+                        barColor = 'bg-amber-500';
+                        textColor = 'text-amber-600 dark:text-amber-400';
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = "p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 space-y-2";
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between text-xs font-bold">
+                            <span class="text-slate-800 dark:text-slate-200">${catName}</span>
+                            <span class="${textColor}">${stat.correct}/${stat.total} Benar (${catAcc}%)</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                            <div class="${barColor} h-full rounded-full transition-all duration-500" style="width: ${catAcc}%"></div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            formatTimeSpent(secs) {
+                const m = Math.floor(secs / 60);
+                const s = secs % 60;
+                return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            }
+
+            filterResultList(type) {
+                this.activeResultFilter = type;
+                document.getElementById('filterResultAll').className = type === 'all' ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-pmi-600 text-white' : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+                document.getElementById('filterResultWrong').className = type === 'wrong' ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-pmi-600 text-white' : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+                
+                this.renderResultDetails(type);
+            }
+
+            renderResultDetails(filter = 'all') {
+                const container = document.getElementById('resultDetailsContainer');
+                container.innerHTML = '';
+
+                const labels = ['A', 'B', 'C', 'D'];
+
+                this.questions.forEach((q, idx) => {
+                    const userAns = this.userAnswers[idx];
+                    const isCorrect = userAns === q.answer;
+
+                    if (filter === 'wrong' && isCorrect) return;
+
+                    const item = document.createElement('div');
+                    item.className = `p-5 rounded-2xl border ${isCorrect ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800' : 'bg-rose-50/40 dark:bg-rose-950/20 border-rose-200 dark:border-rose-800'} space-y-3`;
+
+                    item.innerHTML = `
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2.5 py-0.5 rounded-md text-xs font-bold ${isCorrect ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'}">
+                                    Soal #${q.id}
+                                </span>
+                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">${q.category}</span>
+                            </div>
+                            <span class="text-xs font-bold ${isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'} flex items-center space-x-1">
+                                <i class="${isCorrect ? 'fa-solid fa-circle-check' : 'fa-solid fa-circle-xmark'}"></i>
+                                <span>${isCorrect ? 'Benar' : 'Salah'}</span>
+                            </span>
+                        </div>
+
+                        <p class="font-bold text-sm text-slate-900 dark:text-white leading-snug">${q.question}</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs pt-1">
+                            <div class="p-2.5 rounded-xl ${isCorrect ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-900 dark:text-emerald-200 font-semibold' : 'bg-rose-100 dark:bg-rose-900/50 text-rose-900 dark:text-rose-200'}">
+                                <span class="block text-[10px] uppercase tracking-wider font-bold opacity-75">Jawaban Anda:</span>
+                                <span>${userAns !== null ? `${labels[userAns]}. ${q.options[userAns]}` : 'Tidak Dijawab'}</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700/60 text-slate-800 dark:text-slate-200 font-semibold">
+                                <span class="block text-[10px] uppercase tracking-wider font-bold opacity-75">Kunci Jawaban Benar:</span>
+                                <span>${labels[q.answer]}. ${q.options[q.answer]}</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2 text-xs text-slate-600 dark:text-slate-300 border-t border-slate-200/60 dark:border-slate-700/60">
+                            <span class="font-bold text-slate-800 dark:text-slate-200">Pembahasan: </span>
+                            <span>${q.explanation}</span>
+                        </div>
+                    `;
+
+                    container.appendChild(item);
+                });
+
+                if (container.children.length === 0) {
+                    container.innerHTML = `<p class="text-center text-sm text-slate-500 py-6">Tidak ada soal yang sesuai dengan filter ini.</p>`;
+                }
+            }
+
+            showStudyBank() {
+                this.showView('viewStudyBank');
+                this.renderStudyBankItems(this.questions);
+            }
+
+            searchStudyBank() {
+                const query = document.getElementById('studySearchInput').value.toLowerCase();
+                const filtered = this.questions.filter(q => 
+                    q.question.toLowerCase().includes(query) ||
+                    q.category.toLowerCase().includes(query) ||
+                    q.explanation.toLowerCase().includes(query)
+                );
+                this.renderStudyBankItems(filtered);
+            }
+
+            renderStudyBankItems(items) {
+                const container = document.getElementById('studyBankContainer');
+                container.innerHTML = '';
+
+                const labels = ['A', 'B', 'C', 'D'];
+
+                items.forEach((q) => {
+                    const card = document.createElement('div');
+                    card.className = "p-5 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-700 space-y-4";
+
+                    let optionsHtml = q.options.map((opt, i) => `
+                        <div class="p-2.5 rounded-xl text-xs flex items-center justify-between ${i === q.answer ? 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-900 dark:text-emerald-200 font-bold border border-emerald-300 dark:border-emerald-700' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'}">
+                            <span><span class="mr-1">${labels[i]}.</span> ${opt}</span>
+                            ${i === q.answer ? '<i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 text-sm"></i>' : ''}
+                        </div>
+                    `).join('');
+
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-pmi-600 text-white">Soal #${q.id}</span>
+                            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">${q.category}</span>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white leading-snug">${q.question}</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${optionsHtml}
+                        </div>
+                        <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 text-xs text-amber-900 dark:text-amber-200 leading-relaxed">
+                            <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i>
+                            <span class="font-bold">Pembahasan Ringkas: </span>
+                            <span>${q.explanation}</span>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+                if (items.length === 0) {
+                    container.innerHTML = `<p class="text-center text-sm text-slate-500 py-10">Soal tidak ditemukan berdasarkan pencarian Anda.</p>`;
+                }
+            }
+
+            showStatsModal() {
+                const modal = document.getElementById('statsModal');
+                const container = document.getElementById('statsHistoryList');
+                container.innerHTML = '';
+
+                if (this.history.length === 0) {
+                    container.innerHTML = `<p class="text-center text-sm text-slate-500 py-6">Belum ada riwayat simulasi ujian.</p>`;
+                } else {
+                    this.history.forEach((h, i) => {
+                        const item = document.createElement('div');
+                        item.className = 'p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 flex items-center justify-between text-xs';
+                        item.innerHTML = `
+                            <div>
+                                <div class="font-bold text-slate-900 dark:text-white">Skor: ${h.score} / 100 (${h.correct} Benar) • Akurasi: ${h.accuracy || h.score}%</div>
+                                <div class="text-[10px] text-slate-500 dark:text-slate-400">${h.date} • Durasi: ${h.timeSpent}</div>
+                            </div>
+                            <span class="px-2 py-1 rounded-md font-bold ${h.score >= 70 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200' : 'bg-rose-100 text-rose-800 dark:bg-rose-900 dark:text-rose-200'}">
+                                ${h.score >= 70 ? 'Lulus' : 'Remedial'}
+                            </span>
+                        `;
+                        container.appendChild(item);
+                    });
+                }
+
+                modal.classList.remove('hidden');
+            }
+
+            closeStatsModal() {
+                document.getElementById('statsModal').classList.add('hidden');
+            }
+
+            clearHistory() {
+                this.showCustomDialog({
+                    title: 'Hapus Riwayat Ujian',
+                    message: 'Apakah Anda yakin ingin menghapus seluruh riwayat nilai simulasi ujian?',
+                    isAlert: false,
+                    confirmText: 'Hapus Riwayat',
+                    onConfirm: () => {
+                        this.history = [];
+                        localStorage.removeItem('pmi_quiz_history');
+                        this.showStatsModal();
+                    }
+                });
+            }
+        }
+
+        // Initialize App on window load
+        let app;
+        window.addEventListener('DOMContentLoaded', () => {
+            app = new QuizApp();
+        });
+    </script>
+</body>
+</html>
