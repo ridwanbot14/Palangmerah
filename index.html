@@ -1,1 +1,1650 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan soal lomba LCC JUMBAPIRA</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        pmi: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            500: '#e11d48',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                            800: '#991b1b',
+                        },
+                        disaster: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                        },
+                        donor: {
+                            50: '#fdf2f8',
+                            100: '#fce7f3',
+                            500: '#ec4899',
+                            600: '#db2777',
+                            700: '#be185d',
+                            800: '#9d174d',
+                        },
+                        toga: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                        },
+                        kasus: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
 
+    <div id="app" class="flex flex-col min-h-screen">
+        
+        <!-- Header / Navbar -->
+        <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="app.showHome()">
+                    <div class="w-10 h-10 rounded-xl bg-pmi-600 text-white flex items-center justify-center font-bold text-xl shadow-md shadow-pmi-600/30">
+                        <i class="fa-solid font-bold text-2xl">+</i>
+                    </div>
+                    <div>
+                        <h1 class="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white leading-none">
+                            Quiz PMI, TOGA <span class="text-kasus-600">& Kasus</span>
+                        </h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" id="headerSubtext">240 Soal Terpadu: PMI, Siaga Bencana, Donor, TOGA & Studi Kasus</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <button id="themeToggleBtn" onclick="app.toggleTheme()" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Ganti Mode Terang/Gelap">
+                        <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                    </button>
+
+                    <button onclick="app.showStatsModal()" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-sm font-medium transition">
+                        <i class="fa-solid fa-trophy text-amber-500"></i>
+                        <span>Riwayat</span>
+                    </button>
+
+                    <button onclick="app.showHome()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg text-sm font-semibold transition flex items-center space-x-1.5">
+                        <i class="fa-solid fa-house"></i>
+                        <span class="hidden sm:inline">Beranda</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            
+            <!-- HOME VIEW -->
+            <section id="viewHome" class="space-y-8 animate-fadeIn">
+                <!-- Banner / Hero -->
+                <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pmi-700 via-pmi-600 to-kasus-700 text-white p-6 sm:p-10 shadow-xl shadow-pmi-600/20">
+                    <div class="absolute -right-10 -bottom-10 opacity-10 text-[200px] pointer-events-none">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
+                    <div class="relative z-10 max-w-3xl space-y-4">
+                        <span class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-semibold tracking-wide">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <span id="heroBadgeText">Bank Soal Terpadu Total 240 Soal Acak</span>
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                            Uji Pemahaman Kepalangmerahan, Siaga Bencana, Donor Darah, TOGA & Studi Kasus Lapangan
+                        </h2>
+                        <p class="text-rose-100 text-sm sm:text-base leading-relaxed">
+                            Dilengkapi 40 Soal Studi Kasus Situasional realitis, UU No. 1/2018, PP No. 7/2019, Prosedur Pertolongan Pertama (Pertolongan Bencana & Transfusi), serta Khasiat TOGA. Fitur pengacakan soal & opsi jawaban otomatis untuk simulasi otentik.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Topic Selector Component -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-200 dark:border-slate-700 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center space-x-2">
+                            <i class="fa-solid fa-sliders text-pmi-600"></i>
+                            <span>Pilih Materi Ujian / Latihan</span>
+                        </h3>
+                        <span id="activeTopicBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-pmi-100 text-pmi-700 dark:bg-pmi-900 dark:text-pmi-200">
+                            Kepalangmerahan PMI (50 Soal)
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+                        <button onclick="app.setTopic('kepalangmerahan')" id="topicBtnKepalangmerahan" class="p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-pmi-50 dark:bg-pmi-950/40 border-pmi-600 text-pmi-700 dark:text-pmi-300">
+                            <div class="w-10 h-10 rounded-lg bg-pmi-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-book-bookmark"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm">Kepalangmerahan</div>
+                                <div class="text-xs font-normal text-slate-500 dark:text-slate-400">50 Soal UU & Sejarah</div>
+                            </div>
+                        </button>
+
+                        <button onclick="app.setTopic('siagabencana')" id="topicBtnSiagabencana" class="p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-disaster-500">
+                            <div class="w-10 h-10 rounded-lg bg-disaster-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm">Siaga Bencana</div>
+                                <div class="text-xs font-normal text-slate-500 dark:text-slate-400">50 Soal PMR Wira</div>
+                            </div>
+                        </button>
+
+                        <button onclick="app.setTopic('donordarah')" id="topicBtnDonordarah" class="p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-donor-500">
+                            <div class="w-10 h-10 rounded-lg bg-donor-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-droplet"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm">Donor Darah</div>
+                                <div class="text-xs font-normal text-slate-500 dark:text-slate-400">50 Soal Transfusi</div>
+                            </div>
+                        </button>
+
+                        <button onclick="app.setTopic('toga')" id="topicBtnToga" class="p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-toga-500">
+                            <div class="w-10 h-10 rounded-lg bg-toga-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm">Tanaman Obat</div>
+                                <div class="text-xs font-normal text-slate-500 dark:text-slate-400">50 Soal Khasiat</div>
+                            </div>
+                        </button>
+
+                        <button onclick="app.setTopic('studikasus')" id="topicBtnStudikasus" class="p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-kasus-500">
+                            <div class="w-10 h-10 rounded-lg bg-kasus-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm">Studi Kasus</div>
+                                <div class="text-xs font-normal text-slate-500 dark:text-slate-400">40 Soal Lapangan</div>
+                            </div>
+                        </button>
+
+                        <button onclick="app.setTopic('all')" id="topicBtnAll" class="p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-indigo-500">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-lg flex-shrink-0">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm">Gabungan Semua</div>
+                                <div class="text-xs font-normal text-slate-500 dark:text-slate-400">240 Soal Lengkap</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mode Selection Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Mode 1: Simulation Exam -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-pmi-500 dark:hover:border-pmi-500 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/40 text-pmi-600 dark:text-red-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-stopwatch"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Simulasi Ujian Berwaktu</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1" id="examDescText">
+                                    Format ujian acak berwaktu. Kunci & pembahasan lengkap ditampilkan setelah ujian selesai.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="app.startQuiz('exam')" class="mt-6 w-full py-3 bg-pmi-600 hover:bg-pmi-700 text-white font-semibold rounded-xl shadow-lg shadow-pmi-600/30 transition flex items-center justify-center space-x-2">
+                            <span>Mulai Ujian Acak</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mode 2: Practice Mode -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Mode Latihan Mandiri</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                    Latihan interaktif dengan soal acak tanpa batasan waktu. Pembahasan langsung muncul sesaat setelah memilih opsi.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="app.startQuiz('practice')" class="mt-6 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center space-x-2">
+                            <span>Mulai Latihan Acak</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mode 3: Bank Soal & Pembahasan -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 dark:hover:border-indigo-500 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                        <div class="space-y-4">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Katalog Bank Soal</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                    Daftar lengkap 240 soal pilihan ganda (Termasuk 40 Studi Kasus) beserta kunci jawaban dan pembahasannya.
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="app.showStudyBank()" class="mt-6 w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center justify-center space-x-2">
+                            <span>Buka Bank Soal</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topic Breakdown -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 space-y-4">
+                    <h3 class="text-lg font-bold flex items-center space-x-2">
+                        <i class="fa-solid fa-list-check text-pmi-600"></i>
+                        <span>Cakupan Kategori Topik (Total 240 Soal)</span>
+                    </h3>
+                    <div id="topicCategoryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <!-- Dynamic categories populated by script -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- QUIZ VIEW -->
+            <section id="viewQuiz" class="hidden space-y-6 animate-fadeIn">
+                <!-- Top Status Bar -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <span id="quizModeBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-pmi-100 dark:bg-pmi-900/60 text-pmi-700 dark:text-pmi-300 uppercase">
+                            Simulasi Ujian
+                        </span>
+                        <span id="quizTopicBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                            Kepalangmerahan
+                        </span>
+                        <div id="timerContainer" class="flex items-center space-x-1.5 font-mono text-sm font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-lg">
+                            <i class="fa-regular fa-clock text-pmi-600"></i>
+                            <span id="timerDisplay">60:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Indicator -->
+                    <div class="flex-grow max-w-md w-full">
+                        <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                            <span>Kemajuan Ujian (Soal Acak)</span>
+                            <span id="progressText">0 / 50 Soal</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="progressBar" class="bg-pmi-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Navigation & Bookmark -->
+                    <div class="flex items-center space-x-2">
+                        <button id="bookmarkBtn" onclick="app.toggleBookmarkCurrent()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Tandai Ragu/Penting">
+                            <i id="bookmarkIcon" class="fa-regular fa-bookmark text-slate-500"></i>
+                        </button>
+
+                        <button onclick="app.toggleNavGrid()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center space-x-1 text-sm font-semibold">
+                            <i class="fa-solid fa-grip"></i>
+                            <span class="hidden sm:inline">Navigasi Soal</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigation Grid Drawer / Collapse -->
+                <div id="navGridModal" class="hidden bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-md">
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-th text-pmi-600"></i>
+                            <span>Matriks Navigasi Soal</span>
+                        </h4>
+                        <div class="flex items-center space-x-4 text-xs">
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-pmi-600 inline-block"></span><span>Aktif</span></span>
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-slate-200 dark:bg-slate-600 inline-block"></span><span>Belum</span></span>
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span><span>Sudah</span></span>
+                            <span class="flex items-center space-x-1"><span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span><span>Ditandai</span></span>
+                        </div>
+                    </div>
+                    <div id="questionGridContainer" class="grid grid-cols-5 sm:grid-cols-10 gap-2 max-h-60 overflow-y-auto custom-scrollbar p-1">
+                        <!-- Dynamic Question Grid Buttons -->
+                    </div>
+                </div>
+
+                <!-- Banner Notification when all questions are answered -->
+                <div id="allAnsweredBanner" class="hidden bg-emerald-500 text-white rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3 text-sm font-semibold">
+                        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold">Selamat! Semua Soal Telah Terjawab</p>
+                            <p class="text-xs text-emerald-100 font-normal">Anda dapat langsung mengumpulkan hasil pekerjaan Anda sekarang.</p>
+                        </div>
+                    </div>
+                    <button onclick="app.confirmFinishQuiz()" class="w-full sm:w-auto px-5 py-2.5 bg-white text-emerald-700 font-bold rounded-xl shadow hover:bg-emerald-50 text-xs transition flex items-center justify-center space-x-1.5 flex-shrink-0">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Selesaikan Sekarang</span>
+                    </button>
+                </div>
+
+                <!-- Question Card -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex items-center space-x-2">
+                            <span id="questionCategory" class="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                Category
+                            </span>
+                            <span id="questionNumberBadge" class="px-3 py-1 rounded-lg text-xs font-bold bg-pmi-600 text-white">
+                                Soal #1
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Question Text -->
+                    <h3 id="questionText" class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-relaxed">
+                        Teks Soal...
+                    </h3>
+
+                    <!-- Options Container -->
+                    <div id="optionsContainer" class="space-y-3 pt-2">
+                        <!-- Dynamic Options buttons will be rendered here -->
+                    </div>
+
+                    <!-- Instant Explanation Panel (Practice Mode Only) -->
+                    <div id="explanationPanel" class="hidden p-5 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 space-y-2">
+                        <div class="flex items-center space-x-2 text-sm font-bold" id="explanationHeader">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>Pembahasan Ringkas:</span>
+                        </div>
+                        <p id="explanationText" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Penjelasan detail jawaban...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation Buttons -->
+                <div class="flex items-center justify-between gap-4">
+                    <button id="prevBtn" onclick="app.prevQuestion()" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 font-semibold text-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+
+                    <div class="flex items-center space-x-3">
+                        <button id="nextBtn" onclick="app.nextQuestion()" class="px-6 py-3 bg-pmi-600 hover:bg-pmi-700 text-white font-semibold rounded-xl shadow-lg shadow-pmi-600/20 text-sm transition flex items-center space-x-2">
+                            <span>Berikutnya</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+
+                        <button id="finishBtn" onclick="app.confirmFinishQuiz()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/20 text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-check-double"></i>
+                            <span>Selesaikan Ujian</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RESULT VIEW -->
+            <section id="viewResult" class="hidden space-y-8 animate-fadeIn">
+                <!-- Score Header Banner -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-700 shadow-lg text-center space-y-6">
+                    <div class="inline-flex p-4 rounded-full bg-pmi-50 dark:bg-slate-700 text-pmi-600 dark:text-rose-400 text-4xl sm:text-5xl">
+                        <i id="resultIcon" class="fa-solid fa-award"></i>
+                    </div>
+
+                    <div>
+                        <h2 id="resultTitle" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+                            Hasil Evaluasi Ujian PMI
+                        </h2>
+                        <p id="resultSubtitle" class="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                            Berikut adalah ringkasan hasil kerja Anda dari total soal.
+                        </p>
+                    </div>
+
+                    <!-- Score Stats -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto pt-2">
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-pmi-600 dark:text-rose-400" id="resScore">0</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Skor Akhir</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400" id="resCorrect">0</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Jawaban Benar</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-rose-600 dark:text-rose-400" id="resWrong">0</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Jawaban Salah</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600">
+                            <div class="text-3xl font-black text-indigo-600 dark:text-indigo-400" id="resTime">00:00</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase mt-1">Waktu Tempuh</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+                        <button onclick="app.showHome()" class="px-6 py-3 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-semibold rounded-xl text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Kembali ke Beranda</span>
+                        </button>
+                        <button onclick="app.startQuiz('exam')" class="px-6 py-3 bg-pmi-600 hover:bg-pmi-700 text-white font-semibold rounded-xl shadow-lg shadow-pmi-600/30 text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            <span>Ulangi Ujian</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Accuracy Assessment Section -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-chart-line text-emerald-500"></i>
+                                <span>Akurasi Penilaian Per Topik Materi</span>
+                            </h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Analisis tingkat penguasaan berdasarkan kategori soal</p>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 px-4 py-2 rounded-2xl">
+                            <span class="text-xs text-emerald-700 dark:text-emerald-300 font-medium">Akurasi Keseluruhan:</span>
+                            <span id="overallAccuracyBadge" class="text-lg font-black text-emerald-600 dark:text-emerald-400">0%</span>
+                        </div>
+                    </div>
+
+                    <div id="categoryAccuracyContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Dynamic accuracy cards per topic -->
+                    </div>
+                </div>
+
+                <!-- Detailed Breakdown List -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                            <i class="fa-solid fa-list-check text-pmi-600"></i>
+                            <span>Evaluasi Detail Pembahasan</span>
+                        </h3>
+
+                        <!-- Filter Options -->
+                        <div class="flex items-center space-x-2">
+                            <button onclick="app.filterResultList('all')" id="filterResultAll" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-pmi-600 text-white">
+                                Semua
+                            </button>
+                            <button onclick="app.filterResultList('wrong')" id="filterResultWrong" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                Salah Saja
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="resultDetailsContainer" class="space-y-4">
+                        <!-- Dynamic Detailed Question Evaluations -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- STUDY BANK VIEW -->
+            <section id="viewStudyBank" class="hidden space-y-6 animate-fadeIn">
+                <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-700 pb-6">
+                        <div>
+                            <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-book-open text-pmi-600"></i>
+                                <span>Katalog Bank Soal & Pembahasan</span>
+                            </h2>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                                Kumpulan lengkap 240 Soal Pilihan Ganda (50 Kepalangmerahan + 50 Siaga Bencana + 50 Donor Darah + 50 TOGA + 40 Studi Kasus) beserta pembahasan ringkas.
+                            </p>
+                        </div>
+
+                        <!-- Search input -->
+                        <div class="relative min-w-[260px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            <input type="text" id="studySearchInput" oninput="app.searchStudyBank()" placeholder="Cari soal, kasus, daun, donor..." class="w-full pl-9 pr-4 py-2 text-sm rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-pmi-500">
+                        </div>
+                    </div>
+
+                    <!-- Category filter pills -->
+                    <div id="bankCategoryFilterPills" class="flex flex-wrap gap-2 pt-1">
+                        <!-- Dynamic category pills -->
+                    </div>
+
+                    <div id="studyBankContainer" class="space-y-6">
+                        <!-- Dynamic Bank Soal items -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-6 mt-10">
+            <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
+                <p class="font-medium">Aplikasi Quiz & Evaluasi PMI + TOGA + Studi Kasus © 2026</p>
+                <p>Berdasarkan UU No. 1/2018, PP No. 7/2019, Konvensi Jenewa 1949, Pedoman PMR Wira, Ketentuan UDD PMI, & Studi Kasus Lapangan</p>
+            </div>
+        </footer>
+
+        <!-- Confirmation / Stats Modal -->
+        <div id="statsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 dark:border-slate-700 shadow-2xl space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-trophy text-amber-500"></i>
+                        <span>Riwayat Ujian</span>
+                    </h3>
+                    <button onclick="app.closeStatsModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <div id="statsHistoryList" class="space-y-3 max-h-60 overflow-y-auto custom-scrollbar">
+                    <!-- History items rendered here -->
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="app.clearHistory()" class="w-full py-2.5 rounded-xl border border-rose-300 dark:border-rose-700 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold transition">
+                        Hapus Semua Riwayat Nilai
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Confirm/Alert Dialog Modal -->
+        <div id="customDialogModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 max-w-md w-full border border-slate-200 dark:border-slate-700 shadow-2xl space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div id="dialogIconBg" class="w-12 h-12 rounded-2xl bg-pmi-100 dark:bg-pmi-900/50 text-pmi-600 dark:text-rose-400 flex items-center justify-center text-xl flex-shrink-0">
+                        <i id="dialogIcon" class="fa-solid fa-circle-question"></i>
+                    </div>
+                    <div>
+                        <h3 id="dialogTitle" class="font-extrabold text-lg text-slate-900 dark:text-white">Konfirmasi Ujian</h3>
+                        <p id="dialogSubtext" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Aplikasi Quiz PMI, TOGA & Kasus</p>
+                    </div>
+                </div>
+
+                <p id="dialogMessage" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    Pesan konfirmasi...
+                </p>
+
+                <div class="flex items-center justify-end space-x-3 pt-2">
+                    <button id="dialogCancelBtn" onclick="app.closeCustomDialog(false)" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-bold transition">
+                        Batal
+                    </button>
+                    <button id="dialogConfirmBtn" onclick="app.closeCustomDialog(true)" class="px-5 py-2.5 rounded-xl bg-pmi-600 hover:bg-pmi-700 text-white text-xs font-bold shadow-lg shadow-pmi-600/30 transition">
+                        Ya, Lanjutkan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // DATASET 1: Kepalangmerahan PMI (50 Questions)
+        const quizDataKepalangmerahan = [
+            { id: 1, question: "Organisasi Palang Merah yang didirikan oleh pemerintah kolonial Belanda di Indonesia pada tanggal 21 Oktober 1873 bernama...", options: ["NERKAI", "NIRK", "PMI", "ICRC"], answer: 1, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Pada 21 Oktober 1873, pemerintah kolonial Belanda mendirikan Het Nederland-Indiche Rode Kruis (NIRK)." },
+            { id: 2, question: "Nama NIRK yang didirikan pada tahun 1873 kemudian berganti nama menjadi...", options: ["Nederlands Rode Kruiz Afdelinbg Indie (NERKAI)", "Palang Merah Indonesia (PMI)", "Perhimpunan Palang Merah Hindia", "Het Rode Kruis Indonesia"], answer: 0, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Nama NIRK kemudian berganti menjadi Nederlands Rode Kruiz Afdelinbg Indie (NERKAI)." },
+            { id: 3, question: "Semangat untuk mendirikan Palang Merah Indonesia (PMI) timbul pada tahun 1932 yang dipelopori oleh...", options: ["dr. Buntaran Martoatmodjo dan Drs. Mohammad Hatta", "dr. RCL. Senduk dan Bahder Djohan", "dr. R. Mochtar dan dr. Sitanala", "Ir. Soekarno dan dr. Joehana"], answer: 1, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Pada tahun 1932, pelopor mendirikan PMI adalah dr. RCL. Senduk dan Bahder Djohan." },
+            { id: 4, question: "Proposal pendirian PMI pertama kali diajukan pada kongres NERKAI pada tahun...", options: ["1932", "1935", "1940", "1945"], answer: 2, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Proposal pendirian PMI diajukan pada kongres NERKAI tahun 1940, namun ditolak oleh pemerintah kolonial." },
+            { id: 5, question: "Pada tanggal 3 September 1945, Presiden Soekarno memerintahkan pembentukan Badan Palang Merah Nasional kepada...", options: ["Drs. Mohammad Hatta", "dr. Buntaran Martoatmodjo", "dr. R. Mochtar", "dr. Sitanala"], answer: 1, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Presiden Soekarno memerintahkan Menteri Kesehatan dr. Buntaran Martoatmodjo untuk membentuk Badan Palang Merah Nasional pada 3 September 1945." },
+            { id: 6, question: "Panitia Lima yang dibentuk oleh dr. Buntaran Martoatmodjo pada 5 September 1945 bertugas untuk...", options: ["Merumuskan Konvensi Jenewa", "Menggalang dana internasional", "Mempersiapkan pembentukan Palang Merah di Indonesia", "Menulis Undang-Undang Kepalangmerahan"], answer: 2, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Panitia Lima dibentuk pada 5 September 1945 untuk mempersiapkan pembentukan Palang Merah di Indonesia." },
+            { id: 7, question: "Berikut yang BUKAN merupakan anggota dari Panitia Lima adalah...", options: ["dr. R. Mochtar", "dr. Bahder Johan", "dr. RCL. Senduk", "dr. Sitanala"], answer: 2, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Panitia Lima terdiri dari dr. R. Mochtar, dr. Bahder Johan, dr. Joehana, Dr. Marjuki, dan dr. Sitanala." },
+            { id: 8, question: "Pengurus Besar Palang Merah Indonesia (PMI) resmi terbentuk pada tanggal...", options: ["17 Agustus 1945", "3 September 1945", "5 September 1945", "17 September 1945"], answer: 3, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "PMI resmi terbentuk pada tanggal 17 September 1945." },
+            { id: 9, question: "Ketua Pertama Pengurus Besar Palang Merah Indonesia (PMI) adalah...", options: ["Ir. Soekarno", "Drs. Mohammad Hatta", "dr. Buntaran Martoatmodjo", "dr. RCL Senduk"], answer: 1, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Ketua pertama Pengurus Besar PMI adalah Drs. Mohammad Hatta." },
+            { id: 10, question: "Keppres No. 25 Tahun 1950 menyatakan tentang...", options: ["Tugas Pokok dan Kegiatan PMI", "PMI adalah satu-satunya Perhimpunan Palang Merah di Indonesia", "Peraturan Pelaksanaan Undang-Undang Kepalangmerahan", "Penggunaan Lambang Palang Merah"], answer: 1, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "KEPPRES No. 25 Tahun 1950 menyatakan bahwa PMI adalah satu-satunya Perhimpunan Palang Merah di Indonesia." },
+            { id: 11, question: "Landasan hukum yang mengatur tentang Tugas Pokok dan Kegiatan PMI adalah...", options: ["KEPPRES No. 246 Tahun 1963", "KEPPRES No. 25 Tahun 1950", "UU No. 59 Tahun 1958", "PP No. 7 Tahun 2019"], answer: 0, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "KEPPRES No. 246 Tahun 1963 mengatur tentang Tugas Pokok dan Kegiatan PMI." },
+            { id: 12, question: "Undang-Undang Republik Indonesia yang khusus mengatur tentang Kepalangmerahan adalah...", options: ["UU Nomor 59 Tahun 1958", "UU Nomor 17 Tahun 2013", "UU Nomor 1 Tahun 2018", "UU Nomor 7 Tahun 2019"], answer: 2, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Undang-Undang Nomor 1 Tahun 2018 secara khusus mengatur tentang Kepalangmerahan di Indonesia." },
+            { id: 13, question: "Peraturan Pemerintah yang merupakan peraturan pelaksanaan dari UU Nomor 1 Tahun 2018 adalah...", options: ["PP Nomor 25 Tahun 1950", "PP Nomor 246 Tahun 1963", "PP Nomor 59 Tahun 1958", "PP Nomor 7 Tahun 2019"], answer: 3, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "PP Nomor 7 Tahun 2019 adalah Peraturan Pelaksanaan UU No. 1 Tahun 2018." },
+            { id: 14, question: "Menurut Pasal 1 UU No. 1/2018, Konvensi yang dimaksud dalam Kepalangmerahan adalah Konvensi Jenewa Tahun 1949 yang diratifikasi dengan...", options: ["UU Nomor 25 Tahun 1950", "UU Nomor 59 Tahun 1958", "UU Nomor 1 Tahun 2018", "PP Nomor 7 Tahun 2019"], answer: 1, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Konvensi Jenewa 1949 diratifikasi oleh RI melalui UU Nomor 59 Tahun 1958." },
+            { id: 15, question: "Berdasarkan Pasal 1 UU No. 1/2018, PMI berdiri atas asas perikemanusiaan dan atas dasar sukarela dengan tidak membeda-bedakan...", options: ["Jabatan, kekayaan, dan pendidikan", "Usia, jenis kelamin, dan tempat tinggal", "Bangsa, golongan, dan paham politik", "Suku, agama, dan Ras saja"], answer: 2, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Pasal 1 UU 1/2018 menyebutkan bahwa PMI berdiri atas dasar sukarela dengan tidak membeda-bedakan bangsa, golongan, dan paham politik." },
+            { id: 16, question: "Menurut Pasal 2 UU No. 1 Tahun 2018, Penyelenggaraan Kepalangmerahan dilakukan oleh...", options: ["Pemerintah dan PMI", "TNI dan Polri", "BPN dan BASARNAS", "Kementerian Kesehatan dan Kementerian Sosial"], answer: 0, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Pasal 2 UU No. 1 Tahun 2018 menyatakan penyelenggaraan Kepalangmerahan dilakukan oleh Pemerintah dan PMI." },
+            { id: 17, question: "Jumlah Prinsip Dasar Palang Merah dan Bulan Sabit Merah Internasional adalah...", options: ["5 prinsip", "6 prinsip", "7 prinsip", "10 prinsip"], answer: 2, category: "7 Prinsip Dasar", topic: "kepalangmerahan", explanation: "Terdapat 7 (Tujuh) Prinsip Dasar Gerakan Palang Merah dan Bulan Sabit Merah Internasional." },
+            { id: 18, question: "Prinsip Dasar Gerakan Internasional yang berarti memberikan bantuan tanpa membedakan agama, suku, jenis kelamin, atau pandangan politik dinamakan...", options: ["Kemanusiaan (Humanity)", "Kesamaan (Impartiality)", "Kenetralan (Neutrality)", "Kemandirian (Independence)"], answer: 1, category: "7 Prinsip Dasar", topic: "kepalangmerahan", explanation: "Kesamaan (Impartiality) berarti memberikan bantuan tanpa membedakan bangsa, ras, agama, atau pandangan politik." },
+            { id: 19, question: "Prinsip Dasar yang menuntut Gerakan agar tidak memihak pada pihak yang bertikai dalam sengketa politik, ras, atau agama adalah...", options: ["Kenetralan (Neutrality)", "Kesemestaan (Universality)", "Kesatuan (Unity)", "Kesukarelaan (Voluntary Service)"], answer: 0, category: "7 Prinsip Dasar", topic: "kepalangmerahan", explanation: "Kenetralan (Neutrality) menjaga kepercayaan dari semua pihak dengan tidak memihak dalam sengketa." },
+            { id: 20, question: "Di bawah ini yang BUKAN merupakan salah satu dari 7 Prinsip Dasar Palang Merah dan Bulan Sabit Merah Internasional adalah...", options: ["Kemandirian", "Kesatuan", "Keuntungan (Profitability)", "Kesemestaan"], answer: 2, category: "7 Prinsip Dasar", topic: "kepalangmerahan", explanation: "7 Prinsip Dasar: Kemanusiaan, Kesamaan, Kenetralan, Kemandirian, Kesukarelaan, Kesatuan, Kesemestaan." },
+            { id: 21, question: "Sesuai Pasal 4 UU No. 1/2018, tujuan PMI adalah untuk mencegah dan meringankan penderitaan serta melindungi...", options: ["Pejabat pemerintah dan tentara", "Korban tawanan perang dan bencana", "Anggota PMI saja", "Warga negara asing di Indonesia"], answer: 1, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Tujuan PMI sesuai UU No. 1/2018 adalah mencegah dan meringankan penderitaan serta melindungi korban tawanan perang dan bencana." },
+            { id: 22, question: "Salah satu tugas PMI yang diatur dalam Pasal 6 AD/ART adalah pelayanan kesehatan dan sosial serta...", options: ["Pemberian pelayanan darah", "Pemungutan pajak kemanusiaan", "Penetapan status bencana nasional", "Pengangkatan anggota TNI"], answer: 0, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Pasal 6 AD/ART menyebutkan tugas PMI antara lain memberikan pelayanan darah sesuai ketentuan peraturan perundang-undangan." },
+            { id: 23, question: "PP No. 7 Tahun 2019 terdiri dari berapa bab dan pasal?", options: ["3 Bab dan 30 Pasal", "5 Bab dan 46 Pasal", "7 Bab dan 50 Pasal", "10 Bab dan 100 Pasal"], answer: 1, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "PP No. 7 Tahun 2019 terdiri dari 5 BAB dan 46 Pasal." },
+            { id: 24, question: "Menurut PP No. 7/2019, penyelenggaraan Kepalangmerahan dilakukan dalam dua kondisi, yaitu...", options: ["Masa Pemilu dan Masa Biasa", "Masa Damai dan Masa Konflik Bersenjata", "Masa Krisis Ekonomi dan Masa Stabil", "Masa Darurat Bencana dan Masa Pemulihan"], answer: 1, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Penyelenggaraan Kepalangmerahan dilaksanakan dalam dua kondisi utama: Masa Damai dan Masa Konflik Bersenjata." },
+            { id: 25, question: "Di bawah ini yang merupakan contoh kegiatan Kepalangmerahan dalam Masa Damai (Pasal 3 PP No. 7/2019) adalah...", options: ["Penanganan pengungsian dan pembinaan relawan", "Pelindungan tawanan perang secara eksklusif", "Pelatihan militer pertahanan negara", "Penetapan hukum perang"], answer: 0, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Masa damai meliputi penanggulangan bencana, penanganan pengungsian, pelayanan darah, pembinaan relawan, dll." },
+            { id: 26, question: "Penyelenggaraan Kepalangmerahan pada masa Konflik Bersenjata (Pasal 32 PP No. 7/2019) meliputi hal-hal berikut, KECUALI...", options: ["Pelindungan dan pertolongan korban konflik bersenjata", "Perawatan orang yang sakit dan terluka", "Kegiatan kemanusiaan terkait perdamaian dunia", "Penjualan senjata bantuan perang"], answer: 3, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Penjualan senjata bantuan perang jelas bukan kegiatan kepalangmerahan." },
+            { id: 27, question: "Dalam masa konflik bersenjata, peran PMI meliputi hal-hal berikut, KECUALI...", options: ["Memfasilitasi penampungan sementara bagi pengungsi", "Membantu pengerahan relawan untuk pertempuran aktif", "Penyampaian informasi dan komunikasi keluarga terpisah", "Membantu pengerahan personil PMI dalam pencarian dan evakuasi korban"], answer: 1, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "PMI bersifat netral dan tidak berpihak dalam pertempuran aktif." },
+            { id: 28, question: "Lambang Palang Merah di atas dasar putih pertama kali diadopsi pada Konvensi Jenewa tahun...", options: ["1863", "1864", "1906", "1949"], answer: 1, category: "Lambang & Atribut", topic: "kepalangmerahan", explanation: "Lambang Palang Merah di atas dasar putih diadopsi pada Konvensi Jenewa I tahun 1864." },
+            { id: 29, question: "Fungsi lambang Palang Merah yang digunakan sebagai tanda pengenal saat situasi damai disebut...", options: ["Fungsi Pelindung (Protective)", "Fungsi Pengenal (Indicative)", "Fungsi Komersial", "Fungsi Dekoratif"], answer: 1, category: "Lambang & Atribut", topic: "kepalangmerahan", explanation: "Fungsi Pengenal (Indicative) digunakan untuk menunjukkan bahwa personil atau fasilitas berkaitan dengan Gerakan Palang Merah." },
+            { id: 30, question: "Fungsi lambang Palang Merah yang digunakan untuk melindungi personil medis dan fasilitas medis pada masa konflik dinamakan...", options: ["Fungsi Pelindung (Protective)", "Fungsi Pengenal (Indicative)", "Fungsi Promosi", "Fungsi Atributif"], answer: 0, category: "Lambang & Atribut", topic: "kepalangmerahan", explanation: "Fungsi Pelindung (Protective) memberikan pelindungan hukum internasional bagi medis & bantuan kemanusiaan saat konflik." },
+            { id: 31, question: "Pasal dalam UU No. 1/2018 yang mengatur mengenai Penggunaan Lambang Palang Merah adalah...", options: ["Pasal 1 - 5", "Pasal 10 - 15", "Pasal 20 - 30", "Pasal 35 - 40"], answer: 2, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Penggunaan dan pelindungan lambang diatur secara mendalam dalam Bab V (Pasal 20 - 30) UU No. 1/2018." },
+            { id: 32, question: "Sanksi terhadap penyalahgunaan lambang Palang Merah dalam UU No. 1/2018 diatur pada ketentuan pidana Pasal...", options: ["Pasal 12", "Pasal 25", "Pasal 60", "Pasal 62 - 64"], answer: 3, category: "Landasan Hukum", topic: "kepalangmerahan", explanation: "Ketentuan Pidana atas penyalahgunaan lambang diatur pada Pasal 62 hingga 64 UU No. 1/2018." },
+            { id: 33, question: "Markas Pusat Palang Merah Indonesia berkedudukan di...", options: ["Bandung", "Surabaya", "Jakarta", "Yogyakarta"], answer: 2, category: "Organisasi PMI", topic: "kepalangmerahan", explanation: "Markas Pusat PMI berkedudukan di Ibukota Negara, DKI Jakarta." },
+            { id: 34, question: "Tiga komponen utama dalam Gerakan Palang Merah dan Bulan Sabit Merah Internasional adalah...", options: ["ICRC, IFRC, dan Perhimpunan Nasional (seperti PMI)", "UNESCO, WHO, dan UNICEF", "PBB, ASEAN, dan NATO", "Kemensos, Kemenkes, dan BNPB"], answer: 0, category: "Gerakan Internasional", topic: "kepalangmerahan", explanation: "Gerakan terdiri dari ICRC (Komite Internasional), IFRC (Federasi Internasional), dan Perhimpunan Nasional." },
+            { id: 35, question: "Lembaga pendiri Gerakan Palang Merah yang bertindak sebagai penengah netral dalam konflik bersenjata adalah...", options: ["IFRC", "ICRC", "UNESCO", "PBB"], answer: 1, category: "Gerakan Internasional", topic: "kepalangmerahan", explanation: "ICRC (International Committee of the Red Cross) bertindak sebagai penengah netral dalam konflik bersenjata." },
+            { id: 36, question: "Organisasi internasional yang mengoordinasikan bantuan kemanusiaan Palang Merah saat terjadi bencana alam dinamakan...", options: ["ICRC", "IFRC", "UNHCR", "WHO"], answer: 1, category: "Gerakan Internasional", topic: "kepalangmerahan", explanation: "IFRC (International Federation of Red Cross and Red Crescent Societies) mengoordinasikan bantuan bencana alam." },
+            { id: 37, question: "Tokoh pencetus gagasan pendirian Palang Merah Internasional setelah melihat penderitaan perang Solferino adalah...", options: ["Henry Dunant", "Guillaume-Henri Dufour", "Gustave Moynier", "Louis Appia"], answer: 0, category: "Sejarah Internasional", topic: "kepalangmerahan", explanation: "Henry Dunant adalah bapak pendiri Palang Merah Internasional berdasarkan pengalamannya pada Perang Solferino (1859)." },
+            { id: 38, question: "Buku karya Henry Dunant yang mengilhami pembentukan organisasi Palang Merah berjudul...", options: ["Un Souvenir de Solferino (Kenangan dari Solferino)", "The Red Cross Manual", "Humanitarian Law in Warfare", "History of Red Cross"], answer: 0, category: "Sejarah Internasional", topic: "kepalangmerahan", explanation: "Buku 'Un Souvenir de Solferino' terbit tahun 1862 dan menjadi cikal bakal Gerakan Palang Merah." },
+            { id: 39, question: "Tanggal kelahiran Henry Dunant yang diperingati sebagai Hari Palang Merah Internasional adalah...", options: ["8 Mei", "17 September", "21 Oktober", "25 Desember"], answer: 0, category: "Sejarah Internasional", topic: "kepalangmerahan", explanation: "Hari Palang Merah Internasional diperingati setiap tanggal 8 Mei (hari lahir Henry Dunant tahun 1828)." },
+            { id: 40, question: "Hari Palang Merah Indonesia diperingati setiap tanggal...", options: ["8 Mei", "17 Agustus", "17 September", "21 Oktober"], answer: 2, category: "Sejarah PMI", topic: "kepalangmerahan", explanation: "Hari PMI diperingati setiap tanggal 17 September (tanggal pembentukan PMI tahun 1945)." },
+            { id: 41, question: "Relawan Palang Merah Indonesia yang berbasis di lingkungan sekolah tingkat SMA/SMK dinamakan...", options: ["PMR Mula", "PMR Madya", "PMR Wira", "KSR"], answer: 2, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "PMR Wira adalah tingkatan Palang Merah Remaja untuk jenjang SMA/SMK/Sederajat (usia 15-17 tahun)." },
+            { id: 42, question: "Tingkatan Palang Merah Remaja (PMR) untuk siswa SD/Sederajat dinamakan...", options: ["PMR Mula", "PMR Madya", "PMR Wira", "TSR"], answer: 0, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "PMR Mula diperuntukkan bagi siswa tingkat SD/Sederajat (usia 10-12 tahun)." },
+            { id: 43, question: "Tingkatan PMR untuk siswa SMP/Sederajat adalah...", options: ["PMR Mula", "PMR Madya", "PMR Wira", "KSR"], answer: 1, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "PMR Madya diperuntukkan bagi siswa tingkat SMP/Sederajat (usia 12-15 tahun)." },
+            { id: 44, question: "Kesatuan relawan PMI yang terdiri dari mahasiswa atau masyarakat umum usia 18-35 tahun dinamakan...", options: ["PMR Wira", "KORPS Sukarela (KSR)", "Tenaga Sukarela (TSR)", "Pengurus PMI"], answer: 1, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "KSR (Korps Sukarela) merupakan wadah relawan usia 18-35 tahun." },
+            { id: 45, question: "Relawan PMI yang memiliki keahlian khusus di bidang tertentu dinamakan...", options: ["PMR Wira", "KSR", "Tenaga Sukarela (TSR)", "Donor Darah Sukarela"], answer: 2, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "TSR (Tenaga Sukarela) adalah relawan yang direkrut atas dasar keahlian profesi spesifik." },
+            { id: 46, question: "Sumpah atau Janji Anggota PMR dinamakan...", options: ["Tri Bakti PMR", "Prinsip Dasar PMR", "Kode Etik PMI", "Darma Bakti"], answer: 0, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "Janji/Komitmen PMR dirumuskan dalam Tri Bakti PMR." },
+            { id: 47, question: "Isi Tri Bakti PMR yang pertama adalah...", options: ["Meningkatkan keterampilan hidup sehat", "Berkarya dan berbakti di masyarakat", "Mempererat persahabatan nasional dan internasional", "Menjaga kebersihan lingkungan sekolah"], answer: 0, category: "Relawan PMI", topic: "kepalangmerahan", explanation: "Point 1 Tri Bakti PMR: Meningkatkan keterampilan hidup sehat." },
+            { id: 48, question: "Prinsip Kesemestaan (Universality) mengandung arti bahwa...", options: ["Gerakan bersifat global dan semua perhimpunan nasional memiliki hak & kewajiban yang sama", "Setiap negara boleh memiliki lebih dari satu perhimpunan palang merah", "Bantuan hanya diberikan kepada negara berkembang", "Hanya negara anggota PBB yang berhak dibantu"], answer: 0, category: "7 Prinsip Dasar", topic: "kepalangmerahan", explanation: "Kesemestaan berarti Gerakan Palang Merah bersifat sedunia, di mana setiap perhimpunan nasional mempunyai status setara." },
+            { id: 49, topic: "kepalangmerahan", category: "Landasan Hukum", question: "Penggunaan lambang Bulan Sabit Merah diadopsi oleh Kekaisaran Ottoman (Turki) pada perang...", options: ["Perang Dunia I", "Perang Solferino", "Perang Rusia-Turki (1876-1878)", "Perang Salib"], answer: 2, explanation: "Lambang Bulan Sabit Merah mulai digunakan oleh Kekaisaran Ottoman dalam Perang Rusia-Turki tahun 1876-1878." },
+            { id: 50, topic: "kepalangmerahan", category: "Lambang & Atribut", question: "Protokol Tambahan III tahun 2005 mengadopsi lambang pelindung baru bagi Gerakan yaitu...", options: ["Kristal Merah (Red Crystal)", "Bintang Merah", "Matahari Merah", "Singa dan Sun Merah"], answer: 0, explanation: "Protokol Tambahan III (2005) resmi mengadopsi lambang Kristal Merah sebagai lambang pelindung tambahan yang bebas konotasi keagamaan." }
+        ];
+
+        // DATASET 2: Siaga Bencana PMR Wira (50 Questions)
+        const quizDataSiagabencana = [
+            { id: 51, topic: "siagabencana", category: "Konsep Bencana", question: "Rangkaian peristiwa yang mengancam dan mengganggu kehidupan masyarakat yang disebabkan oleh faktor alam/non-alam dinamakan...", options: ["Kerentanan", "Bencana", "Kapasitas", "Ancaman"], answer: 1, explanation: "Bencana adalah peristiwa yang mengganggu kehidupan masyarakat serta menimbulkan korban dan kerugian." },
+            { id: 52, topic: "siagabencana", category: "Konsep Bencana", question: "Rumus risiko bencana (Risk) secara umum dirumuskan sebagai...", options: ["R = (Hazard x Vulnerability) / Capacity", "R = Hazard + Vulnerability + Capacity", "R = (Hazard x Capacity) / Vulnerability", "R = Hazard x Vulnerability x Capacity"], answer: 0, explanation: "Risk (Risiko) berbanding lurus dengan Bahaya & Kerentanan, dan berbanding terbalik dengan Kapasitas." },
+            { id: 53, topic: "siagabencana", category: "Konsep Bencana", question: "Kondisi fisik, sosial, ekonomi, atau lingkungan yang mengurangi kemampuan masyarakat dalam menghadapi ancaman disebut...", options: ["Bahaya (Hazard)", "Kerentanan (Vulnerability)", "Kapasitas (Capacity)", "Risiko (Risk)"], answer: 1, explanation: "Kerentanan adalah kondisi yang menyebabkan ketidakmampuan masyarakat menghadapi ancaman." },
+            { id: 54, topic: "siagabencana", category: "Konsep Bencana", question: "Kemampuan sumber daya masyarakat untuk bertahan dan bangkit dari dampak bencana dinamakan...", options: ["Kerentanan", "Kapasitas", "Bahaya", "Risiko"], answer: 1, explanation: "Kapasitas (Capacity) adalah kombinasi kekuatan dan sumber daya yang tersedia untuk mengurangi tingkat risiko." },
+            { id: 55, topic: "siagabencana", category: "Mitigasi & Kesiapsiagaan", question: "Upaya yang dilakukan sebelum bencana terjadi untuk meminimalkan dampak buruk bencana dinamakan...", options: ["Tanggap Darurat", "Mitigasi & Kesiapsiagaan", "Rehabilitasi", "Rekonstruksi"], answer: 1, explanation: "Pencegahan, mitigasi, dan kesiapsiagaan dilakukan pada tahap pra-bencana." },
+            { id: 56, topic: "siagabencana", category: "Siklus Bencana", question: "Tindakan mencari, menolong, dan mengevakuasi korban bencana dilakukan pada tahap...", options: ["Pra-Bencana", "Tanggap Darurat", "Pasca-Bencana", "Rehabilitasi"], answer: 1, explanation: "Evakuasi dan pertolongan darurat dilakukan saat fase Tanggap Darurat." },
+            { id: 57, topic: "siagabencana", category: "Gempa Bumi", question: "Tindakan paling tepat saat berada di dalam ruangan kelas ketika terjadi gempa bumi adalah...", options: ["Lari berdesakan menuju pintu keluar", "Berlindung di bawah meja yang kokoh dan mel Lindungi kepala", "Melompat keluar dari jendela lantai dua", "Berdiri di dekat kaca jendela"], answer: 1, explanation: "Prinsip utama saat gempa di dalam ruangan adalah Drop, Cover, Hold On (Berlindung di bawah meja kokoh & lindungi kepala)." },
+            { id: 58, topic: "siagabencana", category: "Tsunami", question: "Fenomena alam berupa air laut surut secara drastis setelah gempa besar merupakan tanda peringatan...", options: ["Banjir Bandang", "Tsunami", "Gelombang Tinggi", "Likuifaksi"], answer: 1, explanation: "Air laut surut secara tiba-tiba pasca gempa tektonik kuat adalah tanda alami terjadinya tsunami." },
+            { id: 59, topic: "siagabencana", category: "Tsunami", question: "Apabila mendengar sirine peringatan dini tsunami, tindakan utama yang harus segera dilakukan adalah...", options: ["Menuju ke tepi pantai untuk melihat air laut", "Mengemas seluruh barang rumah tangga", "Segera berlari menuju ke tempat yang lebih tinggi (Evacuation Point)", "Menunggu instruksi tetangga"], answer: 2, explanation: "Segera evakuasi mandiri menuju dataran tinggi atau bangunan tempat evakuasi sementara." },
+            { id: 60, topic: "siagabencana", category: "Banjir", question: "Langkah kesiapsiagaan keluarga dalam menghadapi ancaman banjir di musim hujan adalah...", options: ["Mengabaikan kebersihan saluran air", "Menyiapkan tas siaga bencana dan mematikan instalasi listrik", "Menyimpan dokumen penting di lantai dasar", "Membuang sampah ke sungai"], answer: 1, explanation: "Menyiapkan tas siaga bencana & mematikan arus listrik mencegah korban dan bahaya tersengat listrik saat banjir." },
+            { id: 61, topic: "siagabencana", category: "Kebakaran", question: "Alat pemadam api ringan yang paling tepat digunakan untuk memadamkan kebakaran akibat korsleting listrik adalah APAR jenis...", options: ["Air", "Busa (Foam)", "Karbon Dioksida (CO2) / Powder", "Minyak"], answer: 2, explanation: "Kebakaran listrik (Kelas C) harus padam dengan bahan non-konduktif seperti CO2 atau Dry Chemical Powder." },
+            { id: 62, topic: "siagabencana", category: "Kebakaran", question: "Prinsip evakuasi saat terjebak dalam ruangan berasap tebal akibat kebakaran adalah...", options: ["Berjalan tegak sambil berlari cepat", "Merangkak di bawah asap karena udara bersih berada dekat lantai", "Membuka seluruh pintu dan jendela wide open", "Menghirup napas dalam-dalam"], answer: 1, explanation: "Asap panas beracun membumbung ke atas, sehingga merangkak di dekat lantai memberikan akses udara bersih." },
+            { id: 63, topic: "siagabencana", category: "Gunung Berapi", question: "APD (Alat Pelindung Diri) utama yang wajib dipakai saat terjadi erupsi gunung berapi dan hujan abu adalah...", options: ["Sarung tangan kain", "Masker penutup hidung & mulut serta kacamata pelindung", "Helam keselamatan baja", "Pakaian renang"], answer: 1, explanation: "Masker menghentikan partikel abu vulkanik masuk ke paru-paru, kacamata melindungi mata dari iritasi." },
+            { id: 64, topic: "siagabencana", category: "Gunung Berapi", topic: "siagabencana", question: "Aliran material erupsi gunung api berupa campuran batu, kerikil, dan pasir yang bercampur air dinamakan...", options: ["Lahar Bencana", "Likuifaksi", "Awan Panas (Wedhus Gembel)", "Abraksi"], answer: 0, explanation: "Lahar adalah banjir material vulkanik basah yang mengalir menyusuri lembah sungai." },
+            { id: 65, topic: "siagabencana", category: "Tanah Longsor", question: "Tanda-tanda alam pra-kejadian bencana tanah longsor di daerah lereng bukit antara lain...", options: ["Munculnya retakan di tanah dan pohon/tiang mulai miring", "Udara terasa sangat panas dan kering", "Air sumur mendidih", "Banyak binatang laut terdampar"], answer: 0, explanation: "Retakan tanah, pintu sulit dibuka, serta tiang/pohon yang melengkung miring merupakan indikator lereng tidak stabil." },
+            { id: 66, topic: "siagabencana", category: "Tas Siaga Bencana", question: "Barang-barang esensial yang WAJIB dimasukkan ke dalam Tas Siaga Bencana (TSB) keluarga antara lain...", options: ["Pakaian mewah dan perhiasan berat", "Air minum, makanan siap saji, P3K, senter, & dokumen penting", "Televisi portabel dan komputer desktop", "Buku pelajaran lengkap"], answer: 1, explanation: "TSB berisi kebutuhan dasar bertahan hidup selama minimal 3x24 jam awal pasca bencana." },
+            { id: 67, topic: "siagabencana", category: "PMR & Bencana", question: "Peran anggota PMR Wira dalam manajemen bencana berbasis masyarakat pada fase Pra-Bencana adalah...", options: ["Melakukan operasi pencarian korban reruntuhan berat", "Ekskavasi reruntuhan dengan alat berat", "Sosialisasi kesiapsiagaan dan pembuatan pemetaan risiko di sekolah/rumah", "Menyusun anggaran bantuan internasional"], answer: 2, explanation: "PMR Wira berperan aktif dalam edukasi, peer educator, sosialisasi, dan pemetaan pemodelan risiko bencana lingkungan." },
+            { id: 68, topic: "siagabencana", category: "Pertolongan Pertama", question: "Urutan prioritas pertolongan pertama pada korban bencana mengacu pada pemeriksaan...", options: ["Airway, Breathing, Circulation (ABC)", "Blood, Bone, Brain", "Head, Hand, Heel", "Danger, Disaster, Damage"], answer: 0, explanation: "Prinsip resusitasi dasar dan PP diawali pemeriksaan ABC: Jalan Napas, Pernapasan, dan Sirkulasi Darah." },
+            { id: 69, topic: "siagabencana", category: "Triase", question: "Sistem pemilahan korban berdasarkan tingkat keparahan cedera di lokasi bencana dinamakan...", options: ["Mobilisasi", "Evakuasi", "Triase", "Logistik"], answer: 2, explanation: "Triase adalah proses pemilahan korban untuk menentukan prioritas penanganan medis." },
+            { id: 70, topic: "siagabencana", category: "Triase", question: "Dalam sistem Triase lapangan, warna pita/kartu MERAH menandakan korban kondisi...", options: ["Meninggal dunia", "Cedera ringan / ber jalan (Walking Wounded)", "Gawat darurat yang membutuhkan pertolongan medis segera", "Cedera berat namun tidak darurat"], answer: 2, explanation: "Kategori MERAH (Prioritas 1) menunjukkan kondisi gawat darurat yang mengancam jiwa jika tidak segera ditangani." },
+            { id: 71, topic: "siagabencana", category: "Triase", question: "Warna pita KUNING dalam Triase menunjukkan bahwa korban...", options: ["Perlu penanganan medis tetapi dapat ditunda sementara (Mendesak)", "Kondisi sangat kritis mengancam jiwa hitungan menit", "Hanya mengalami luka lecet ringan", "Sudah tidak bernapas/meninggal"], answer: 0, explanation: "KUNING (Prioritas 2) menandakan kondisi cedera berat namun stabil/bisa ditunda sementara." },
+            { id: 72, topic: "siagabencana", category: "Triase", question: "Kategori HIJAU pada Triase lapangan diperuntukkan bagi...", options: ["Korban meninggal dunia", "Korban cedera ringan yang masih mampu berjalan mandiri", "Korban pendarahan arteri hebat", "Korban tidak sadarkan diri"], answer: 1, explanation: "HIJAU (Prioritas 3) diberikan pada korban cedera ringan yang masih dapat berjalan (walking wounded)." },
+            { id: 73, topic: "siagabencana", category: "Triase", question: "Pita HITAM pada lokasi bencana diberikan kepada korban...", options: ["Luka bakar derajat ringan", "Mengalami stres pasca trauma", "Telah meninggal dunia atau tidak ada tanda kehidupan", "Petugas penyelamat yang kelelahan"], answer: 2, explanation: "HITAM (Prioritas 0) adalah penanda untuk korban meninggal dunia." },
+            { id: 74, topic: "siagabencana", category: "Dapur Umum", question: "Fasilitas lapangan yang didirikan PMI untuk menyediakan makanan siap saji bagi pengungsi bencana dinamakan...", options: ["Pos Infaq", "Dapur Umum (DU)", "Gudang Logistik", "Posko Komunikasi"], answer: 1, explanation: "Dapur Umum (DU) bertugas mendistribusikan pemenuhan kebutuhan nutrisi pengungsi." },
+            { id: 75, topic: "siagabencana", category: "Shelter & Hunian", question: "Persyaratan lokasi penampungan sementara (Shelter) pengungsi yang baik adalah...", options: ["Dekat dengan lereng rawan longsor", "Aman dari ancaman susulan, memiliki akses air bersih & sanitasi layak", "Terisolasi jauh dari jalan utama", "Di tengah area banjir"], answer: 1, explanation: "Shelter harus menjamin keamanan, kesehatan, ketersediaan air bersih, dan kemudahan logistik." },
+            { id: 76, topic: "siagabencana", category: "Manajemen Bencana", question: "Lembaga pemerintah non-kementerian yang mengoordinasikan penanggulangan bencana di tingkat nasional adalah...", options: ["BASARNAS", "BNPB", "BMKG", "PMI"], answer: 1, explanation: "BNPB (Badan Nasional Penanggulangan Bencana) memimpin koordinasi bencana di tingkat nasional." },
+            { id: 77, topic: "siagabencana", category: "Manajemen Bencana", question: "Badan pemerintah yang bertugas memberikan informasi prakiraan cuaca, gempa bumi, dan tsunami adalah...", options: ["BMKG", "BNPB", "BASARNAS", "PVMBG"], answer: 0, explanation: "BMKG bertugas dalam pengamatan meteorologi, klimatologi, dan geofisika." },
+            { id: 78, topic: "siagabencana", category: "Manajemen Bencana", question: "Lembaga nasional yang bertugas utama melaksanakan pencarian dan pertolongan (Search and Rescue) adalah...", options: ["BASARNAS", "BNPB", "BMKG", "PMI"], answer: 0, explanation: "BASARNAS memegang otoritas pelaksanaan pencarian & pertolongan korban." },
+            { id: 79, topic: "siagabencana", category: "Pertolongan Pertama", question: "Pertolongan pertama pada korban yang mengalami pendarahan luar hebat pada anggota gerak adalah...", options: ["Memberikan minum air dingin", "Melakukan penekanan langsung pada luka (Direct Pressure) & balut tekan", "Mengurut area luka", "Membiarkan darah mengalir agar bersih"], answer: 1, explanation: "Tekan langsung pada sumber pendarahan menggunakan kain/kasa steril adalah langkah utama pendarahan luar." },
+            { id: 80, topic: "siagabencana", category: "Pertolongan Pertama", question: "Posisi pemulihan (Recovery Position) pada korban tidak sadarkan diri yang bernapas normal bertujuan untuk...", options: ["Mencegah tersumbatnya jalan napas oleh lidah atau muntahan", "Mempercepat penyembuhan patah tulang", "Menghentikan pendarahan otak", "Menurunkankan tekanan darah"], answer: 0, explanation: "Posisi miring mantap mencegah lidah jatuh ke belakang dan cairan muntah masuk ke saluran pernapasan." },
+            { id: 81, topic: "siagabencana", category: "Pertolongan Pertama", question: "Penanganan pertama pada korban terkilir (Sprain) menggunakan metode RICE, kepanjangan RICE adalah...", options: ["Rest, Ice, Compression, Elevation", "Run, Ice, Cover, Emergency", "Relax, Inhale, Clean, Evacuate", "Rescue, Injected, Care, Evaluation"], answer: 0, explanation: "RICE: Rest (Istirahat), Ice (Kompres Es), Compression (Balut tekan), Elevation (Tinggikan)." },
+            { id: 82, topic: "siagabencana", category: "Pertolongan Pertama", question: "Tindakan pertama saat menangani korban luka bakar derajat satu akibat tersiram air panas adalah...", options: ["Oleskan pasta gigi atau mentega", "Membilas luka dengan air bersih mengalir selama 10-20 menit", "Pecahkan gelembung luka bakar", "Beri es batu secara langsung di atas luka"], answer: 1, explanation: "Air mengalir mendinginkan suhu jaringan dan mencegah kerusakan jaringan kulit lebih dalam." },
+            { id: 83, topic: "siagabencana", category: "Pertolongan Pertama", question: "Alat yang digunakan untuk memobilisasi dan menyangga patah tulang anggota gerak dinamakan...", options: ["Bidai (Splint)", "Tandu", "Kasa", "Tourniquet"], answer: 0, explanation: "Bidai berfungsi memfiksasi/mengistirahatkan bagian yang patah tulang agar tidak bergeser." },
+            { id: 84, topic: "siagabencana", category: "Pertolongan Pertama", question: "Syarat pembidaian yang benar pada patah tulang adalah...", options: ["Mengikat sekuat mungkin hingga aliran darah terhenti", "Pemasangan bidai mencakup dua sendi di antara tulang yang patah", "Hanya mengikat bagian tengah tulang", "Memutar posisi tulang yang patah ke arah semula"], answer: 1, explanation: "Bidai harus mengunci minimal 2 sendi (sendi di atas dan di bawah patahan tulang)." },
+            { id: 85, topic: "siagabencana", category: "Pertolongan Pertama", question: "Penanganan utama pada penderita pingsan (Syncope) adalah...", options: ["Mendudukkan korban di kursi", "Baringkan telentang dan tinggikan posisi kaki lebih tinggi dari jantung (posisi syok)", "Beri minum air hangat saat tidak sadar", "Menyiram wajah korban dengan air es"], answer: 1, explanation: "Peninggian posisi kaki mengalirkan darah kembali menuju otak." },
+            { id: 86, topic: "siagabencana", category: "Psikososial", question: "Dukungan Kesehatan Jiwa dan Psikososial (DKJPS) pada korban bencana bertujuan untuk...", options: ["Memberikan obat penenang dosis tinggi", "Mengurangi dampak trauma psikologis dan memulihkan fungsi sosial korban", "Menilai kerugian material bangunan", "Mencari identitas korban yang hilang"], answer: 1, explanation: "DKJPS mencegah berkembangnya gangguan stres pasca trauma (PTSD) pada penyintas." },
+            { id: 87, topic: "siagabencana", category: "WASH", topic: "siagabencana", question: "Kegiatan WASH dalam tanggap darurat bencana PMI meliputi sektor...", options: ["Water, Sanitation, and Hygiene (Air, Sanitasi, dan Kebersihan)", "Weapon, Air, Shelter, and Hospital", "Warning, Assessment, Safety, and Health", "Work, Accommodation, Supply, and Help"], answer: 0, explanation: "WASH fokus pada pemenuhan Air bersih, Sanitasi lingkungan, dan Higiene pencegahan penyakit." },
+            { id: 88, topic: "siagabencana", category: "WASH", question: "Jumlah kebutuhan air bersih minimal per orang per hari pada situasi darurat bencana menurut standar internasional adalah...", options: ["5 liter/orang/hari", "15 liter/orang/hari", "50 liter/orang/hari", "100 liter/orang/hari"], answer: 1, explanation: "Standar SPHERE menetapkan minimal 15 liter per orang per hari untuk minum, memasak, & kebersihan." },
+            { id: 89, topic: "siagabencana", category: "Vulnerability Analysis", question: "Ancaman bencana yang tergolong dalam bencana hidro-meteorologi adalah...", options: ["Gempa bumi dan tsunami", "Banjir, tanah longsor, dan kekeringan", "Erupsi gunung api dan meteor jatuh", "Likuifaksi dan erosi pantai"], answer: 1, explanation: "Bencana hidro-meteorologi dipicu oleh cuaca dan iklim (banjir, longsor, kekeringan, puting beliung)." },
+            { id: 90, topic: "siagabencana", category: "Peringatan Dini", question: "Sistem Peringatan Dini (Early Warning System) yang efektif harus memenuhi prinsip...", options: ["Cepat, tepat, akurat, dan dipahami oleh masyarakat luas", "Menggunakan bahasa teknis rumit", "Diberitahukan setelah bencana selesai", "Hanya dikirimkan ke pejabat daerah"], answer: 0, explanation: "Peringatan dini harus dapat diakses dan segera dipahami masyarakat agar dapat menyelamatkan diri." },
+            { id: 91, topic: "siagabencana", category: "PMR & Bencana", question: "Peran PMR Wira saat simulasi evakuasi bencana di sekolah adalah...", options: ["Menjadi pemandu jalur evakuasi dan pengorganisir titik kumpul (Assembly Point)", "Memimpin evakuasi alat-alat berat", "Mematikan seluruh jaringan listrik kota", "Melakukan pemadaman api skala besar"], answer: 0, explanation: "PMR Wira dilatih menjadi pelopor pertolongan dan pemandu tim evakuasi sekolah." },
+            { id: 92, topic: "siagabencana", category: "Restoring Family Links", question: "Layanan PMI yang bertugas mempertemukan kembali anggota keluarga yang terpisah akibat bencana dinamakan...", options: ["Restoring Family Links (RFL) / Pemulihan Hubungan Keluarga (PHK)", "Dapur Umum", "Logistik Medis", "Triase Lapangan"], answer: 0, explanation: "Layanan RFL membantu melacak dan memulihkan komunikasi anggota keluarga yang terpisah." },
+            { id: 93, topic: "siagabencana", category: "Likuifaksi", question: "Fenomena hilangnya kekuatan tanah akibat getaran gempa bumi sehingga tanah berubah menjadi cair dinamakan...", options: ["Abrasi", "Likuifaksi", "Erosi", "Subsidens"], answer: 1, explanation: "Likuifaksi terjadi pada tanah jenuh air yang mencair akibat guncangan gempa." },
+            { id: 94, topic: "siagabencana", category: "Pertolongan Pertama", question: "Untuk membersihkan luka lecet akibat terjatuh saat evakuasi bencana, cairan terbaik yang digunakan adalah...", options: ["Alkohol 90%", "Air bersih mengalir / cairan NaCl 0,9%", "Minyak tanah", "Deterjen cair"], answer: 1, explanation: "Air bersih/NaCl 0,9% aman untuk irigasi luka tanpa merusak jaringan sel hidup." },
+            { id: 95, topic: "siagabencana", category: "Kesiapsiagaan", question: "Titik kumpul aman (Assembly Point) dalam pemetaan bencana sekolah harus memiliki kriteria...", options: ["Berada di bawah pohon rimbun besar", "Terbuka, jauh dari bangunan tinggi, tiang listrik, dan pohon lapuk", "Di dalam ruang aula tertutup lantai top", "Di dekat tangki bahan bakar"], answer: 1, explanation: "Titik kumpul harus berada di area terbuka yang bebas dari potensi bahaya reruntuhan." },
+            { id: 96, topic: "siagabencana", category: "Epidemi", question: "Upaya pencegahan penularan penyakit diare di tempat pengungsian bencana adalah...", options: ["Membuang sampah di sembarang tempat", "Menerapkan cuci tangan pakai sabun (CTPS) & menjaga kebersihan makanan", "Mengkonsumsi air mentah dari sungai", "Tidur di atas tanah basah"], answer: 1, explanation: "Penerapan PHBS dan CTPS efektif memutus rantai penularan kuman diare." },
+            { id: 97, topic: "siagabencana", category: "Angin Puting Beliung", question: "Tindakan penyelamatan diri saat terjadi angin puting beliung jika berada di dalam rumah adalah...", options: ["Memilih berlindung di sudut ruangan yang kokoh/bawah meja jauh dari jendela", "Berdiri di dekat pintu kaca", "Naik ke atap rumah", "Memegang tiang jemuran"], answer: 0, explanation: "Jauhi jendela kaca dan berlindung di sudut bangunan yang stabil dari bahaya material terbang." },
+            { id: 98, topic: "siagabencana", category: "Pertolongan Pertama", question: "Ciri pendarahan arteri yang berbahaya dan harus segera dihentikan adalah...", options: ["Darah berwarna merah tua dan merembes perlahan", "Darah berwarna merah muda dan menetes lambat", "Darah berwarna merah terang dan memancar sesuai denyut jantung", "Darah tidak keluar sama sekali"], answer: 2, explanation: "Pendarahan arteri membawa darah kaya oksigen berwarna merah terang yang memancar cepat." },
+            { id: 99, topic: "siagabencana", category: "Pertolongan Pertama", question: "Langkah pertama saat menemukan korban tidak sadarkan diri di lokasi aman adalah...", options: ["Langsung memberi minum", "Memeriksa respon korban (Panggil & Tepuk bahu / AVPU)", "Mengangkat korban tanpa alat", "Memberikan napas buatan tanpa cek respon"], answer: 1, explanation: "Cek respon korban (Alert, Verbal, Pain, Unresponsive) dilakukan pertama kali sebelum tindakan lanjutan." },
+            { id: 100, topic: "siagabencana", category: "Konsep Bencana", question: "Istilah untuk menggambarkan tingkat kerugian yang mungkin terjadi akibat interaksi antara ancaman dan kerentanan adalah...", options: ["Risiko Bencana", "Bencana Alam", "Kapasitas Lingkungan", "Penyelamatan"], answer: 0, explanation: "Risiko Bencana adalah potensi kerugian yang ditimbulkan oleh bencana pada wilayah dan periode tertentu." }
+        ];
+
+        // DATASET 3: Donor Darah (50 Questions)
+        const quizDataDonordarah = [
+            { id: 101, topic: "donordarah", category: "Pengertian & Prinsip", question: "Prosedur pengambilan darah dari seseorang secara sukarela untuk disimpan dan digunakan bagi transfusi darah dinamakan...", options: ["Transfusi Darah", "Donor Darah", "Pemeriksaan Darah", "Hemodialisis"], answer: 1, explanation: "Donor darah adalah proses menyumbangkan darah secara sukarela demi tujuan kemanusiaan." },
+            { id: 102, topic: "donordarah", category: "Pengertian & Prinsip", question: "Orang yang mendonorkan darahnya secara sukarela tanpa menerima imbalan uang dinamakan...", options: ["Donor Darah Bayaran", "Donor Darah Sukarela (DDS)", "Donor Darah Pengganti (DDP)", "Donor Khusus"], answer: 1, explanation: "Donor Darah Sukarela menyumbangkan darah tanpa imbalan apapun." },
+            { id: 103, topic: "donordarah", category: "Pengertian & Prinsip", question: "Seseorang yang mendonorkan darahnya untuk pasien tertentu (keluarga/kerabat) karena stok darah di UDD kosong disebut...", options: ["Donor Darah Sukarela (DDS)", "Donor Darah Pengganti (DDP)", "Donor Komersial", "Donor Plasma"], answer: 1, explanation: "Donor Darah Pengganti menyumbangkan darah khusus untuk anggota keluarga/kenalan." },
+            { id: 104, topic: "donordarah", category: "Unit Pelayanan", question: "Unit di lingkungan PMI yang bertugas melaksanakan pelayanan transfusi darah adalah...", options: ["UTD / UDD (Unit Donor Darah)", "Markas PMI", "Klinik Pratama", "Rumah Sakit Umum"], answer: 0, explanation: "UDD PMI memegang peranan teknis pengelolaan dan penyediaan darah." },
+            { id: 105, topic: "donordarah", category: "Syarat Donor", question: "Usia minimal calon pendonor darah sukarela menurut standar pelayanan UDD PMI adalah...", options: ["12 Tahun", "15 Tahun", "17 Tahun", "21 Tahun"], answer: 2, explanation: "Usia minimal pendonor darah adalah 17 tahun (sudah memiliki KTP/izin tertulis)." },
+            { id: 106, topic: "donordarah", category: "Syarat Donor", question: "Berat badan minimal calon pendonor darah untuk pengambilan darah sebanyak 350 ml adalah...", options: ["40 kg", "45 kg", "55 kg", "60 kg"], answer: 1, explanation: "Berat badan minimal calon pendonor adalah 45 kg agar volume pengambilan aman." },
+            { id: 107, topic: "donordarah", category: "Syarat Donor", question: "Batas normal kadar Hemoglobin (Hb) calon pendonor darah adalah...", options: ["8,0 - 10,0 g/dL", "12,5 - 17,0 g/dL", "18,0 - 22,0 g/dL", "25,0 - 30,0 g/dL"], answer: 1, explanation: "Kadar Hb calon pendonor harus berada pada rentang 12,5 g/dL hingga 17,0 g/dL." },
+            { id: 108, topic: "donordarah", category: "Syarat Donor", question: "Batas tekanan darah sistolik dan diastolik yang diperbolehkan untuk donor darah adalah...", options: ["Sistol 100-160 mmHg, Diastol 70-100 mmHg", "Sistol 80-90 mmHg, Diastol 50-60 mmHg", "Sistol 180-200 mmHg, Diastol 110-120 mmHg", "Sistol 90-100 mmHg, Diastol 40-50 mmHg"], answer: 0, explanation: "Tekanan darah normal sistolik 100-160 mmHg dan diastolik 70-100 mmHg." },
+            { id: 109, topic: "donordarah", category: "Syarat Donor", question: "Jarak waktu (interval) minimal donor darah rutin untuk kantong darah lengkap (Whole Blood) adalah...", options: ["2 Minggu", "1 Bulan", "2 - 3 Bulan", "6 Bulan"], answer: 2, explanation: "Interval donor darah rutin minimal 2 bulan (atau 60 hari) sekali." },
+            { id: 110, topic: "donordarah", category: "Syarat Donor", question: "Seseorang DILARANG mendonorkan darahnya apabila menderita penyakit menular lewat transfusi darah (IMTD), KECUALI...", options: ["Hepatitis B dan C", "HIV / AIDS", "Sifilis", "Flu ringan yang sudah sembuh"], answer: 3, explanation: "Hepatitis, HIV, dan Sifilis adalah penyakit IMTD yang dilarang keras, sedangkan flu sembuh diizinkan." },
+            { id: 111, topic: "donordarah", category: "Golongan Darah", question: "Sistem penggolongan darah manusia yang paling umum berdasarkan antigen A dan B dinamakan sistem...", options: ["Rhesus", "ABO", "MN", "HLA"], answer: 1, explanation: "Sistem ABO mengelompokkan darah menjadi A, B, AB, dan O berdasarkan antigen sel darah merah." },
+            { id: 112, topic: "donordarah", category: "Golongan Darah", question: "Golongan darah yang dinamakan 'Donor Universal' karena dapat didonorkan ke semua golongan darah ABO pada kondisi darurat adalah...", options: ["Golongan Darah A", "Golongan Darah B", "Golongan Darah AB", "Golongan Darah O"], answer: 3, explanation: "Golongan darah O tidak memiliki antigen A maupun B pada eritrositnya." },
+            { id: 113, topic: "donordarah", category: "Golongan Darah", question: "Golongan darah yang disebut 'Resipien Universal' karena dapat menerima transfusi sel darah merah dari semua golongan ABO adalah...", options: ["Golongan Darah A", "Golongan Darah B", "Golongan Darah AB", "Golongan Darah O"], answer: 2, explanation: "Golongan AB tidak memiliki antibodi anti-A maupun anti-B dalam plasmanya." },
+            { id: 114, topic: "donordarah", category: "Golongan Darah", question: "Faktor protein tambahan pada permukaan eritrosit yang terbagi menjadi Positif (+) dan Negatif (-) dinamakan faktor...", options: ["Rhesus (Rh)", "Hemoglobin", "Trombosit", "Leukosit"], answer: 0, explanation: "Faktor Rhesus menentukan kecocokan antigen D pada eritrosit." },
+            { id: 115, topic: "donordarah", category: "Uji Saring (IMTD)", question: "Uji saring wajib pada darah donor bertujuan mendeteksi 4 parameter penyakit IMTD utama yaitu...", options: ["HIV, Hepatitis B, Hepatitis C, dan Sifilis", "TBC, Kolera, Diabetes, dan Maag", "Influenza, DBD, Typhus, dan Asam Urat", "Polio, Campak, Tetanus, dan Rabies"], answer: 0, explanation: "Screening darah wajib bebas dari HIV, Hep B, Hep C, dan Sifilis (Treponema pallidum)." },
+            { id: 116, topic: "donordarah", category: "Komponen Darah", question: "Kantong darah utuh yang berisi seluruh komponen darah dinamakan...", options: ["Whole Blood (WB)", "Packed Red Cells (PRC)", "Thrombocyte Concentrate (TC)", "Fresh Frozen Plasma (FFP)"], answer: 0, explanation: "Whole Blood (WB) adalah darah utuh tanpa pemisahan komponen." },
+            { id: 117, topic: "donordarah", category: "Komponen Darah", question: "Komponen darah pekat sel darah merah yang ditransfusikan pada penderita anemia parah adalah...", options: ["PRC (Packed Red Cells)", "FFP (Fresh Frozen Plasma)", "TC (Thrombocyte Concentrate)", "Cryoprecipitate"], answer: 0, explanation: "PRC difokuskan untuk meningkatkan kadar eritrosit/hemoglobin penderita anemia." },
+            { id: 118, topic: "donordarah", category: "Komponen Darah", question: "Komponen darah yang berfungsi penting dalam pembekuan darah dan ditransfusikan pada penderita Demam Berdarah Dengue (DBD) adalah...", options: ["Sel Darah Merah", "Trombosit (Platelet)", "Plasma Darah", "Sel Darah Putih"], answer: 1, explanation: "Trombosit berperan utama menghentikan pendarahan dan mengobati trombositopenia pada pasien DBD." },
+            { id: 119, topic: "donordarah", category: "Komponen Darah", question: "Bagian cair dari darah berwarna kekuningan yang kaya akan protein pembekuan dan antibodi adalah...", options: ["Eritrosit", "Leukosit", "Plasma Darah", "Hemoglobin"], answer: 2, explanation: "Plasma darah mengangkut nutrisi, hormon, dan faktor pembekuan darah." },
+            { id: 120, topic: "donordarah", category: "Manfaat Donor", question: "Manfaat kesehatan yang diperoleh bagi seorang pendonor darah rutin antara lain...", options: ["Menurunkan risiko penyakit jantung, merangsang pembentukan sel darah baru, & kontrol kesehatan berkala", "Menyebabkan kemandulan", "Membuat tubuh menjadi lemas selamanya", "Menambah lemak darah"], answer: 0, explanation: "Donor rutin membakar kalori, menjaga zat besi seimbang, dan menstimulasi pembentukan darah baru." },
+            { id: 121, topic: "donordarah", category: "Prosedur Donor", question: "Pemeriksaan kesehatan awal sebelum pengambilan darah donor meliputi hal-hal berikut, KECUALI...", options: ["Pengukuran berat badan", "Pemeriksaan kadar Hb dan tekanan darah", "Pengisian kuesioner riwayat kesehatan (Inform Questionnaire)", "Tes IQ dan psikotes"], answer: 3, explanation: "Tes IQ tidak ada kaitannya dengan kelayakan medis donor darah." },
+            { id: 122, topic: "donordarah", category: "Prosedur Donor", question: "Proses persetujuan medis dari calon pendonor setelah menerima informasi lengkap dinamakan...", options: ["Informed Consent", "Informed Choice", "Informed Screening", "Informed Action"], answer: 0, explanation: "Informed Consent adalah surat persetujuan tindakan medis yang ditandatangani pendonor." },
+            { id: 123, topic: "donordarah", category: "Prosedur Donor", question: "Volume darah yang umumnya diambil pada satu kali proses donor darah standar adalah...", options: ["100 ml atau 200 ml", "350 ml atau 450 ml", "750 ml atau 1000 ml", "1500 ml"], answer: 1, explanation: "Volume kantong darah standar yang digunakan UDD PMI adalah 350 ml atau 450 ml." },
+            { id: 124, topic: "donordarah", category: "Prosedur Donor", question: "Persyaratan waktu tidur minimal bagi calon pendonor pada malam sebelum donor darah adalah...", options: ["2 jam", "4 jam", "Minimal 5 - 6 jam", "12 jam"], answer: 2, explanation: "Tidur minimal 5 jam menjaga kestabilan tekanan darah dan fungsi tubuh saat didonor." },
+            { id: 125, topic: "donordarah", category: "Pasca Donor", question: "Anjuran yang harus dilakukan oleh pendonor setelah selesai proses pengambilan darah adalah...", options: ["Langsung berlari kencang", "Istirahat sejenak 10-15 menit dan minum banyak air putih", "Merokok dan minum alkohol", "Mengangkat beban berat dengan lengan bekas tusukan"], answer: 1, explanation: "Istirahat sejenak mencegah pusing (pusing hemostatik) dan cairan menggantikan volume darah." },
+            { id: 126, topic: "donordarah", category: "Penyimpanan Darah", question: "Suhu penyimpanan standar darah utuh (WB) dan PRC dalam Blood Bank Refrigerator adalah...", options: ["-20°C s/d -80°C", "+2°C s/d +6°C", "+20°C s/d +24°C", "+37°C"], answer: 1, explanation: "Eritrosit dan WB disimpan pada suhu dingin teratur +2°C sampai +6°C." },
+            { id: 127, topic: "donordarah", category: "Penyimpanan Darah", question: "Komponen Trombosit (TC) harus disimpan pada suhu room temperature yang dilengkapi dengan pengocok (agitator) yaitu pada suhu...", options: ["+2°C s/d +6°C", "+20°C s/d +24°C", "-18°C", "0°C"], answer: 1, explanation: "Trombosit disimpan pada suhu 20°C-24°C dengan goyangan konstan (platelet agitator)." },
+            { id: 128, topic: "donordarah", category: "Penyimpanan Darah", question: "Plasma Darah Beku Segar (FFP) disimpan pada freezer bersuhu sangat dingin yaitu...", options: ["-25°C atau lebih dingin", "+2°C s/d +6°C", "+10°C", "+30°C"], answer: 0, explanation: "FFP dibekukan dan disimpan pada suhu ≤ -25°C agar faktor pembekuannya bertahan hingga 1 tahun." },
+            { id: 129, topic: "donordarah", category: "Golongan Darah", question: "Apabila sel darah merah seseorang tidak menggumpal saat ditetesi Anti-A maupun Anti-B, maka golongan darah orang tersebut adalah...", options: ["Golongan A", "Golongan B", "Golongan AB", "Golongan O"], answer: 3, explanation: "Golongan O tidak mengandung antigen A dan B sehingga tidak bereaksi aglutinasi." },
+            { id: 130, topic: "donordarah", category: "Golongan Darah", question: "Apabila sel darah merah menggumpal saat ditetesi Anti-A dan juga menggumpal saat ditetesi Anti-B, maka golongan darahnya adalah...", options: ["Golongan A", "Golongan B", "Golongan AB", "Golongan O"], answer: 2, explanation: "Golongan AB memiliki antigen A sekaligus antigen B pada eritrositnya." },
+            { id: 131, topic: "donordarah", category: "Reaksi Transfusi", question: "Gejala reaksi transfusi darah yang membahayakan pasien saat transfusi berlangsung antara lain...", options: ["Demam, menggigil, gatal-gatal, sesak napas, & nyeri dada", "Rasa segar dan bugar", "Lapar hebat", "Nafsu makan meningkat"], answer: 0, explanation: "Reaksi hemolitik akibat ketidakcocokan darah memicu demam, menggigil, gatal, hingga syok anafilaktik." },
+            { id: 132, topic: "donordarah", category: "Landasan Hukum", question: "Aturan hukum yang melarang keras komersialisasi dan jual beli darah di Indonesia diatur dalam...", options: ["UU Kesehatan No. 17 Tahun 2023", "UU Lalu Lintas", "UU Hak Cipta", "UU Kewarganegaraan"], answer: 0, explanation: "Undang-Undang Kesehatan melarang jual beli organ dan darah manusia." },
+            { id: 133, topic: "donordarah", category: "Prosedur Donor", topic: "donordarah", question: "Wanita yang DILARANG sementara untuk mendonorkan darahnya adalah wanita yang sedang...", options: ["Hamil, menyusui, atau sedang haid banyak", "Memiliki rambut panjang", "Menggunakan kacamata", "Bekerja di kantor"], answer: 0, explanation: "Wanita hamil, menyusui, dan menstruasi hari pertama/banyak berisiko anemia jika mendonor." },
+            { id: 134, topic: "donordarah", category: "Prosedur Donor", question: "Jeda waktu penundaan (deferral) donor darah setelah menerima vaksinasi virus hidup (seperti Polio oral/Rubella) umumnya adalah...", options: ["1 Hari", "2 - 4 Minggu", "1 Tahun", "5 Tahun"], answer: 1, explanation: "Penundaan 2-4 minggu diperlukan agar sistem imun kembali stabil pasca vaksinasi attenuated virus." },
+            { id: 135, topic: "donordarah", category: "Aferesis", question: "Teknologi pengambilan komponen darah tertentu saja (seperti trombosit saja atau plasma saja) menggunakan mesin khusus dinamakan...", options: ["Aferesis (Apheresis)", "Dialisis", "Sentrifugasi manual", "Biopsi"], answer: 0, explanation: "Donor Aferesis secara selektif mengambil komponen tertentu dan mengembalikan komponen lain ke tubuh donor." },
+            { id: 136, topic: "donordarah", category: "PMR & Donor Darah", question: "Peran anggota PMR Wira dalam mendukung gerakan donor darah adalah...", options: ["Melakukan tusukan jarum donor sendiri", "Menjadi pendorong & motivator donor darah muda serta perekrut calon donor", "Menjual darah ke masyarakat", "Melakukan uji saring sampel darah laboratorium"], answer: 1, explanation: "PMR Wira berperan sebagai promotor, edukator, dan penggerak donor darah remaja." },
+            { id: 137, topic: "donordarah", category: "Komponen Darah", question: "Pemberian porsi makanan/minuman suplemen (puding/susu/vit C) setelah donor darah bertujuan untuk...", options: ["Mengembalikan kadar gula darah dan stamina pendonor", "Membayar darah yang dibeli", "Menguji alergi makanan", "Menggantikan seluruh volume darah yang hilang seketika"], answer: 0, explanation: "Restorasi cairan dan nutrisi gula ringan memulihkan stamina energi pendonor." },
+            { id: 138, topic: "donordarah", category: "Pengujian Kecocokan", question: "Uji silang serasi antara darah pendonor dan darah penerima sebelum transfusi dilakukan dinamakan...", options: ["Crossmatch Test", "Uji Pap Smear", "Biokimia Darah", "Tes Swab"], answer: 0, explanation: "Crossmatch memastikan tidak terjadi reaksi antibodi hemolitik antara penerima dan pendonor." },
+            { id: 139, topic: "donordarah", category: "Syarat Donor", question: "Tekanan darah diastolik adalah tekanan pada saat jantung...", options: ["Berkontraksi memompa darah", "Beristirahat / relaksasi di antara denyut", "Berhenti berdetak", "Memompa paru-paru saja"], answer: 1, explanation: "Diastolik mencerminkan tekanan pembuluh darah saat otot jantung berelaksasi." },
+            { id: 140, topic: "donordarah", category: "Biologi Darah", question: "Protein hemoglobin yang berfungsi mengikat oksigen dalam darah berada di dalam sel...", options: ["Eritrosit (Sel Darah Merah)", "Leukosit (Sel Darah Putih)", "Trombosit (Keping Darah)", "Plasma"], answer: 0, explanation: "Hemoglobin berada di dalam eritrosit dan mewarnai eritrosit menjadi merah." },
+            { id: 141, topic: "donordarah", category: "Biologi Darah", question: "Sel darah yang bertugas melawan infeksi kuman penyakit dan menjaga sistem kekebalan tubuh adalah...", options: ["Eritrosit", "Leukosit", "Trombosit", "Fibrinogen"], answer: 1, explanation: "Leukosit (Sel Darah Putih) merupakan pertahanan imun tubuh." },
+            { id: 142, topic: "donordarah", category: "Aferesis", question: "Keuntungan donor darah komponen trombosit dengan metode Aferesis dibandingkan donor biasa adalah...", options: ["Dapat menghasilkan trombosit konsentrasi tinggi setara dari 6-8 pendonor biasa", "Membuat pendonor merasa kebal penyakit", "Waktu donor lebih cepat 1 menit", "Tidak membutuhkan pemeriksaan Hb"], answer: 0, explanation: "Satu kantong trombosit aferesis setara dengan kantong trombosit dari 6-8 pendonor WB." },
+            { id: 143, topic: "donordarah", category: "Penyimpanan Darah", question: "Masa simpan (exp date) kantong darah utuh (WB) yang menggunakan bahan pengawet CPDA-1 pada suhu 2-6°C adalah...", options: ["7 Hari", "35 Hari", "100 Hari", "1 Tahun"], answer: 1, explanation: "Antikoagulan CPDA-1 menjaga eritrosit bertahan hidup hingga 35 hari." },
+            { id: 144, topic: "donordarah", category: "Biologi Darah", question: "Zat pembeku darah alami yang terlarut dalam plasma darah dinamakan...", options: ["Fibrinogen & Protrombin", "Insulin", "Adrenalin", "Kolesterol"], answer: 0, explanation: "Fibrinogen dan protrombin bekerja sama membentuk benang-benang fibrin pembeku darah." },
+            { id: 145, topic: "donordarah", category: "Kemanusiaan", question: "Slogan PMI 'Darahku Bukti Cinta Kasihku' mencerminkan prinsip...", options: ["Kesukarelaan dan Kemanusiaan", "Komersialisasi", "Kekuasaan politik", "Persaingan usaha"], answer: 0, explanation: "Donor darah didasari keikhlasan sukarela demi menyelamatkan nyawa manusia." },
+            { id: 146, topic: "donordarah", category: "Syarat Donor", question: "Calon pendonor yang baru saja membuat tato atau tindik telinga harus menunda donor darah selama minimal...", options: ["1 Minggu", "1 Bulan", "6 - 12 Bulan", "10 Tahun"], answer: 2, explanation: "Penundaan 6-12 bulan untuk memastikan calon donor bebas dari potensi penularan Hepatitis/HIV jarum tato." },
+            { id: 147, topic: "donordarah", category: "Syarat Donor", question: "Seseorang yang baru mengonsumsi obat antibiotik harus menunda donor darah hingga...", options: ["Minimal 1 hari setelah obat habis", "Minimal 7 - 14 hari setelah pengobatan selesai & bebas gejala", "Tidak perlu menunda", "Menunggu 2 tahun"], answer: 1, explanation: "Bebas obat antibiotik minimal 1-2 minggu agar bebas dari jejak sisa obat dan bakteri." },
+            { id: 148, topic: "donordarah", category: "Golongan Darah", question: "Jika seseorang bergolongan darah Rh-negatif menerima transfusi dari Rh-positif, akibatnya adalah...", options: ["Darah dapat diterima tanpa masalah", "Pembentukan antibodi anti-D yang dapat memicu pembentukan reaksi hemolitik berat", "Golongan darahnya berubah menjadi positif", "Suhu tubuh turun drastis"], answer: 1, explanation: "Penerima Rh-negatif akan memproduksi antibodi destruktif jika terpapar sel darah Rh-positif." },
+            { id: 149, topic: "donordarah", category: "Penghargaan", question: "Pendonor Darah Sukarela yang telah mendonorkan darahnya sebanyak 100 kali mendapat penghargaan tinggi dari...", options: ["Bupati", "Gubernur", "Presiden Republik Indonesia", "Walikota"], answer: 2, explanation: "Penghargaan Satyalancana Kebaktian Sosial diberikan oleh Presiden RI bagi pendonor 100 kali." },
+            { id: 150, topic: "donordarah", category: "Pelayanan PMI", question: "Biaya Pengganti Pengolahan Darah (BPPD) yang dibayarkan rumah sakit/pasien digunakan PMI untuk...", options: ["Membeli darah dari pendonor", "Membeli kantong darah steril, bahan uji saring laboratorium, & operasional kualitas", "Keuntungan pemilik modal", "Membayar pajak daerah"], answer: 1, explanation: "BPPD bukan harga jual darah, melainkan pengganti biaya bahan habis pakai, alat steril, & tes laboratorium." }
+        ];
+
+        // DATASET 4: TOGA (Tanaman Obat Keluarga) (50 Questions)
+        const quizDataToga = [
+            { id: 151, topic: "toga", category: "Konsep Dasar TOGA", question: "Kepangan dari TOGA adalah...", options: ["Tanaman Obat Keluarga", "Taman Olahraga Keluarga", "Tanaman Organik Gizi Alam", "Tumbuhan Obat Garapan"], answer: 0, explanation: "TOGA singkatan dari Tanaman Obat Keluarga yang ditanam di pekarangan rumah." },
+            { id: 152, topic: "toga", category: "Konsep Dasar TOGA", question: "Tujuan utama pemanfaatan Tanaman Obat Keluarga (TOGA) di rumah tangga adalah...", options: ["Menggantikan seluruh peranan rumah sakit", "Memenuhi kebutuhan obat-obatan alami mandiri skala pertolongan pertama & kesehatan keluarga", "Menjual obat ilegal", "Membuat racun tanaman"], answer: 1, explanation: "TOGA menjadi sarana kemandirian masyarakat dalam pencegahan & pertolongan awal penyakit ringan." },
+            { id: 153, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Tanaman rimpang yang mengandung senyawa kurkumin dan berguna untuk mengatasi maag serta menambah nafsu makan adalah...", options: ["Kunyit (Curcuma longa)", "Jahe", "Lengkuas", "Kencur"], answer: 0, explanation: "Kunyit mengandung kurkuminoid sebagai antiinflamasi lambung dan penambah nafsu makan." },
+            { id: 154, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Bagian rimpang yang memiliki rasa hangat menyengat dan sering digunakan meredakan masuk angin serta batuk adalah...", options: ["Kunyit", "Jahe (Zingiber officinale)", "Temulawak", "Kunci"], answer: 1, explanation: "Gingerol pada jahe memberikan sensasi hangat meredakan masuk angin dan flu." },
+            { id: 155, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Tanaman rimpang khas Indonesia yang terkenal efektif menjaga kesehatan organ hati (hepatoprotektor) adalah...", options: ["Temulawak (Curcuma xanthorrhiza)", "Kencur", "Bangle", "Lengkuas"], answer: 0, explanation: "Temulawak berkhasiat melindungi fungsi sel-sel hati (hepatoprotektor)." },
+            { id: 156, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Tanaman rimpang yang diolah menjadi minuman 'Beras Kencur' berguna untuk meredakan pegal linu dan batuk adalah...", options: ["Kencur (Kaempferia galanga)", "Kunyit", "Lengkuas", "Jahe Merah"], answer: 0, explanation: "Kencur efektif melegakan tenggorokan dan menghangatkan otot." },
+            { id: 157, topic: "toga", category: "Daun Obat", question: "Daun yang mengandung senyawa antiseptik herbal tinggi dan digunakan untuk obat kumur serta mengatasi mimisan adalah...", options: ["Daun Sirih (Piper betle)", "Daun Salam", "Daun Pandan", "Daun Pepaya"], answer: 0, explanation: "Kandungan eugenol dan fenol pada daun sirih ampuh mematikan kuman antiseptik." },
+            { id: 158, topic: "toga", category: "Daun Obat", question: "Daun herbal yang sering direbus untuk membantu menurunkan kadar kolesterol dan tekanan darah adalah...", options: ["Daun Salam (Syzygium polyanthum)", "Daun Singkong", "Daun Bayam", "Daun Pisang"], answer: 0, explanation: "Daun salam kaya flavonoid yang memicu penurunan kadar kolesterol dan asam urat." },
+            { id: 159, topic: "toga", category: "Daun Obat", question: "Daun 'Jambu Biji' (Psidium guajava) secara tradisional sangat dikenal sebagai obat alami untuk...", options: ["Diare / Mencret", "Sariawan mulut", "Mata minus", "Luka bakar"], answer: 0, explanation: "Tanin tinggi pada daun jambu biji mengendapkan protein astringen menghentikan diare." },
+            { id: 160, topic: "toga", category: "Daun Obat", question: "Tanaman 'Sambiloto' (Andrographis paniculata) yang rasanya sangat pahit memiliki khasiat utama sebagai...", options: ["Penurun panas (Antipiretik) dan peningkat imunitas", "Pemanis alami", "Obat tidur", "Peninggi badan"], answer: 0, explanation: "Androgranolida pada sambiloto berkhasiat antipiretik penurun demam & antibakteri." },
+            { id: 161, topic: "toga", category: "Tanaman Sukulen", question: "Gel dari tanaman 'Lidah Buaya' (Aloe vera) sangat efektif digunakan untuk...", options: ["Mengobati luka bakar ringan, melembabkan kulit, & menyuburkan rambut", "Mengobati patah tulang terbuka", "Bumbu penyedap masakan", "Bahan pembuat cat"], answer: 0, explanation: "Gel Aloe vera mendinginkan, mempercepat penyembuhan luka bakar ringan, & merawat kulit." },
+            { id: 162, topic: "toga", category: "Batang & Kulit kayu", question: "Kulit kayu 'Kayu Manis' (Cinnamomum verum) bermanfaat untuk...", options: ["Menurunkan kadar gula darah (diabetes) dan menambah aroma", "Obat bius", "Mengobati DBD", "Membuat zat warna hitam"], answer: 0, explanation: "Kayu manis meningkatkan sensitivitas hormon insulin mengontrol gula darah." },
+            { id: 163, topic: "toga", category: "Bunga Obat", question: "Bunga 'Kembang Sepatu' atau 'Bunga Telang' (Clitoria ternatea) kaya akan antioksidan...", options: ["Antosianin", "Klorofil", "Karotenoid", "Vitamin K"], answer: 0, explanation: "Pigmen biru bunga telang kaya antosianin antioksidan penangkal radikal bebas." },
+            { id: 164, topic: "toga", category: "Buah & Biji", question: "Air perasan buah 'Jeruk Nipis' bercampur madu/kecap secara tradisional efektif meredakan...", options: ["Batuk dan tenggorokan gatal", "Patah tulang", "Luka robek", "Kebutaan"], answer: 0, explanation: "Minyak atsiri & asam sitrat jeruk nipis mengencerkan dahak dan meredakan batuk." },
+            { id: 165, topic: "toga", category: "Buah & Biji", question: "Buah 'Mengkudu' atau Pace (Morinda citrifolia) dipercaya bermanfaat untuk...", options: ["Menurunkan tekanan darah tinggi (Hipertensi)", "Menambah rasa manis", "Obat tetes mata", "Membuat kulit hitam"], answer: 0, explanation: "Scopoletin dalam buah mengkudu memperlebar pembuluh darah menurunkan hipertensi." },
+            { id: 166, topic: "toga", category: "Bumbu & Obat", question: "Bawang Putih (Allium sativum) mengandung senyawa 'Alisin' yang berfungsi sebagai...", options: ["Antibakteri alami dan pembersih pembuluh darah", "Pemicu darah tinggi", "Penyebab diare", "Bahan pewarna merah"], answer: 0, explanation: "Alisin pada bawang putih terbukti menurunkan kolesterol & bersifat antibakteri alami." },
+            { id: 167, topic: "toga", category: "Daun Obat", question: "Daun 'Kumis Kucing' (Orthosiphon aristatus) sangat terkenal khasiatnya untuk meluruhkan...", options: ["Batu Ginjal dan memperlancar buang air kecil (Diuretik)", "Batu empedu saja", "Lemak perut", "Darah haid"], answer: 0, explanation: "Sifat diuretik kumis kucing membantu meluruhkan endapan kristal batu ginjal." },
+            { id: 168, topic: "toga", category: "Daun Obat", question: "Tanaman 'Seledri' selain untuk bumbu dapur, air rebusannya dapat digunakan untuk menurunkan...", options: ["Tekanan darah tinggi (Hipertensi)", "Kadar sel darah merah", "Tinggi badan", "Gula darah drop"], answer: 0, explanation: "Kandungan apigenin pada seledri mencegah penyempitan pembuluh darah." },
+            { id: 169, topic: "toga", category: "Buah & Biji", question: "Biji 'Mahkota Dewa' mengandung racun, namun daging buahnya diolah untuk pengobatan...", options: ["Kanker, diabetes, dan asam urat", "Penyakit flu biasa", "Gatal kulit ringan", "Sariawan"], answer: 0, explanation: "Flavonoid dan alkoloid mahkota dewa bermanfaat membantu detoksifikasi kanker & diabetes." },
+            { id: 170, topic: "toga", category: "Daun Obat", question: "Daun 'Sirsak' (Annona muricata) banyak dimanfaatkan air rebusannya sebagai ramuan herbal pencegah...", options: ["Sel Kanker / Tumor", "Penyakit Asma", "Kulit kering", "Kebodohan"], answer: 0, explanation: "Senyawa acetogenins pada daun sirsak bersifat sitotoksik terhadap sel kanker." },
+            { id: 171, topic: "toga", category: "Pengolahan TOGA", question: "Syarat utama panci/wadah yang digunakan untuk merebus obat herbal TOGA adalah...", options: ["Wadah dari berbahan Email, Tanah Clay, atau Stainless Steel (Hindari Aluminium)", "Wadah dari besi berkarat", "Wadah dari plastik tipis", "Wadah tembaga murni"], answer: 0, explanation: "Panci aluminium/besi dapat bereaksi kimia dengan zat aktif tanaman obat." },
+            { id: 172, topic: "toga", category: "Pengolahan TOGA", question: "Pengolahan bahan segar TOGA menjadi seduhan dinamakan cara pengolahan...", options: ["Infusa (Infus)", "Dekokta", "Maserasi", "Ekstraksi evaporator"], answer: 0, explanation: "Infusa adalah menyeduh bahan simplisia segar dengan air panas suhu 90°C." },
+            { id: 173, topic: "toga", category: "Pemanfaatan TOGA", question: "Bagian tanaman obat yang dimanfaatkan khasiatnya dan belum mengalami pengolahan kimiawi disebut...", options: ["Simplisia", "Ekstrak murni", "Obat Paten", "Sintesis"], answer: 0, explanation: "Simplisia adalah bahan alamiah yang dipergunakan sebagai obat yang belum mengalami pengolahan apapun." },
+            { id: 174, topic: "toga", category: "Daun Obat", question: "Daun 'Katuk' (Sauropus androgynus) sangat dianjurkan dikonsumsi oleh ibu menyusui karena...", options: ["Melancarkan dan meningkatkan produksi ASI", "Membuat ASI berwarna hijau", "Menghilangkan mules", "Menghentikan ASI"], answer: 0, explanation: "Daun katuk kaya galaktagogum yang menstimulasi hormon prolaktin pembuat ASI." },
+            { id: 175, topic: "toga", category: "Daun Obat", question: "Tanaman 'Kejibeling' secara tradisional dimanfaatkan untuk membantu...", options: ["Peluruh batu kandung kemih dan melancarkan kencing", "Obat sakit mata", "Penebal rambut", "Obat patah tulang"], answer: 0, explanation: "Kandungan kalium tinggi kejibeling melarutkan batu ginjal/kandung kemih." },
+            { id: 176, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Rimpang 'Lengkuas' (Languas galanga) yang ditumbuk halus bercampur cuka efektif untuk pengobatan luar penyakit kulit...", options: ["Panau / Kutu Air (Jamur Kulit)", "Cacar air", "Kutil", "Luka tembak"], answer: 0, explanation: "Minyak atsiri galangol pada lengkuas memiliki aktivitas antifungal (anti jamur kulit)." },
+            { id: 177, topic: "toga", category: "Daun Obat", question: "Daun 'Pandan Wangi' selain sebagai penambah aroma masakan, dapat dimanfaatkan untuk...", options: ["Penenang alami meredakan gelisah / insomnia", "Obat bius operasi", "Pewarna hitam", "Menurunkan berat badan drastis"], answer: 0, explanation: "Aroma flavonoid pandan memberikan efek relaksasi penenang saraf." },
+            { id: 178, topic: "toga", category: "Buah & Biji", question: "Buah 'Belimbing Wuluh' (Averrhoa bilimbi) sering dimanfaatkan untuk meredakan...", options: ["Sariawan, batuk, dan gusi berdarah", "Diare kronis", "Patah tulang", "Sakit pinggang"], answer: 0, explanation: "Kandungan vitamin C tinggi pada belimbing wuluh menyembuhkan sariawan & gusi berdarah." },
+            { id: 179, topic: "toga", category: "Akar & Batang", question: "Akar 'Alang-Alang' (Imperata cylindrica) dalam ramuan tradisional berfungsi sebagai...", options: ["Pereda panas dalam dan melancarkan buang air kecil", "Obat cacingan", "Penggemuk badan", "Obat bisul"], answer: 0, explanation: "Sifat mendinginkan (antipyretic) dan diuretik akar alang-alang meluruhkan panas dalam." },
+            { id: 180, topic: "toga", category: "Daun Obat", question: "Daun 'Pegal Linu' atau 'Kecibeling' sebaiknya tidak dikonsumsi berlebihan karena dapat memicu...", options: ["Iritasi lambung atau ginjal jika tanpa aturan cairan memadai", "Kebutaan permanen", "Kehilangan ingatan", "Pertumbuhan gigi"], answer: 0, explanation: "Penggunaan ramuan herbal diuretik kuat tanpa cukup air dapat membebani kerja ginjal." },
+            { id: 181, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Jenis jahe yang memiliki kandungan minyak atsiri paling tinggi dan paling pedas untuk obat herbal adalah...", options: ["Jahe Merah (Zingiber officinale var. rubrum)", "Jahe Gajah", "Jahe Emprit", "Jahe Kuning"], answer: 0, explanation: "Jahe Merah kaya oleoresin dan minyak atsiri paling tinggi cocok untuk fitofarmaka." },
+            { id: 182, topic: "toga", category: "Daun Obat", question: "Daun 'Meniran' (Phyllanthus niruri) saat ini dikembangkan sebagai imunomodulator yang berfungsi...", options: ["Meningkatkan daya tahan dan sistem kekebalan tubuh", "Menurunkan nafsu makan", "Obat bius lokal", "Menghancurkan sel darah merah"], answer: 0, explanation: "Extract meniran teruji klinis menstimulasi sistem imun imunitas tubuh." },
+            { id: 183, topic: "toga", category: "Buah & Biji", question: "Buah 'Pepaya' muda maupun matang kaya akan enzim 'Papain' yang berguna melancarkan...", options: ["Sistem Pencernaan dan mengatasi sembelit", "Sistem pernapasan", "Peredaran darah", "Pendengaran"], answer: 0, explanation: "Enzim papain memecah serat protein makanan dan memperlancar buang air besar." },
+            { id: 184, topic: "toga", category: "Daun Obat", question: "Daun 'Landep' sering digunakan secara topikal luar untuk mengobati...", options: ["Pegal linu dan sakit pinggang", "Mata kabur", "Batuk berdarah", "Diare"], answer: 0, explanation: "Tumbukan daun landep dioleskan pada pinggang hangat meredakan rematik/pegal." },
+            { id: 185, topic: "toga", category: "Daun Obat", question: "Tumbuhan 'Cakar Ayam' bermanfaat dalam ramuan herbal sebagai...", options: ["Pembersih darah dan penghenti pendarahan (Hemostatis)", "Pemanis masakan", "Penyebab flu", "Bumbu dapur utama"], answer: 0, explanation: "Cakar ayam menghentikan pendarahan luar maupun batuk darah." },
+            { id: 186, topic: "toga", category: "Daun Obat", question: "Daun 'Pegagan' / Antanan (Centella asiatica) terkenal khasiatnya dalam melancarkan sirkulasi darah ke otak untuk...", options: ["Meningkatkan daya ingat dan konsentrasi (Revitalisasi sel otak)", "Membuat kantuk berat", "Menurunkan Hb", "Mengobati usus buntu"], answer: 0, explanation: "Asiaticoside pada pegagan meningkatkan daya ingat serta regenerasi jaringan syaraf." },
+            { id: 187, topic: "toga", category: "Daun Obat", question: "Daun 'Cincau Hijau' atau Cincau Hitam berguna untuk mendinginkan perut saat...", options: ["Panas dalam dan sembelit", "Flu berat", "Luka robek", "Tersengat lebah"], answer: 0, explanation: "Serat larut air cincau membentuk gel yang menyejukkan saluran cerna." },
+            { id: 188, topic: "toga", category: "Daun Obat", question: "Daun 'Srikaya' yang ditumbuk halus dapat dioleskan pada kulit untuk mematikan...", options: ["Kutu kepala dan parasit borok", "Nyamuk terbang", "Bakteri usus", "Kuman paru-paru"], answer: 0, explanation: "Kandungan anonaian daun srikaya bersifat insektisida/antiparasit luar." },
+            { id: 189, topic: "toga", category: "Tanaman Bumbu", question: "Tanaman 'Sereh' (Cymbopogon citratus) mengandung minyak sitronela yang ampuh untuk...", options: ["Repellent (Penaung/Pengusir nyamuk) dan aromaterapi relaksasi", "Memutihkan pakaian", "Pengganti bahan bakar", "Pewarna makanan hijau"], answer: 0, explanation: "Sitronela minyak sereh sangat dibenci oleh nyamuk Aedes aegypti." },
+            { id: 190, topic: "toga", category: "Pengolahan TOGA", question: "Simplisia herbal harus dikeringkan tidak di bawah sinar matahari langsung agar...", options: ["Zat aktif dan minyak atsiri tidak rusak/menguap", "Warna daun berubah hitam", "Tanaman menjadi basah", "Bau menjadi tengik"], answer: 0, explanation: "Pengeringan diangin-anginkan melindungi zat aktif dan minyak atsiri menguap." },
+            { id: 191, topic: "toga", category: "Daun Obat", question: "Daun 'Sosor Bebek' (Kalanchoe pinnata) yang tebal mengandung banyak air sering ditumbuk untuk...", options: ["Kompres penurun demam / panas anak", "Obat cacing", "Bumbu sup", "Pewarna kain"], answer: 0, explanation: "Kandungan air dan sifat dingin sosor bebek efektif menurunkan suhu tubuh." },
+            { id: 192, topic: "toga", category: "Buah & Biji", question: "Biji 'Pinang' (Areca catechu) secara tradisional dalam jamu digunakan sebagai obat...", options: ["Cacingan (Antelmintik)", "Tidur nyenyak", "Sakit telinga", "Gula darah drop"], answer: 0, explanation: "Arekolin pada biji pinang melumpuhkan cacing parasit dalam usus." },
+            { id: 193, topic: "toga", category: "Bunga Obat", question: "Bunga 'Cengkeh' (Syzygium aromaticum) menghasilkan minyak eugenol yang ampuh meredakan...", options: ["Sakit Gigi", "Patah kaki", "Sakit mata", "Rambut rontok"], answer: 0, explanation: "Eugenol cengkeh bersifat analgetik pembius lokal alami pada gusi/gigi berlubang." },
+            { id: 194, topic: "toga", category: "Daun Obat", question: "Daun 'Miana' / Jawer Kotok sering dimanfaatkan air perasannya untuk mengobati...", options: ["Ambeien / Wasir dan Batuk", "Mata rabun", "Penyakit jantung", "Gigi tanggal"], answer: 0, explanation: "Daun miana mengurangi pembengkakan pembuluh darah anus pada penderita ambeien." },
+            { id: 195, topic: "toga", category: "Daun Obat", question: "Daun 'Bayam Merah' kaya akan zat besi alami yang sangat cocok untuk penderita...", options: ["Anemia (Kurang Darah)", "Asam urat tinggi", "Kolesterol tinggi", "Diare"], answer: 0, explanation: "Kandungan zat besi tinggi mempercepat sintesis eritrosit penderita anemia." },
+            { id: 196, topic: "toga", category: "Prinsip Keamanan", question: "Hal penting yang harus diperhatikan saat mengonsumsi obat tradisional TOGA adalah...", options: ["Ketepatan dosis, kebersihan bahan, dan kepastian jenis tanaman", "Minum sebanyak-banyaknya tanpa batas", "Mencampur dengan obat kimia sembarangan", "Menggunakan tanaman berjamur"], answer: 0, explanation: "Keamanan obat herbal ditentukan oleh prinsip kebenaran bahan, dosis, dan higiene." },
+            { id: 197, topic: "toga", category: "PMR & TOGA", question: "Peran PMR Wira di sekolah terkait TOGA adalah...", options: ["Membuat apotek hidup / kebun TOGA sekolah dan edukasi khasiat herbal sederhana", "Penyedia obat bius medis", "Menjual obat herbal ilegal", "Menggantikan posisi dokter sekolah"], answer: 0, explanation: "PMR memelopori pembuatan apotek hidup sekolah sebagai sarana edukasi kesehatan." },
+            { id: 198, topic: "toga", category: "Daun Obat", question: "Daun 'Kemangi' selain menyegarkan napas juga berkhasiat mengatasi...", options: ["Bau badan dan bau mulut", "Patah tulang", "Luka robek dalam", "Hipertensi darurat"], answer: 0, explanation: "Antiseptik dan minyak atsiri kemangi membasmi bakteri penyebab bau badan/mulut." },
+            { id: 199, topic: "toga", category: "Rimpang / Zingiberaceae", question: "Rimpang 'Temu Kunci' sering digunakan dalam ramuan jamu wanita untuk...", options: ["Mengatasi keputihan dan menyegarkan tubuh", "Obat bisul", "Pelebat alis", "Peninggi badan"], answer: 0, explanation: "Temu kunci bersifat antibakteri mengatasi keputihan pada wanita." },
+            { id: 200, topic: "toga", category: "Pengolahan TOGA", question: "Lama waktu ideal merebus ramuan simplisia TOGA basah dengan air adalah hingga air menyusut menjadi...", options: ["Separuh (1/2) atau sepertiga (1/3) dari volume air semula", "Kering gosong", "Tetap sama", "Meluap habis"], answer: 0, explanation: "Merebus hingga tersisa 1/2 atau 1/3 volume memastikan zat aktif terekstrak optimal." }
+        ];
+
+        // DATASET 5: Studi Kasus (40 Questions)
+        const quizDataStudikasus = [
+            { id: 201, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 1: Di lapangan sekolah, seorang siswa pingsan saat upacara. Wajahnya pucat, kulit dingin, dan napasnya dangkal namun masih berdenyut. Tindakan PERTAMA yang paling tepat oleh tim PMR adalah...", options: ["Mendudukkan siswa di kursi dan memberinya minum air panas", "Membawa ke tempat berteduh, membaringkan terlentang, dan meninggikan kakinya 20-30 cm", "Menyiramkan air es ke wajahnya agar segera sadar", "Melakukan RJP (Resusitasi Jantung Paru) 30 kompresi"], answer: 1, explanation: "Siswa mengalami syncope (pingsan) akibat aliran darah ke otak berkurang. Baringkan telentang di tempat teduh dan tinggikan posisi kaki (posisi syok) untuk mengembalikan aliran darah ke otak." },
+            { id: 202, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 2: Seorang peserta kemah PMR terjatuh dan mengalami luka robek di lengan bawah yang menyemprotkan darah berwarna merah terang sesuai denyut nadi. Langkah penanganan pendarahan yang harus dilakukan adalah...", options: ["Mengoleskan mentega pada luka robek", "Melakukan penekanan langsung (Direct Pressure) pada luka dengan kasa steril dan membalut tekan", "Membiarkan darah mengalir agar kotorannya keluar", "Mengikat kencang leher korban dengan kain"], answer: 1, explanation: "Ini adalah pendarahan arteri (darah merah terang memancar). Penanganan utama adalah penekanan langsung pada sumber pendarahan menggunakan penutup luka/kasa steril dan balut tekan." },
+            { id: 203, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 3: Saat terjadi bencana gempa bumi beruntun di permukiman, tim PMR menemukan korban tertimpa kayu dengan kecurigaan patah tulang paha (femur). Sebelum dievakuasi menggunakan tandu, tindakan yang wajib dilakukan adalah...", options: ["Memasang bidai (splint) yang mencakup sendi panggul hingga sendi lutut/pergelangan kaki", "Langsung menarik kaki korban agar lurus", "Menyuruh korban berjalan sendiri ke posko", "Mengurut paha korban dengan minyak hangat"], answer: 0, explanation: "Pembidaian wajib dilakukan sebelum memindahkan korban patah tulang untuk memfiksasi fraktur dan mencakup minimal dua sendi (sendi di atas dan di bawah lokasi patah)." },
+            { id: 204, topic: "studikasus", category: "Kasus Triase", question: "Kasus 4: Pada lokasi bencana banjir bandang, petugas PMR melakukan Triase awal. Ditemukan korban dengan pendarahan hebat di dada, napas memburu >30x/menit, dan nadi lemah. Kategori warna kartu triase yang tepat adalah...", options: ["Pita Hijau", "Pita Kuning", "Pita Merah", "Pita Hitam"], answer: 2, explanation: "Korban mengalami kondisi gawat darurat yang mengancam jiwa (gangguan saluran napas & pendarahan hebat). Korban diberi Kategori MERAH (Prioritas 1)." },
+            { id: 205, topic: "studikasus", category: "Kasus Triase", question: "Kasus 5: Korban kecelakaan saat evakuasi mengalami fraktur tertutup pada lengan bawah, kondisi sadar penuh, nadi teratur, dan tidak ada gangguan napas. Warna pita triase untuk korban ini adalah...", options: ["Pita Merah", "Pita Kuning", "Pita Hijau", "Pita Hitam"], answer: 1, explanation: "Kondisi korban cedera berat (patah tulang) namun stabil tanpa gangguan vital mengancam jiwa. Masuk kategori KUNING (Prioritas 2 / Mendesak)." },
+            { id: 206, topic: "studikasus", category: "Kasus Triase", question: "Kasus 6: Di posko evakuasi bencana, terdapat korban yang hanya mengalami luka lecet ringan di lutut dan dapat berjalan sendiri tanpa bantuan. Korban ini dikategorikan ke dalam warna triase...", options: ["Pita Hijau", "Pita Kuning", "Pita Merah", "Pita Hitam"], answer: 0, explanation: "Korban berjalan (walking wounded) dengan luka ringan masuk dalam kategori HIJAU (Prioritas 3)." },
+            { id: 207, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 7: Saat tersiram air panas di Dapur Umum bencana, kulit tangan seorang relawan memerah dan terasa sangat nyeri tanpa adanya gelembung melepuh. Pertolongan pertama yang harus diberikan adalah...", options: ["Mengoleskan pasta gigi atau kecap", "Membilas air bersih mengalir pada luka bakar selama 10-20 menit", "Menempelkan es batu langsung di atas kulit", "Memecahkan kulit yang bengkak"], answer: 1, explanation: "Luka bakar derajat satu ditangani dengan mengalirkan air bersih/suhu kamar selama 10-20 menit untuk menghentikan proses pembakaran jaringan. Jangan gunakan pasta gigi atau es batu." },
+            { id: 208, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 8: Saat gempa bumi kuat mengguncang gedung sekolah lantai 3, langkah perlindungan diri yang PALING TEPAT bagi siswa di dalam kelas adalah...", options: ["Berlari berdesakan menuju tangga darurat secara bersamaan", "Drop, Cover, Hold On (Mendekat/berlindung di bawah meja kokoh & memegang kaki meja)", "Melompat keluar dari jendela kelas", "Berdiri di samping lemari kaca tinggi"], answer: 1, explanation: "Drop, Cover, Hold On adalah prosedur keselamatan standar saat guncangan gempa di dalam ruangan untuk menghindari tertimpa reruntuhan atap/plafon." },
+            { id: 209, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 9: Ketika berada di pantai dan merasakan guncangan gempa kuat dilanjutkan dengan air laut yang surut secara tiba-tiba, tindakan penyelamatan darurat adalah...", options: ["Mendekati pantai untuk mengambil ikan yang terdampar", "Segera berlari menuju tempat yang lebih tinggi (Evacuation Point) tanpa menunggu sirine resmi", "Berteduh di bawah pohon kelapa di tepi pantai", "Naik ke perahu dan berlayar ke tengah laut"], answer: 1, explanation: "Air laut surut tiba-tiba setelah gempa adalah tanda alam tsunami. Harus segera evakuasi mandiri menuju dataran tinggi secepat mungkin." },
+            { id: 210, topic: "studikasus", category: "Kasus Donor Darah", question: "Kasus 10: Calon pendonor berusia 18 tahun datang ke UDD PMI. Hasil pemeriksaan: Tekanan darah 110/70 mmHg, Berat Badan 48 kg, Kadar Hb 10,5 g/dL. Keputusan petugas UDD adalah...", options: ["Diterima donor 350 ml", "Ditolak/ditunda sementara karena kadar Hb di bawah standar minimal (12,5 g/dL)", "Diterima donor 450 ml", "Langsung diberikan transfusi darah"], answer: 1, explanation: "Kadar Hb calon pendonor (10,5 g/dL) kurang dari syarat minimal 12,5 g/dL. Calon pendonor ditunda sementara dan disarankan mengonsumsi makanan kaya zat besi." },
+            { id: 211, topic: "studikasus", category: "Kasus Donor Darah", question: "Kasus 11: Seorang wanita berumur 25 tahun ingin mendonorkan darahnya, namun ia sedang hamil usia 4 bulan. Tindakan teknis UDD PMI adalah...", options: ["Memperbolehkan donor jika Hb tinggi", "Menolak donor sementara karena kondisi kehamilan membutuhkan kecukupan nutrisi & sel darah merah", "Mengambil setengah kantong darah", "Mendonorkan plasma saja"], answer: 1, explanation: "Wanita hamil tidak diperbolehkan mendonorkan darah untuk mencegah anemia kehamilan dan menjaga suplai janin." },
+            { id: 212, topic: "studikasus", category: "Kasus Donor Darah", question: "Kasus 12: Pasien korban kecelakaan bergolongan darah A Rh-positif membutuhkan transfusi darah mendesak. Di UDD PMI stok kantong golongan A kosong. Golongan darah alternatif paling aman yang dapat diberikan sebagai donor universal sel darah merah adalah...", options: ["Golongan AB Rh-positif", "Golongan B Rh-positif", "Golongan O Rh-positif", "Golongan AB Rh-negatif"], answer: 2, explanation: "Golongan O Rh-positif bekerja sebagai donor universal untuk sel darah merah (PRC) pada situasi gawat darurat." },
+            { id: 13, topic: "studikasus", category: "Kasus Donor Darah", question: "Kasus 13: Seseorang baru saja selesai melakukan donor darah 350 ml. Saat berdiri dari tempat tidur donor, ia merasa pusing dan berkeringat dingin. Tindakan relawan PMI adalah...", options: ["Menyuruhnya berjalan keliling ruangan", "Membantu baring kembali, meninggikan posisi kaki, dan memberi minum air manis hangat", "Memberikan obat tidur", "Memintanya segera pulang berkendara"], answer: 1, explanation: "Pendonor mengalami hipotensi ortostatik ringan. Posisikan baring kembali dengan kaki ditinggikan serta berikan minum manis hangat hingga pulih." },
+            { id: 214, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 14: Di posko bencana, seorang pengungsi mengeluh perut mules, mual, dan nyeri maag karena terlambat makan. Tanaman obat keluarga (TOGA) rimpang yang tepat diseduh untuk meredakan keluhan lambung ini adalah...", options: ["Kunyit (Curcuma longa)", "Lengkuas", "Kencur", "Cabai rawit"], answer: 0, explanation: "Kunyit mengandung kurkuminoid yang berfungsi melompati peradangan dinding lambung (antiulser) dan meredakan asam lambung." },
+            { id: 215, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 15: Seorang anak di tempat pengungsian mengalami batuk berdahak dan tenggorokan gatal. Ramuan alami TOGA sederhana yang dapat dibuat oleh tim PMI dari dapur adalah...", options: ["Perasan air Jeruk Nipis dicampur Madu atau Kecap", "Rebusan daun singkong", "Tumbukan daun pepaya mentah", "Air garam pekat hangat"], answer: 0, explanation: "Jeruk nipis kaya minyak atsiri dan asam sitrat yang mengencerkan dahak, sedangkan madu/kecap melapisi tenggorokan." },
+            { id: 216, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 16: Seorang siswa PMR mengalami gusi berdarah dan sariawan di mulut. Tanaman herbal daun yang paling tepat digunakan sebagai obat kumur antiseptik alami adalah...", options: ["Daun Sirih (Piper betle)", "Daun Pisang", "Daun Pandan", "Daun Kelor"], answer: 0, explanation: "Daun sirih mengandung eugenol dan fenol sebagai antiseptik kuat pembunuh kuman mulut dan penghenti pendarahan gusi." },
+            { id: 217, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 17: Di pemukiman padat pasca bencana, warga mengeluhkan banyaknya nyamuk Aedes aegypti. Untuk membuat lotion herbal pengusir nyamuk alami (repellent), tanaman TOGA yang diproses minyak atsirinya adalah...", options: ["Sereh Dapur / Sereh Wangi", "Kunyit", "Temulawak", "Daun Katuk"], answer: 0, explanation: "Minyak sitronela pada sereh wangi sangat efektif menolak/mengusir nyamuk penular demam berdarah." },
+            { id: 218, topic: "studikasus", category: "Kasus Lambang", question: "Kasus 18: Sebuah rumah sakit swasta menggunakan logo Palang Merah di atas dasar putih pada papan namanya untuk promosi komersial. Berdasarkan UU No. 1/2018, tindakan rumah sakit tersebut tergolong...", options: ["Tindakan yang sah dan dianjurkan", "Penyalahgunaan penggunaan lambang (Misuse) yang melanggar hukum", "Penghormatan terhadap kemanusiaan", "Pelayanan darah gratis"], answer: 1, explanation: "Lambang Palang Merah memiliki fungsi pelindung dan pengenal resmi. Penggunaan oleh lembaga komersial tanpa izin melanggar UU No. 1/2018." },
+            { id: 219, topic: "studikasus", category: "Kasus Kepalangmerahan", question: "Kasus 19: Saat konflik bersenjata terjadi, tim medis PMI membawa kendaraan ambulans berlogo Palang Merah untuk menolong korban luka dari kedua pihak yang bertikai. Sikap PMI ini mencerminkan Prinsip Dasar...", options: ["Kemandirian dan Kesatuan", "Kenetralan (Neutrality) dan Kesamaan (Impartiality)", "Kesemestaan saja", "Komersialisasi"], answer: 1, explanation: "Menolong korban tanpa memihak kubu bertikai mencerminkan Prinsip Kenetralan dan Kesamaan." },
+            { id: 220, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 20: Korban kecelakaan lalu lintas tidak sadarkan diri, namun napasnya terdengar berbunyi mengorok (snoring). Pertolongan awal pada jalan napas korban tanpa curiga patah tulang leher adalah...", options: ["Mendudukkan korban", "Melakukan manuver Tekan Dahi Terangkat Dagu (Head Tilt - Chin Lift)", "Menepuk-nepuk pipinya", "Memberikan napas buatan langsung"], answer: 1, explanation: "Suara mengorok menandakan pangkal lidah menyumbat saluran napas. Trik Head Tilt - Chin Lift membuka jalan napas." },
+            { id: 221, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 21: Korban tersedak makanan (Choking) masih sadar dan memegang lehernya tanpa bisa berbicara/batuk. Tindakan pertolongan pertama yang harus segera dilakukan adalah...", options: ["Memberi minum air putih sebanyak-banyaknya", "Melakukan Hentakan Perut / Hentakan Abdomen (Heimlich Maneuver)", "Membawa korban berlari", "Membenturkan kepala korban ke dinding"], answer: 1, explanation: "Heimlich Maneuver memberikan dorongan udara dari paru-paru untuk mengeluarkan sumbatan benda asing di tenggorokan." },
+            { id: 222, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 22: Seorang siswa terkilir (sprain) pergelangan kakinya saat latihan olah raga. Penanganan awal dengan metode RICE, tindakan huruf 'I' (Ice) yang benar adalah...", options: ["Mengompres es batu terbungkus kain pada area terkilir selama 15-20 menit", "Menempelkan es langsung di kulit selama 2 jam tanpa henti", "Menyiram kaki dengan air mendidih", "Mengurut kaki yang bengkak"], answer: 0, explanation: "Kompres es (dibalut kain) mengurangi pembengkakan dan nyeri lokal. Es tidak boleh ditempel langsung ke kulit terbuka tanpa jeda." },
+            { id: 223, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 23: Di posko pengungsian, ditemukan beberapa balita mengalami diare cair. Langkah WASH (Water, Sanitation, Hygiene) PMI untuk memutus rantai penularan di camp adalah...", options: ["Menyediakan kaporitisasi air bersih, sarana Cuci Tangan Pakai Sabun (CTPS), & edukasi kebersihan makanan", "Membagi-bagikan suplemen vitamin saja", "Menutup akses toilet pengungsi", "Menyuruh pengungsi minum air mentah"], answer: 0, explanation: "Sektor WASH bertugas menjamin pasokan air bersih terklorinasi dan sarana kebersihan saniter untuk cegah epidemi diare." },
+            { id: 224, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 24: Seorang pengungsi lansia menderita tekanan darah tinggi (hipertensi) di posko dan obat kimianya habis. Tanaman TOGA daun yang air rebusannya terbukti klinis membantu menurunkan tekanan darah adalah...", options: ["Daun Salam atau Daun Seledri", "Daun Singkong", "Daun Pepaya", "Daun Talas"], answer: 0, explanation: "Daun salam dan seledri (mengandung apigenin & flavonoid) membantu merelaksasikan pembuluh darah menurunkan tekanan darah." },
+            { id: 225, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 25: Relawan PMR ingin mengolah daun sambiloto segar untuk obat penurun panas. Wadah rebusan yang HARUS DIHINDARI agar zat aktif ramuan tidak bereaksi racun adalah...", options: ["Panci Email", "Panci berbahan Aluminium atau Besi Karat", "Panci Stainless Steel", "Periuk Tanah Liat"], answer: 1, explanation: "Panci aluminium/besi mudah bereaksi dengan asam/senyawa aktif herbal yang dapat membentuk senyawa toksik." },
+            { id: 226, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 26: Seorang anak terkena sengatan lebah di tangannya saat bakti sosial. Bekas sengatan membengkak dan terasa perih. Langkah pertolongan pertama yang tepat adalah...", options: ["Mencabut kantung sengat dengan pinset/kartu tanpa menekan, lalu kompres dingin", "Menekan-nekan area sengatan dengan jempol", "Mengoleskan minyak tanah", "Membakar bekas sengatan"], answer: 0, explanation: "Keluarkan sengat tanpa memencet kantong racunnya, lalu beri kompres dingin untuk meredakan bengkak dan racun." },
+            { id: 227, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 27: Saat terjadi kebakaran di gedung, tim PMR membantu evakuasi korban yang mengalami hidung berjelaga dan suara parau. Kondisi gawat darurat yang dicurigai adalah...", options: ["Trauma kepala berat", "Luka bakar jalur pernapasan (Inhalasi)", "Patah tulang rusuk", "Serangan jantung"], answer: 1, explanation: "Hidung berjelaga & suara parau menandakan trauma inhalasi (saluran pernapasan terbakar) yang dapat memicu pembengkakan jalan napas." },
+            { id: 228, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 28: Pasca gempa bumi, terdapat banyak pengungsi anak yang mengalami ketakutan hebat, menangis histeris, dan mengurung diri. Tim PMI menurunkan unit Layanan Dukungan Psikososial (LDP) dengan aktivitas...", options: ["Memberikan terapi obat penenang keras", "Mengajak bermain kelompok, menggambar, dan bernyanyi (Psychological First Aid)", "Membiarkan anak sendirian di tenda", "Meminta anak bekerja bakti berat"], answer: 1, explanation: "Dukungan Psikososial anak menggunakan metode trauma healing melalui permainan (PFA) untuk mengembalikan fungsi emosional anak." },
+            { id: 229, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 29: Suatu daerah permukiman lereng bukit mengalami hujan lebat berhari-hari. Tiba-tiba muncul retakan tanah di bukit dan air sumur berubah keruh secara mendadak. Tindakan kesiapsiagaan warga adalah...", options: ["Tetap diam tidur di dalam rumah", "Segera mengungsi ke lokasi aman yang jauh dari jalur lereng (Evakuasi Dini Tanah Longsor)", "Membuat kolam di atas retakan", "Menebang pohon besar di lereng"], answer: 1, explanation: "Retakan tanah dan air keruh adalah indikator lereng tidak stabil rawan longsor. Warga harus segera mengevakuasi diri ke tempat aman." },
+            { id: 230, topic: "studikasus", category: "Kasus Donor Darah", question: "Kasus 30: Pasien menderita Demam Berdarah Dengue (DBD) dengan kadar Trombosit drop hingga 15.000/µL dan mengalami pendarahan gusi. Komponen darah yang spesifik dibutuhkan pasien adalah...", options: ["Packed Red Cells (PRC)", "Thrombocyte Concentrate (TC) / Trombosit", "Whole Blood (WB)", "Plasma Beku"], answer: 1, explanation: "Transfusi Trombosit (TC) diperlukan khusus untuk mengatasi trombositopenia berat pencegah pendarahan fatal DBD." },
+            { id: 231, topic: "studikasus", category: "Kasus Donor Darah", question: "Kasus 31: Pendonor pria mendonasikan darah rutin setiap 2 bulan sekali. Setelah 1 tahun, ia merasa tubuhnya lebih bugar dan pemeriksaan kesehatan berkala selalu normal. Efek fisiologis donor darah rutin ini adalah...", options: ["Merangsang sumsum tulang memproduksi sel darah merah baru yang segar & menjaga keseimbangan kadar zat besi", "Menyebabkan kehabisan darah total di masa tua", "Merusak sel ginjal", "Membuat tubuh rentan infeksi"], answer: 0, explanation: "Donor darah meregenerasi sel darah merah baru dari sumsum tulang serta menjaga elastisitas pembuluh darah." },
+            { id: 232, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 32: Di pekarangan sekolah, PMR Wira menanam rimpang yang berkhasiat sebagai hepatoprotektor (pelindung fungsi hati) dan penambah nafsu makan anak. Tanaman ini adalah...", options: ["Temulawak (Curcuma xanthorrhiza)", "Kencur", "Jahe Gajah", "Lengkuas"], answer: 0, explanation: "Temulawak khas dengan kurkumin yang terbukti melindungi sel-sel hati dan meningkatkan sekresi empedu penambah nafsu makan." },
+            { id: 233, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 33: Seorang anggota PMR terkena siraman minyak panas saat memasak di Dapur Umum dan mengalami luka bakar ringan di jemarinya. Tanaman TOGA berlendir dingin yang dapat dioleskan pada luka bakar derajat ringan tersebut adalah...", options: ["Lidah Buaya (Aloe vera)", "Daun Sirih", "Daun Salam", "Rimpang Kunyit"], answer: 0, explanation: "Gel Lidah Buaya kaya aloin dan air mendinginkan kulit, mengurangi efek peradangan, serta mempercepat penyembuhan luka bakar." },
+            { id: 234, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 34: Pada insiden kecelakaan lalu lintas, ditemui korban berada dalam posisi telungkup di jalan dan tidak sadar. Untuk memindahkan korban ke tandu tanpa risiko cedera tulang belakang (spinal), teknik evakuasi yang digunakan adalah...", options: ["Mengangkat tangan dan kakinya secara asal", "Teknik Log Roll (Memiringkan sejajar oleh minimal 3-4 penolong)", "Menyeret baju korban di jalan", "Menggendong korban sendirian"], answer: 1, explanation: "Teknik Log Roll menjaga posisi kepala, leher, dan tulang belakang tetap lurus dalam satu garis lurus saat memindahkan korban." },
+            { id: 235, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 35: Korban gigitan ular berbisa di hutan. Tindakan pertolongan pertama pada anggota gerak yang terkena gigitan adalah...", options: ["Mengisap darah bekas gigitan dengan mulut", "Melakukan imobilisasi (mengistirahatkan) anggota gerak yang tergigit dengan bidai & mengurangi gerakan", "Membuat irisan pisau di bekas gigitan", "Mengikat kencang hingga jaringan membiru"], answer: 1, explanation: "Imobilisasi anggota gerak yang tergigit menggunakan bidai memperlambat penyebaran bisa ular melalui pembuluh getah bening. Jangan diisap atau diiris." },
+            { id: 236, topic: "studikasus", category: "Kasus Bencana", question: "Kasus 36: Di daerah pengungsian pasca gempa, tim PMR mengidentifikasi terdapat anak-anak yang terpisah dari orang tuanya. Layanan PMI yang khusus menangani pelacakan dan penyatuan kembali keluarga terpisah adalah...", options: ["Restoring Family Links (RFL) / PHK", "Tim Logistik", "Tim Dapur Umum", "Tim Sanitasi"], answer: 0, explanation: "RFL (Restoring Family Links) bertugas mencari dan memulihkan hubungan komunikasi antar keluarga yang terpisah akibat bencana." },
+            { id: 237, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 37: Tanaman herbal 'Kumis Kucing' sering direbus airnya oleh warga untuk meluruhkan kristal kencing batu. Sifat farmakologis utama dari tanaman kumis kucing ini adalah...", options: ["Diuretik (Melancarkan dan meningkatkan volume buang air kecil)", "Sedatif (Obat tidur)", "Analgetik bius", "Antiseptik kulit"], answer: 0, explanation: "Sifat diuretik kumis kucing membantu meluruhkan endapan garam kalsium/batu ginjal melalui pembentukan urin." },
+            { id: 238, topic: "studikasus", category: "Kasus Lambang", question: "Kasus 38: Pada masa perang, ambulans medis PMI yang memasang lambang Palang Merah ditembaki oleh salah satu kelompok bersenjata. Berdasarkan Konvensi Jenewa 1949, penembakan ini merupakan...", options: ["Pelanggaran berat Hukum Humaniter Internasional (HHI)", "Tindakan biasa dalam perang", "Kewenangan komandan perang", "Latihan militer"], answer: 0, explanation: "Personil dan fasilitas medis yang berlambang Palang Merah dilindungi oleh Konvensi Jenewa 1949. Penyerangan terhadapnya adalah kejahatan perang." },
+            { id: 239, topic: "studikasus", category: "Kasus Pertolongan Pertama", question: "Kasus 39: Seorang penderita asthma mengalami sesak napas berat di sekolah. Posisi pertolongan pertama paling nyaman yang membantu pernapasan penderita adalah...", options: ["Posisi berbaring terlentang datar", "Posisi Duduk Setengah Tegak (Semi-Fowler) bersandar santai", "Posisi tengkurap", "Posisi kaki lebih tinggi dari kepala"], answer: 1, explanation: "Posisi Semi-Fowler (duduk/setengah duduk) memberi ruang ekspansi dada maksimal bagi penderita asma." },
+            { id: 240, topic: "studikasus", category: "Kasus TOGA", question: "Kasus 40: Untuk meredakan pegal linu dan menghangatkan badan relawan pasca evakuasi hujan deras, ramuan tradisional minuman hangat kombinasi rimpang TOGA yang PALING TEPAT diproduksi adalah...", options: ["Minuman Beras Kencur atau Wedang Jahe Merah", "Air rebusan daun sirsak pahit", "Jus mengkudu mentah", "Seduhan daun kumis kucing"], answer: 0, explanation: "Jahe merah dan kencur kaya kandungan atsiri menghangatkan tubuh, melebarkan pembuluh darah, dan menghilangkan pegal linu otot." }
+        ];
+
+        // MASTER DATASET CONSOLIDATION
+        const allQuestionsMaster = [
+            ...quizDataKepalangmerahan,
+            ...quizDataSiagabencana,
+            ...quizDataDonordarah,
+            ...quizDataToga,
+            ...quizDataStudikasus
+        ];
+
+        // Global Application State Engine
+        const appState = {
+            currentTopic: 'kepalangmerahan', // 'kepalangmerahan', 'siagabencana', 'donordarah', 'toga', 'studikasus', 'all'
+            quizMode: 'exam', // 'exam' or 'practice'
+            activeQuestions: [], // Will hold randomized questions
+            currentIndex: 0,
+            userAnswers: {}, // index -> chosen Option Index (0..3)
+            bookmarks: {}, // index -> boolean
+            timeRemaining: 0, // seconds
+            timerInterval: null,
+            quizStartTime: null,
+            quizEndTime: null,
+            isFinished: false,
+            filterResult: 'all', // 'all' or 'wrong'
+            searchQuery: '',
+            selectedCategoryFilter: 'all',
+            darkTheme: false
+        };
+
+        // App Controller Methods
+        const app = {
+            init() {
+                this.loadTheme();
+                this.renderTopicCategoryGrid();
+                this.renderStudyBankCategoryPills();
+                this.showHome();
+            },
+
+            // Theme Management
+            loadTheme() {
+                const savedTheme = localStorage.getItem('pmi_quiz_theme');
+                if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                    appState.darkTheme = true;
+                    document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400 text-lg';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    appState.darkTheme = false;
+                    document.getElementById('themeIcon').className = 'fa-solid fa-moon text-slate-600 text-lg';
+                }
+            },
+
+            toggleTheme() {
+                appState.darkTheme = !appState.darkTheme;
+                if (appState.darkTheme) {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('pmi_quiz_theme', 'dark');
+                    document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400 text-lg';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('pmi_quiz_theme', 'light');
+                    document.getElementById('themeIcon').className = 'fa-solid fa-moon text-slate-600 text-lg';
+                }
+            },
+
+            // Navigation Views
+            showHome() {
+                this.stopTimer();
+                document.getElementById('viewHome').classList.remove('hidden');
+                document.getElementById('viewQuiz').classList.add('hidden');
+                document.getElementById('viewResult').classList.add('hidden');
+                document.getElementById('viewStudyBank').classList.add('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            showStudyBank() {
+                this.stopTimer();
+                document.getElementById('viewHome').classList.add('hidden');
+                document.getElementById('viewQuiz').classList.add('hidden');
+                document.getElementById('viewResult').classList.add('hidden');
+                document.getElementById('viewStudyBank').classList.remove('hidden');
+                this.renderStudyBank();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            // Topic Selector
+            setTopic(topic) {
+                appState.currentTopic = topic;
+                const buttons = [
+                    { id: 'topicBtnKepalangmerahan', key: 'kepalangmerahan', label: 'Kepalangmerahan PMI (50 Soal)', cls: 'border-pmi-600 text-pmi-700 dark:text-pmi-300 bg-pmi-50 dark:bg-pmi-950/40' },
+                    { id: 'topicBtnSiagabencana', key: 'siagabencana', label: 'Siaga Bencana (50 Soal)', cls: 'border-disaster-600 text-disaster-700 dark:text-disaster-300 bg-disaster-50 dark:bg-disaster-950/40' },
+                    { id: 'topicBtnDonordarah', key: 'donordarah', label: 'Donor Darah (50 Soal)', cls: 'border-donor-600 text-donor-700 dark:text-donor-300 bg-donor-50 dark:bg-donor-950/40' },
+                    { id: 'topicBtnToga', key: 'toga', label: 'Tanaman Obat TOGA (50 Soal)', cls: 'border-toga-600 text-toga-700 dark:text-toga-300 bg-toga-50 dark:bg-toga-950/40' },
+                    { id: 'topicBtnStudikasus', key: 'studikasus', label: 'Studi Kasus Lapangan (40 Soal)', cls: 'border-kasus-600 text-kasus-700 dark:text-kasus-300 bg-kasus-50 dark:bg-kasus-950/40' },
+                    { id: 'topicBtnAll', key: 'all', label: 'Gabungan Semua (240 Soal)', cls: 'border-indigo-600 text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40' }
+                ];
+
+                buttons.forEach(b => {
+                    const el = document.getElementById(b.id);
+                    if (b.key === topic) {
+                        el.className = `p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 ${b.cls}`;
+                        document.getElementById('activeTopicBadge').innerText = b.label;
+                    } else {
+                        el.className = 'p-3.5 rounded-xl border-2 text-left font-bold transition flex items-center space-x-3 bg-slate-50 dark:bg-slate-700/40 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-slate-400';
+                    }
+                });
+            },
+
+            // Helper to shuffle array (Fisher-Yates)
+            shuffleArray(array) {
+                const arr = [...array];
+                for (let i = arr.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                }
+                return arr;
+            },
+
+            // Randomizing Question Options and tracking correct index
+            prepareRandomizedQuestions(rawQuestions) {
+                const shuffledQuestions = this.shuffleArray(rawQuestions);
+                return shuffledQuestions.map(q => {
+                    const originalOptions = q.options.map((opt, idx) => ({
+                        text: opt,
+                        isCorrect: idx === q.answer
+                    }));
+                    const shuffledOpts = this.shuffleArray(originalOptions);
+                    const newCorrectIndex = shuffledOpts.findIndex(o => o.isCorrect);
+                    
+                    return {
+                        ...q,
+                        options: shuffledOpts.map(o => o.text),
+                        answer: newCorrectIndex
+                    };
+                });
+            },
+
+            // START QUIZ METHOD WITH RANDOMIZATION
+            startQuiz(mode) {
+                appState.quizMode = mode;
+                let filtered = [];
+                if (appState.currentTopic === 'all') {
+                    filtered = [...allQuestionsMaster];
+                } else {
+                    filtered = allQuestionsMaster.filter(q => q.topic === appState.currentTopic);
+                }
+
+                // Randomize both question order and options order
+                appState.activeQuestions = this.prepareRandomizedQuestions(filtered);
+                appState.currentIndex = 0;
+                appState.userAnswers = {};
+                appState.bookmarks = {};
+                appState.isFinished = false;
+                appState.quizStartTime = new Date();
+
+                // Setup Timer (e.g. 1.2 minutes per question or capped)
+                const totalSecs = Math.min(appState.activeQuestions.length * 72, 7200); // Max 2 hours
+                appState.timeRemaining = totalSecs;
+
+                // UI setup
+                document.getElementById('viewHome').classList.add('hidden');
+                document.getElementById('viewResult').classList.add('hidden');
+                document.getElementById('viewStudyBank').classList.add('hidden');
+                document.getElementById('viewQuiz').classList.remove('hidden');
+
+                document.getElementById('quizModeBadge').innerText = mode === 'exam' ? 'Simulasi Ujian Acak' : 'Mode Latihan Acak';
+                
+                let topicLabel = 'Kepalangmerahan';
+                if (appState.currentTopic === 'siagabencana') topicLabel = 'Siaga Bencana';
+                if (appState.currentTopic === 'donordarah') topicLabel = 'Donor Darah';
+                if (appState.currentTopic === 'toga') topicLabel = 'Tanaman Obat (TOGA)';
+                if (appState.currentTopic === 'studikasus') topicLabel = 'Studi Kasus Lapangan';
+                if (appState.currentTopic === 'all') topicLabel = 'Gabungan Semua 240 Soal';
+                document.getElementById('quizTopicBadge').innerText = topicLabel;
+
+                if (mode === 'exam') {
+                    document.getElementById('timerContainer').classList.remove('hidden');
+                    this.startTimer();
+                } else {
+                    document.getElementById('timerContainer').classList.add('hidden');
+                    this.stopTimer();
+                }
+
+                this.renderQuestionGrid();
+                this.renderCurrentQuestion();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            startTimer() {
+                this.stopTimer();
+                this.updateTimerDisplay();
+                appState.timerInterval = setInterval(() => {
+                    appState.timeRemaining--;
+                    this.updateTimerDisplay();
+                    if (appState.timeRemaining <= 0) {
+                        this.stopTimer();
+                        this.finishQuiz(true); // auto submit
+                    }
+                }, 1000);
+            },
+
+            stopTimer() {
+                if (appState.timerInterval) {
+                    clearInterval(appState.timerInterval);
+                    appState.timerInterval = null;
+                }
+            },
+
+            updateTimerDisplay() {
+                const mins = Math.floor(appState.timeRemaining / 60);
+                const secs = appState.timeRemaining % 60;
+                document.getElementById('timerDisplay').innerText = 
+                    `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            },
+
+            renderCurrentQuestion() {
+                const q = appState.activeQuestions[appState.currentIndex];
+                const total = appState.activeQuestions.length;
+
+                // Update Progress
+                const answeredCount = Object.keys(appState.userAnswers).length;
+                const pct = Math.round(((appState.currentIndex + 1) / total) * 100);
+                document.getElementById('progressBar').style.width = `${pct}%`;
+                document.getElementById('progressText').innerText = `${appState.currentIndex + 1} / ${total} Soal (Terjawab: ${answeredCount})`;
+
+                // All Answered Banner check
+                if (answeredCount === total && appState.quizMode === 'exam') {
+                    document.getElementById('allAnsweredBanner').classList.remove('hidden');
+                } else {
+                    document.getElementById('allAnsweredBanner').classList.add('hidden');
+                }
+
+                // Question Metadata
+                document.getElementById('questionCategory').innerText = q.category || 'PMI';
+                document.getElementById('questionNumberBadge').innerText = `Soal #${appState.currentIndex + 1}`;
+                document.getElementById('questionText').innerText = q.question;
+
+                // Bookmark icon state
+                const bookmarkBtn = document.getElementById('bookmarkBtn');
+                const bookmarkIcon = document.getElementById('bookmarkIcon');
+                if (appState.bookmarks[appState.currentIndex]) {
+                    bookmarkIcon.className = 'fa-solid fa-bookmark text-amber-500';
+                    bookmarkBtn.className = 'p-2.5 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/40 text-amber-600 transition';
+                } else {
+                    bookmarkIcon.className = 'fa-regular fa-bookmark text-slate-500';
+                    bookmarkBtn.className = 'p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition';
+                }
+
+                // Options Rendering
+                const container = document.getElementById('optionsContainer');
+                container.innerHTML = '';
+
+                const userSel = appState.userAnswers[appState.currentIndex];
+                const isPractice = appState.quizMode === 'practice';
+                const hasAnsweredCurrent = userSel !== undefined;
+
+                q.options.forEach((optText, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.onclick = () => this.selectOption(optIdx);
+
+                    let baseCls = "w-full p-4 rounded-xl text-left border-2 font-medium text-sm sm:text-base transition flex items-center justify-between ";
+                    
+                    if (isPractice && hasAnsweredCurrent) {
+                        // Practice mode visual feedback
+                        if (optIdx === q.answer) {
+                            baseCls += "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-200 font-bold";
+                        } else if (optIdx === userSel && optIdx !== q.answer) {
+                            baseCls += "border-rose-500 bg-rose-50 dark:bg-rose-950/50 text-rose-800 dark:text-rose-200 font-bold";
+                        } else {
+                            baseCls += "border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-400 opacity-60";
+                        }
+                    } else {
+                        // Normal Exam selection
+                        if (userSel === optIdx) {
+                            baseCls += "border-pmi-600 bg-pmi-50 dark:bg-pmi-950/50 text-pmi-800 dark:text-pmi-200 font-bold shadow-sm";
+                        } else {
+                            baseCls += "border-slate-200 dark:border-slate-700 hover:border-pmi-400 dark:hover:border-pmi-500 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100";
+                        }
+                    }
+
+                    const optLabel = String.fromCharCode(65 + optIdx); // A, B, C, D
+                    btn.className = baseCls;
+                    btn.innerHTML = `
+                        <div class="flex items-center space-x-3">
+                            <span class="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${userSel === optIdx ? 'bg-pmi-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}">${optLabel}</span>
+                            <span>${optText}</span>
+                        </div>
+                        ${userSel === optIdx ? '<i class="fa-solid fa-circle-check text-pmi-600 dark:text-pmi-400 text-lg"></i>' : ''}
+                    `;
+                    container.appendChild(btn);
+                });
+
+                // Explanation Panel for Practice Mode
+                const expPanel = document.getElementById('explanationPanel');
+                if (isPractice && hasAnsweredCurrent) {
+                    expPanel.classList.remove('hidden');
+                    const isCorrect = userSel === q.answer;
+                    document.getElementById('explanationHeader').className = `flex items-center space-x-2 text-sm font-bold ${isCorrect ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`;
+                    document.getElementById('explanationHeader').innerHTML = isCorrect ? 
+                        '<i class="fa-solid fa-circle-check"></i><span>Jawaban Anda Benar! Pembahasan:</span>' :
+                        '<i class="fa-solid fa-circle-xmark"></i><span>Jawaban Kurang Tepat. Pembahasan:</span>';
+                    document.getElementById('explanationText').innerText = q.explanation;
+                } else {
+                    expPanel.classList.add('hidden');
+                }
+
+                // Prev/Next Button states
+                document.getElementById('prevBtn').disabled = appState.currentIndex === 0;
+                document.getElementById('prevBtn').style.opacity = appState.currentIndex === 0 ? '0.5' : '1';
+
+                if (appState.currentIndex === total - 1) {
+                    document.getElementById('nextBtn').classList.add('hidden');
+                    document.getElementById('finishBtn').classList.remove('hidden');
+                } else {
+                    document.getElementById('nextBtn').classList.remove('hidden');
+                    document.getElementById('finishBtn').classList.add('hidden');
+                }
+
+                this.updateQuestionGridHighlight();
+            },
+
+            selectOption(optIdx) {
+                appState.userAnswers[appState.currentIndex] = optIdx;
+                this.renderCurrentQuestion();
+                this.renderQuestionGrid();
+            },
+
+            prevQuestion() {
+                if (appState.currentIndex > 0) {
+                    appState.currentIndex--;
+                    this.renderCurrentQuestion();
+                }
+            },
+
+            nextQuestion() {
+                if (appState.currentIndex < appState.activeQuestions.length - 1) {
+                    appState.currentIndex++;
+                    this.renderCurrentQuestion();
+                }
+            },
+
+            jumpToQuestion(idx) {
+                appState.currentIndex = idx;
+                this.renderCurrentQuestion();
+                // Optionally hide nav modal on mobile
+                if (window.innerWidth < 640) {
+                    document.getElementById('navGridModal').classList.add('hidden');
+                }
+            },
+
+            toggleBookmarkCurrent() {
+                const cur = appState.currentIndex;
+                appState.bookmarks[cur] = !appState.bookmarks[cur];
+                this.renderCurrentQuestion();
+                this.renderQuestionGrid();
+            },
+
+            toggleNavGrid() {
+                const el = document.getElementById('navGridModal');
+                el.classList.toggle('hidden');
+            },
+
+            renderQuestionGrid() {
+                const container = document.getElementById('questionGridContainer');
+                container.innerHTML = '';
+
+                appState.activeQuestions.forEach((_, idx) => {
+                    const btn = document.createElement('button');
+                    btn.onclick = () => this.jumpToQuestion(idx);
+
+                    const isAnswered = appState.userAnswers[idx] !== undefined;
+                    const isBookmarked = appState.bookmarks[idx];
+                    const isActive = idx === appState.currentIndex;
+
+                    let bgCls = "bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300";
+                    if (isAnswered) bgCls = "bg-blue-500 text-white font-bold";
+                    if (isBookmarked) bgCls = "bg-amber-400 text-slate-900 font-bold";
+                    if (isActive) bgCls = "bg-pmi-600 text-white font-extrabold ring-2 ring-offset-2 ring-pmi-600";
+
+                    btn.className = `h-9 w-full rounded-lg text-xs transition flex items-center justify-center ${bgCls}`;
+                    btn.innerText = idx + 1;
+                    container.appendChild(btn);
+                });
+            },
+
+            updateQuestionGridHighlight() {
+                this.renderQuestionGrid();
+            },
+
+            // Confirmation & Modal Dialog
+            confirmFinishQuiz() {
+                const total = appState.activeQuestions.length;
+                const answered = Object.keys(appState.userAnswers).length;
+                const remaining = total - answered;
+
+                let msg = `Anda telah menjawab ${answered} dari ${total} soal.`;
+                if (remaining > 0) {
+                    msg += ` Masih terdapat ${remaining} soal yang belum dijawab. Apakah Anda yakin ingin mengumpulkan ujian sekarang?`;
+                } else {
+                    msg += ` Semua soal telah selesai dijawab. Yakin ingin menyelesaikan ujian?`;
+                }
+
+                this.showCustomDialog('Selesaikan Ujian PMI', msg, () => {
+                    this.finishQuiz(false);
+                });
+            },
+
+            showCustomDialog(title, message, onConfirm) {
+                document.getElementById('dialogTitle').innerText = title;
+                document.getElementById('dialogMessage').innerText = message;
+                const modal = document.getElementById('customDialogModal');
+                modal.classList.remove('hidden');
+
+                document.getElementById('dialogConfirmBtn').onclick = () => {
+                    modal.classList.add('hidden');
+                    if (onConfirm) onConfirm();
+                };
+            },
+
+            closeCustomDialog(confirm) {
+                document.getElementById('customDialogModal').classList.add('hidden');
+            },
+
+            // FINISH QUIZ & RESULT CALCULATIONS
+            finishQuiz(isTimeOut = false) {
+                this.stopTimer();
+                appState.isFinished = true;
+                appState.quizEndTime = new Date();
+
+                let correctCount = 0;
+                appState.activeQuestions.forEach((q, idx) => {
+                    if (appState.userAnswers[idx] === q.answer) {
+                        correctCount++;
+                    }
+                });
+
+                const total = appState.activeQuestions.length;
+                const wrongCount = total - correctCount;
+                const finalScore = Math.round((correctCount / total) * 100);
+
+                // Time spent calculation
+                const timeDiffMs = appState.quizEndTime - appState.quizStartTime;
+                const timeSecs = Math.floor(timeDiffMs / 1000);
+                const mins = Math.floor(timeSecs / 60);
+                const secs = timeSecs % 60;
+                const timeFormatted = `${mins}m ${secs}s`;
+
+                // Update UI Result
+                document.getElementById('resScore').innerText = finalScore;
+                document.getElementById('resCorrect').innerText = correctCount;
+                document.getElementById('resWrong').innerText = wrongCount;
+                document.getElementById('resTime').innerText = timeFormatted;
+
+                if (finalScore >= 80) {
+                    document.getElementById('resultTitle').innerText = "Selamat! Kelulusan Sangat Baik";
+                    document.getElementById('resultSubtitle').innerText = "Anda memiliki pemahaman materi PMI, TOGA, & Studi Kasus yang sangat matang.";
+                    document.getElementById('resultIcon').className = "fa-solid fa-trophy text-amber-500 text-5xl";
+                } else if (finalScore >= 60) {
+                    document.getElementById('resultTitle').innerText = "Hasil Cukup Baik";
+                    document.getElementById('resultSubtitle').innerText = "Tingkatkan lagi pendalaman materi untuk mencapai nilai maksimal.";
+                    document.getElementById('resultIcon').className = "fa-solid fa-award text-blue-500 text-5xl";
+                } else {
+                    document.getElementById('resultTitle').innerText = "Perlu Evaluasi & Belajar Lagi";
+                    document.getElementById('resultSubtitle').innerText = "Pelajari kembali modul UU, Pedoman PMR, & Khasiat TOGA melalui Bank Soal.";
+                    document.getElementById('resultIcon').className = "fa-solid fa-book-open text-pmi-600 text-5xl";
+                }
+
+                // Save to Local History
+                this.saveHistory({
+                    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                    topic: appState.currentTopic,
+                    score: finalScore,
+                    correct: correctCount,
+                    total: total,
+                    time: timeFormatted
+                });
+
+                // Render Accuracy Breakdown by Category
+                this.renderCategoryAccuracy();
+
+                // Render Detailed Answer List
+                this.renderResultDetails();
+
+                // Show View
+                document.getElementById('viewQuiz').classList.add('hidden');
+                document.getElementById('viewResult').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                if (isTimeOut) {
+                    this.showCustomDialog('Waktu Habis!', 'Waktu pengerjaan ujian telah berakhir. Hasil jawaban Anda telah otomatis dikumpulkan.', null);
+                }
+            },
+
+            // Accuracy breakdown per category
+            renderCategoryAccuracy() {
+                const catStats = {};
+
+                appState.activeQuestions.forEach((q, idx) => {
+                    const cat = q.category || 'Umum';
+                    if (!catStats[cat]) {
+                        catStats[cat] = { total: 0, correct: 0 };
+                    }
+                    catStats[cat].total++;
+                    if (appState.userAnswers[idx] === q.answer) {
+                        catStats[cat].correct++;
+                    }
+                });
+
+                const container = document.getElementById('categoryAccuracyContainer');
+                container.innerHTML = '';
+
+                let totalCorrectAll = 0;
+                let totalQAll = 0;
+
+                Object.keys(catStats).forEach(cat => {
+                    const stat = catStats[cat];
+                    totalCorrectAll += stat.correct;
+                    totalQAll += stat.total;
+                    const pct = Math.round((stat.correct / stat.total) * 100);
+
+                    const card = document.createElement('div');
+                    card.className = "p-4 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-600 space-y-2";
+                    card.innerHTML = `
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="font-bold text-slate-800 dark:text-slate-200">${cat}</span>
+                            <span class="font-extrabold ${pct >= 75 ? 'text-emerald-600 dark:text-emerald-400' : 'text-pmi-600 dark:text-rose-400'}">${stat.correct}/${stat.total} (${pct}%)</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-600 h-2 rounded-full overflow-hidden">
+                            <div class="${pct >= 75 ? 'bg-emerald-500' : 'bg-pmi-600'} h-full rounded-full" style="width: ${pct}%"></div>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                const overallPct = Math.round((totalCorrectAll / totalQAll) * 100);
+                document.getElementById('overallAccuracyBadge').innerText = `${overallPct}%`;
+            },
+
+            filterResultList(type) {
+                appState.filterResult = type;
+                document.getElementById('filterResultAll').className = type === 'all' ? 
+                    'px-3 py-1.5 rounded-lg text-xs font-bold bg-pmi-600 text-white' : 
+                    'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+                document.getElementById('filterResultWrong').className = type === 'wrong' ? 
+                    'px-3 py-1.5 rounded-lg text-xs font-bold bg-pmi-600 text-white' : 
+                    'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300';
+                
+                this.renderResultDetails();
+            },
+
+            renderResultDetails() {
+                const container = document.getElementById('resultDetailsContainer');
+                container.innerHTML = '';
+
+                appState.activeQuestions.forEach((q, idx) => {
+                    const userSel = appState.userAnswers[idx];
+                    const isCorrect = userSel === q.answer;
+
+                    if (appState.filterResult === 'wrong' && isCorrect) return;
+
+                    const item = document.createElement('div');
+                    item.className = `p-5 rounded-2xl border ${isCorrect ? 'border-emerald-200 dark:border-emerald-900 bg-emerald-50/40 dark:bg-emerald-950/20' : 'border-rose-200 dark:border-rose-900 bg-rose-50/40 dark:bg-rose-950/20'} space-y-3`;
+                    
+                    const userText = userSel !== undefined ? q.options[userSel] : 'Belum Dijawab';
+                    const correctText = q.options[q.answer];
+
+                    item.innerHTML = `
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isCorrect ? 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-900/60 text-rose-800 dark:text-rose-300'}">
+                                ${isCorrect ? 'BENAR' : 'SALAH'}
+                            </span>
+                            <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Soal #${idx + 1} • ${q.category}</span>
+                        </div>
+                        <h4 class="font-bold text-sm sm:text-base text-slate-900 dark:text-white leading-relaxed">${q.question}</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <div class="p-2.5 rounded-xl ${isCorrect ? 'bg-emerald-100/50 dark:bg-emerald-900/30 text-emerald-900 dark:text-emerald-200' : 'bg-rose-100/50 dark:bg-rose-900/30 text-rose-900 dark:text-rose-200'}">
+                                <span class="font-semibold block text-slate-500 dark:text-slate-400">Jawaban Anda:</span>
+                                <span class="font-bold">${userText}</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700/60 text-slate-800 dark:text-slate-200">
+                                <span class="font-semibold block text-slate-500 dark:text-slate-400">Kunci Jawaban:</span>
+                                <span class="font-bold text-emerald-600 dark:text-emerald-400">${correctText}</span>
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 text-xs text-slate-600 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60">
+                            <span class="font-bold text-pmi-600 dark:text-rose-400">Pembahasan: </span>
+                            <span>${q.explanation}</span>
+                        </div>
+                    `;
+                    container.appendChild(item);
+                });
+
+                if (container.children.length === 0) {
+                    container.innerHTML = `<div class="text-center py-8 text-slate-400 text-sm">Tidak ada soal dalam kategori filter ini.</div>`;
+                }
+            },
+
+            // History Local Storage
+            saveHistory(entry) {
+                let history = JSON.parse(localStorage.getItem('pmi_quiz_history') || '[]');
+                history.unshift(entry);
+                if (history.length > 20) history = history.slice(0, 20); // keep last 20
+                localStorage.setItem('pmi_quiz_history', JSON.stringify(history));
+            },
+
+            showStatsModal() {
+                const history = JSON.parse(localStorage.getItem('pmi_quiz_history') || '[]');
+                const container = document.getElementById('statsHistoryList');
+                container.innerHTML = '';
+
+                if (history.length === 0) {
+                    container.innerHTML = `<p class="text-center text-xs text-slate-400 py-6">Belum ada riwayat ujian yang tersimpan.</p>`;
+                } else {
+                    history.forEach(h => {
+                        const item = document.createElement('div');
+                        item.className = "p-3 rounded-xl bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 flex items-center justify-between text-xs";
+                        item.innerHTML = `
+                            <div>
+                                <p class="font-bold text-slate-900 dark:text-white">${h.topic.toUpperCase()} • ${h.date}</p>
+                                <p class="text-slate-500 dark:text-slate-400 mt-0.5">${h.correct}/${h.total} Benar • Waktu: ${h.time}</p>
+                            </div>
+                            <div class="text-lg font-black ${h.score >= 70 ? 'text-emerald-600 dark:text-emerald-400' : 'text-pmi-600 dark:text-rose-400'}">
+                                ${h.score}
+                            </div>
+                        `;
+                        container.appendChild(item);
+                    });
+                }
+
+                document.getElementById('statsModal').classList.remove('hidden');
+            },
+
+            closeStatsModal() {
+                document.getElementById('statsModal').classList.add('hidden');
+            },
+
+            clearHistory() {
+                localStorage.removeItem('pmi_quiz_history');
+                this.showStatsModal();
+            },
+
+            // Study Bank Catalogue Functions
+            renderTopicCategoryGrid() {
+                const categories = [
+                    { name: 'Sejarah & UU PMI', count: 50, icon: 'fa-book-bookmark', color: 'bg-pmi-600' },
+                    { name: 'Siaga Bencana PMR Wira', count: 50, icon: 'fa-triangle-exclamation', color: 'bg-disaster-600' },
+                    { name: 'Donor Darah & UDD', count: 50, icon: 'fa-droplet', color: 'bg-donor-600' },
+                    { name: 'Tanaman Obat TOGA', count: 50, icon: 'fa-leaf', color: 'bg-toga-600' },
+                    { name: 'Studi Kasus Lapangan', count: 40, icon: 'fa-user-gear', color: 'bg-kasus-600' }
+                ];
+
+                const container = document.getElementById('topicCategoryGrid');
+                container.innerHTML = '';
+
+                categories.forEach(c => {
+                    const card = document.createElement('div');
+                    card.className = "p-4 rounded-xl bg-slate-50 dark:bg-slate-700/30 border border-slate-200 dark:border-slate-700 flex items-center space-x-3";
+                    card.innerHTML = `
+                        <div class="w-10 h-10 rounded-lg ${c.color} text-white flex items-center justify-center text-lg flex-shrink-0">
+                            <i class="fa-solid ${c.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-200">${c.name}</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">${c.count} Soal Lengkap</p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            },
+
+            renderStudyBankCategoryPills() {
+                const pills = [
+                    { id: 'all', label: 'Semua (240)' },
+                    { id: 'kepalangmerahan', label: 'Kepalangmerahan (50)' },
+                    { id: 'siagabencana', label: 'Siaga Bencana (50)' },
+                    { id: 'donordarah', label: 'Donor Darah (50)' },
+                    { id: 'toga', label: 'Tanaman TOGA (50)' },
+                    { id: 'studikasus', label: 'Studi Kasus (40)' }
+                ];
+
+                const container = document.getElementById('bankCategoryFilterPills');
+                container.innerHTML = '';
+
+                pills.forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.onclick = () => {
+                        appState.selectedCategoryFilter = p.id;
+                        this.renderStudyBankCategoryPills();
+                        this.renderStudyBank();
+                    };
+
+                    const isActive = appState.selectedCategoryFilter === p.id;
+                    btn.className = `px-3.5 py-1.5 rounded-full text-xs font-bold transition ${isActive ? 'bg-pmi-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200'}`;
+                    btn.innerText = p.label;
+                    container.appendChild(btn);
+                });
+            },
+
+            searchStudyBank() {
+                appState.searchQuery = document.getElementById('studySearchInput').value.toLowerCase();
+                this.renderStudyBank();
+            },
+
+            renderStudyBank() {
+                let filtered = [...allQuestionsMaster];
+
+                if (appState.selectedCategoryFilter !== 'all') {
+                    filtered = filtered.filter(q => q.topic === appState.selectedCategoryFilter);
+                }
+
+                if (appState.searchQuery) {
+                    filtered = filtered.filter(q => 
+                        q.question.toLowerCase().includes(appState.searchQuery) ||
+                        q.explanation.toLowerCase().includes(appState.searchQuery) ||
+                        (q.category && q.category.toLowerCase().includes(appState.searchQuery))
+                    );
+                }
+
+                const container = document.getElementById('studyBankContainer');
+                container.innerHTML = '';
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="text-center py-12 text-slate-400 text-sm">Tidak ditemukan soal yang cocok dengan kriteria pencarian.</div>`;
+                    return;
+                }
+
+                filtered.forEach((q, idx) => {
+                    const card = document.createElement('div');
+                    card.className = "p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4";
+                    
+                    let optionsHtml = '';
+                    q.options.forEach((opt, oIdx) => {
+                        const isCorrect = oIdx === q.answer;
+                        optionsHtml += `
+                            <div class="p-2.5 rounded-xl text-xs sm:text-sm font-medium ${isCorrect ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 font-bold' : 'bg-slate-50 dark:bg-slate-700/40 text-slate-600 dark:text-slate-300'} flex items-center justify-between">
+                                <span>${String.fromCharCode(65 + oIdx)}. ${opt}</span>
+                                ${isCorrect ? '<i class="fa-solid fa-check text-emerald-600 dark:text-emerald-400"></i>' : ''}
+                            </div>
+                        `;
+                    });
+
+                    card.innerHTML = `
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+                            <span class="text-xs font-bold px-3 py-1 rounded-lg bg-pmi-50 dark:bg-pmi-950/60 text-pmi-700 dark:text-pmi-300 uppercase">
+                                ${q.category || 'PMI'}
+                            </span>
+                            <span class="text-xs text-slate-400 font-semibold">ID Soal: #${q.id}</span>
+                        </div>
+                        <h3 class="font-bold text-base sm:text-lg text-slate-900 dark:text-white leading-relaxed">${q.question}</h3>
+                        <div class="space-y-2 pt-1">
+                            ${optionsHtml}
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/30 text-xs text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-600/80 mt-2">
+                            <span class="font-bold text-pmi-600 dark:text-rose-400 block mb-1">Pembahasan Ringkas:</span>
+                            <span>${q.explanation}</span>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+        };
+
+        // Initialize application on DOM ready
+        window.onload = function() {
+            app.init();
+        };
+    </script>
+</body>
+      </html>
